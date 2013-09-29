@@ -1,0 +1,67 @@
+TextureAtlas.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+snakes/snake_2_tail
+  rotate: false
+  xy: 2, 44
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+upgrades/life
+  rotate: false
+  xy: 106, 44
+  size: 14, 16
+  orig: 40, 40
+  offset: 11, 12
+  index: -1
+upgrades/compass
+  rotate: false
+  xy: 106, 62
+  size: 14, 16
+  orig: 40, 40
+  offset: 11, 12
+  index: -1
+upgrades/speed_up
+  rotate: false
+  xy: 86, 44
+  size: 18, 32
+  orig: 40, 40
+  offset: 15, 4
+  index: -1
+snakes/snake_1_head
+  rotate: false
+  xy: 44, 86
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+upgrades/bullet
+  rotate: false
+  xy: 86, 78
+  size: 12, 12
+  orig: 40, 40
+  offset: 14, 14
+  index: -1
+snakes/snake_1_tail
+  rotate: false
+  xy: 44, 44
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+snakes/snake_2_head
+  rotate: false
+  xy: 2, 86
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+gui/button_template
+  rotate: false
+  xy: 2, 2
+  size: 120, 40
+  orig: 120, 40
+  offset: 0, 0
+  index: -1
