@@ -65,10 +65,16 @@ public class GameScreen implements Screen {
         draw();
     }
 
+    /**
+     * All the updating should go in here
+     *
+     * @param deltaT The time in seconds since the last render.
+     */
     public void update(float deltaT) {
         world.update(deltaT);
     }
 
+    /** Drawing happens here */
     public void draw() {
         renderer.render();
     }

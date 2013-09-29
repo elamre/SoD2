@@ -5,12 +5,17 @@ package com.deeep.sod2.utility;
  * User: Elmar
  * Date: 9/29/13
  * Time: 10:21 AM
- * To change this template use File | Settings | File Templates.
+ * TODO put all the constants in here so everything is organized and well
  */
 public class Constants {
-    public static final int SCALE = 2;
-    public static final int BLOCK_SIZE = 40;
-    public static final int VIRTUAL_WIDTH = 800;
-    public static final int VIRTUAL_HEIGHT = 480;
-    public static final int VIRTUAL_ASPECT = VIRTUAL_WIDTH / VIRTUAL_HEIGHT;
+    /** Scaling factor. The lower the scale the more blocks fit on the screen */
+    public static final float SCALE = 2;
+    /** The block size in pixels */
+    public static final float BLOCK_SIZE = 40;
+    /** The virtual width in pixels, we are targeting this resolution */
+    public static final float VIRTUAL_WIDTH = 800;
+    /** The virtual height in pixels, we are targeting this resolution */
+    public static final float VIRTUAL_HEIGHT = 480;
+    /** The aspect we are trying to keep */
+    public static final float VIRTUAL_ASPECT = VIRTUAL_WIDTH / VIRTUAL_HEIGHT;
 }

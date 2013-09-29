@@ -18,15 +18,21 @@ import com.deeep.sod2.utility.Constants;
  * To change this template use File | Settings | File Templates.
  */
 public class Renderer {
-    /** The frustrum width and height */
-    private final int FRUSTUM_WIDTH = Constants.VIRTUAL_WIDTH / (Constants.BLOCK_SIZE * Constants.SCALE);
-    private final int FRUSTUM_HEIGHT = Constants.VIRTUAL_HEIGHT / (Constants.BLOCK_SIZE * Constants.SCALE);
-    ShapeRenderer shapeRenderer;
-    private TextureRegion texture;
+    /** The frustum width and height. These are the blocks showed on screen */
+    private final float FRUSTUM_WIDTH = Constants.VIRTUAL_WIDTH / (Constants.BLOCK_SIZE * Constants.SCALE);
+    private final float FRUSTUM_HEIGHT = Constants.VIRTUAL_HEIGHT / (Constants.BLOCK_SIZE * Constants.SCALE);
+    /** The camera controlling the viewing */
     private OrthographicCamera cam;
+    /** The spritebatch to draw everything on */
     private SpriteBatch spriteBatch;
-    private TextureRegion background;
+    /** The world to draw all the entities of */
     private World world;
+    //--------------------Debugging stuff TODO remove -------------//
+    /** Temporary shaperenderer for debugging */
+    private ShapeRenderer shapeRenderer;
+    /** Temporary texture to display something on the screen */
+    private TextureRegion texture;
+    //-------------------------------------------------------------//
 
     public Renderer(SpriteBatch spriteBatch, World world) {
         this.world = world;
@@ -36,7 +42,6 @@ public class Renderer {
         shapeRenderer = new ShapeRenderer();
 
         texture = Assets.getAssets().getRegion("snakes/snake_1_head");
-        background = new TextureRegion(new Texture(Gdx.files.internal("data/background.png")), 944, 961);
     }
 
     public void render() {

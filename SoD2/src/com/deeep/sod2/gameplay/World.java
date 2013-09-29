@@ -13,10 +13,14 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class World {
+    /** TODO remove */
     public Block block;
+    /** Todo move to a camera class */
     public Block camera;
+    /** TODO remove */
     private Controller controller;
 
+    /** Dont pay too much attention to this. This is just to test the camera and the view port */
     public World() {
         block = new Block();
         camera = new Block();
