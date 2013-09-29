@@ -16,5 +16,6 @@ import com.deeep.sod2.utility.Constants;
  * To change this template use File | Settings | File Templates.
  */
 public class Block {
+    public float x, y;
 
 }
