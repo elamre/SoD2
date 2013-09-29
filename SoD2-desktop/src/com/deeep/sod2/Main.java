@@ -8,7 +8,7 @@ public class Main {
         LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
         cfg.title = "SoD2";
         cfg.useGL20 = true;         //TODO should be false really
-        cfg.width = 1000;
+        cfg.width = 800;
         cfg.height = 480;
 
         new LwjglApplication(new Core(), cfg);

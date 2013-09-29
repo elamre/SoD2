@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.deeep.sod2.utility.Assets;
+import com.deeep.sod2.utility.Constants;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,8 +19,8 @@ import com.deeep.sod2.utility.Assets;
  */
 public class Renderer {
     /** The frustrum width and height */
-    private final int FRUSTUM_WIDTH = 10;
-    private final int FRUSTUM_HEIGHT = 10;
+    private final int FRUSTUM_WIDTH = Constants.VIRTUAL_WIDTH / (Constants.BLOCK_SIZE * Constants.SCALE);
+    private final int FRUSTUM_HEIGHT = Constants.VIRTUAL_HEIGHT / (Constants.BLOCK_SIZE * Constants.SCALE);
     ShapeRenderer shapeRenderer;
     private TextureRegion texture;
     private OrthographicCamera cam;

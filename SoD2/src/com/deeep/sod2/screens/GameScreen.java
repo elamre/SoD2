@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.deeep.sod2.Core;
 import com.deeep.sod2.gameplay.Controller;
 import com.deeep.sod2.gameplay.InputReactListener;
@@ -35,6 +37,8 @@ public class GameScreen implements Screen {
     private World world;
     /** The renderer which draws all the entities in the world */
     private Renderer renderer;
+    /** The viewport for the game. Should handle all the resizing */
+    private Rectangle viewport;
 
     /**
      * Constructor
@@ -55,6 +59,7 @@ public class GameScreen implements Screen {
      */
     @Override
     public void render(float delta) {
+        Gdx.gl.glViewport((int) viewport.x, (int) viewport.y, (int) viewport.width, (int) viewport.height);
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT); // This cryptic line clears the screen.
         update(delta);
         draw();
@@ -71,6 +76,23 @@ public class GameScreen implements Screen {
     /** @see com.badlogic.gdx.ApplicationListener#resize(int, int) */
     @Override
     public void resize(int width, int height) {
+        float aspectRatio = (float) width / (float) height;
+        float scale = 1f;
+
+        Vector2 crop = new Vector2(0f, 0f);
+        if (aspectRatio > Constants.VIRTUAL_ASPECT) {
+            scale = (float) height / (float) Constants.VIRTUAL_HEIGHT;
+            crop.x = (width - Constants.VIRTUAL_WIDTH * scale) / 2f;
+        } else if (aspectRatio < Constants.VIRTUAL_ASPECT) {
+            scale = (float) width / (float) Constants.VIRTUAL_WIDTH;
+            crop.y = (height - Constants.VIRTUAL_HEIGHT * scale) / 2f;
+        } else {
+            scale = (float) width / (float) Constants.VIRTUAL_WIDTH;
+        }
+
+        float w = (float) Constants.VIRTUAL_WIDTH * scale;
+        float h = (float) Constants.VIRTUAL_HEIGHT * scale;
+        viewport = new Rectangle(crop.x, crop.y, w, h);
     }
 
     /** Called when this screen becomes the current screen for a {@link com.badlogic.gdx.Game}. */

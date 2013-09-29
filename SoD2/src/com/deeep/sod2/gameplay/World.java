@@ -48,25 +48,25 @@ public class World {
         controller.registerKey(Input.Keys.UP, new InputReactListener() {
             @Override
             public void inputReact() {
-                camera.y++;
+                camera.y += .1f;
             }
         }, InputReactListener.Event.HOLD);
         controller.registerKey(Input.Keys.DOWN, new InputReactListener() {
             @Override
             public void inputReact() {
-                camera.y--;
+                camera.y -= .1f;
             }
         }, InputReactListener.Event.HOLD);
         controller.registerKey(Input.Keys.LEFT, new InputReactListener() {
             @Override
             public void inputReact() {
-                camera.x--;
+                camera.x -= .1f;
             }
         }, InputReactListener.Event.HOLD);
         controller.registerKey(Input.Keys.RIGHT, new InputReactListener() {
             @Override
             public void inputReact() {
-                camera.x++;
+                camera.x += .1f;
             }
         }, InputReactListener.Event.HOLD);
     }
