@@ -1,8 +1,9 @@
-package com.deeep.sod2.utility;
+package com.deeep.sod2.graphics;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.deeep.sod2.utility.Logger;
 
 /**
  * Created with IntelliJ IDEA.

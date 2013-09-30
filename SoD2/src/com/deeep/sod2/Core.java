@@ -2,7 +2,7 @@ package com.deeep.sod2;
 
 import com.deeep.sod2.screens.AbstractGame;
 import com.deeep.sod2.screens.GameScreen;
-import com.deeep.sod2.utility.Assets;
+import com.deeep.sod2.graphics.Assets;
 
 /** This class is the entry point to the game */
 public class Core extends AbstractGame {

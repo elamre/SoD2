@@ -1,13 +1,16 @@
 package com.deeep.sod2.gameplay;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.deeep.sod2.utility.Assets;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.collision.BoundingBox;
+import com.deeep.sod2.graphics.Assets;
+import com.deeep.sod2.utility.Camera;
 import com.deeep.sod2.utility.Constants;
 
 /**
@@ -38,9 +41,10 @@ public class Renderer {
         this.world = world;
         cam = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
         cam.position.set(FRUSTUM_WIDTH / 2, FRUSTUM_HEIGHT / 2, 0);
+        Camera.getInstance().setFrustum(cam.frustum);
         this.spriteBatch = spriteBatch;
+        //TODO remove testing purposes only */
         shapeRenderer = new ShapeRenderer();
-
         texture = Assets.getAssets().getRegion("snakes/snake_1_head");
     }
 

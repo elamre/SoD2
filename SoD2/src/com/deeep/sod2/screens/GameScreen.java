@@ -1,21 +1,14 @@
 package com.deeep.sod2.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.deeep.sod2.Core;
-import com.deeep.sod2.gameplay.Controller;
-import com.deeep.sod2.gameplay.InputReactListener;
 import com.deeep.sod2.gameplay.Renderer;
 import com.deeep.sod2.gameplay.World;
-import com.deeep.sod2.utility.Assets;
 import com.deeep.sod2.utility.Constants;
 import com.deeep.sod2.utility.Logger;
 
