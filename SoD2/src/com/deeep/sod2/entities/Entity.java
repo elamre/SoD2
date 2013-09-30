@@ -1,5 +1,6 @@
 package com.deeep.sod2.entities;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.deeep.sod2.graphics.ShapeRenderer;
@@ -20,10 +21,10 @@ public abstract class Entity {
     protected float width = 1f;
     protected float height = 1f;
     /** The angle of the entity IN DEGREES. */
-    protected boolean debug = false;
+    protected boolean debug = true;
     /** The position of the entity */
-    protected float x;
-    protected float y;
+    public float x;
+    public float y;
     protected float angle;
     protected TextureRegion textureRegion;
     /** The id this particular entity goes by */
@@ -131,6 +132,7 @@ public abstract class Entity {
     }
 
     protected void drawDebug(SpriteBatch spriteBatch) {
+        ShapeRenderer.setColor(Color.GREEN);
         ShapeRenderer.drawRectangle(spriteBatch, x, y, width, height, false);
     }
 

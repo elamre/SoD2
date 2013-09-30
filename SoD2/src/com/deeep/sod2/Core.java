@@ -1,5 +1,6 @@
 package com.deeep.sod2;
 
+import com.badlogic.gdx.Gdx;
 import com.deeep.sod2.screens.AbstractGame;
 import com.deeep.sod2.screens.GameScreen;
 import com.deeep.sod2.graphics.Assets;
@@ -24,6 +25,8 @@ public class Core extends AbstractGame {
     /** This should in the future render a background */
     @Override
     public void render(float deltaTime) {
+        Gdx.graphics.setTitle("FPS: " + Gdx.graphics.getFramesPerSecond());
         //TODO draw background here
+        //TODO non game related stuff
     }
 }

@@ -76,21 +76,21 @@ public class GameScreen implements Screen {
     @Override
     public void resize(int width, int height) {
         float aspectRatio = (float) width / (float) height;
-        float scale = 1f;
+        float scale;
 
         Vector2 crop = new Vector2(0f, 0f);
         if (aspectRatio > Constants.VIRTUAL_ASPECT) {
-            scale = (float) height / (float) Constants.VIRTUAL_HEIGHT;
+            scale = (float) height / Constants.VIRTUAL_HEIGHT;
             crop.x = (width - Constants.VIRTUAL_WIDTH * scale) / 2f;
         } else if (aspectRatio < Constants.VIRTUAL_ASPECT) {
-            scale = (float) width / (float) Constants.VIRTUAL_WIDTH;
+            scale = (float) width / Constants.VIRTUAL_WIDTH;
             crop.y = (height - Constants.VIRTUAL_HEIGHT * scale) / 2f;
         } else {
-            scale = (float) width / (float) Constants.VIRTUAL_WIDTH;
+            scale = (float) width / Constants.VIRTUAL_WIDTH;
         }
 
-        float w = (float) Constants.VIRTUAL_WIDTH * scale;
-        float h = (float) Constants.VIRTUAL_HEIGHT * scale;
+        float w = Constants.VIRTUAL_WIDTH * scale;
+        float h = Constants.VIRTUAL_HEIGHT * scale;
         viewport = new Rectangle(crop.x, crop.y, w, h);
     }
 

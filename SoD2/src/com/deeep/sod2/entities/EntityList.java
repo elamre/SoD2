@@ -27,6 +27,7 @@ public class EntityList {/* The packet id to assign to packets. Will increment a
      * TODO add all the units here. Maybe load them from XML?
      */
     public static void register() {
+        registerEntity(new Block());
         registered = true;
     }
 

@@ -50,7 +50,7 @@ public class Renderer {
 
     public void render() {
         cam.update();
-        cam.position.set(FRUSTUM_WIDTH / 2 + world.camera.x, FRUSTUM_HEIGHT / 2 + world.camera.y, 0);
+        cam.position.set(FRUSTUM_WIDTH / 2 + world.camera.getX(), FRUSTUM_HEIGHT / 2 + world.camera.getY(), 0);
         spriteBatch.setProjectionMatrix(cam.combined);
         shapeRenderer.setProjectionMatrix(cam.combined);
         renderBackground();
@@ -80,7 +80,8 @@ public class Renderer {
         }
         shapeRenderer.end();
         spriteBatch.begin();
-        spriteBatch.draw(texture, world.block.x, world.block.y, 1, 1);
+        world.block.draw(spriteBatch);
+        spriteBatch.draw(texture, world.block.getX(), world.block.getY(), 1, 1);
         spriteBatch.end();
     }
 }

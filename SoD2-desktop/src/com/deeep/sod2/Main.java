@@ -10,7 +10,7 @@ public class Main {
         cfg.useGL20 = true;         //TODO should be false really
         cfg.width = 800;
         cfg.height = 480;
-
+        cfg.vSyncEnabled = false;   //TODO only for testing this is
         new LwjglApplication(new Core(), cfg);
     }
 }

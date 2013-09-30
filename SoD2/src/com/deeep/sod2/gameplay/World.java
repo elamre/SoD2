@@ -22,8 +22,8 @@ public class World {
 
     /** Dont pay too much attention to this. This is just to test the camera and the view port */
     public World() {
-        block = new Block();
-        camera = new Block();
+        block = new Block(0, -1, 1, 1);
+        camera = new Block(0, -1, -2, -2);
         controller = new Controller();
         controller.registerKey(Input.Keys.W, new InputReactListener() {
             @Override
