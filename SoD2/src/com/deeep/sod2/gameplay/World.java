@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.deeep.sod2.entities.Block;
 import com.deeep.sod2.entities.EntityManager;
+import com.deeep.sod2.graphics.PVector;
+import com.deeep.sod2.graphics.Particle;
 
 import java.util.ArrayList;
 
@@ -26,6 +28,9 @@ public class World {
     private Map map;
     private EntityManager entityManager;
     private Grid grid;
+
+    /** TODO remove */
+    private Particle p = new Particle(new PVector(0f, 0f), Color.GREEN, -1f, 160, 240);
 
     /** Don't pay too much attention to this. This is just to test the camera and the view port */
     public World() {
@@ -89,11 +94,13 @@ public class World {
         controller.update();
         map.update();
         entityManager.update(deltaT);
+        p.update(deltaT);
     }
 
     public void draw(SpriteBatch spriteBatch, TextureRegion texture){
         grid.draw(spriteBatch);
         block.draw(spriteBatch);
         spriteBatch.draw(texture, block.getX(), block.getY(), 1, 1);
+        p.draw(spriteBatch);
     }
 }
