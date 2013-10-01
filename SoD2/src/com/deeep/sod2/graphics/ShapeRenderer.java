@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deeep.sod2.utility.Camera;
+import com.deeep.sod2.utility.Logger;
 
 /**
  * Created with IntelliJ IDEA.

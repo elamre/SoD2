@@ -42,8 +42,8 @@ public class Grid {
 
     public void draw(SpriteBatch spriteBatch) {
         ShapeRenderer.setColor(color);
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width + 1; x++) {
+            for (int y = 0; y < height + 1; y++) {
                 ShapeRenderer.drawLine(spriteBatch, x, 0, x, y, 0.025f);
                 ShapeRenderer.drawLine(spriteBatch, 0, y, x, y, 0.025f);
             }

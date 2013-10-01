@@ -133,7 +133,7 @@ public abstract class Entity {
 
     protected void drawDebug(SpriteBatch spriteBatch) {
         ShapeRenderer.setColor(Color.GREEN);
-        ShapeRenderer.drawRectangle(spriteBatch, x, y, width, height, false);
+        ShapeRenderer.drawRectangle(spriteBatch, x, y, width, height, true);
     }
 
     public float getDistance(float x, float y) {

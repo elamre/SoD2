@@ -51,7 +51,7 @@ public class Camera {
      */
     public boolean inVision(float x, float y, float width, float height) {
         point1.set(x, y, 0);
-        point2.set(x + width, y + width, 0);
+        point2.set(x + width, y + height, 0);
         boundingBox.set(point1, point2);
         if (frustum == null)        //no frustum to begin with
             return true;
