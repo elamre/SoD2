@@ -61,7 +61,7 @@ public class GameScreen implements Screen {
     /**
      * All the updating should go in here
      *
-     * @param deltaT The time in seconds since the last render.
+     * @param deltaT The time in seconds since the last render
      */
     public void update(float deltaT) {
         world.update(deltaT);
