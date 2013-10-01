@@ -30,6 +30,7 @@ public class ParticleManager {
         float downTime = 0;
         float maxBrightness = 0;
         float minBrightness = 0;
+        float sleepTime = 0;
         int colorRandom = 0;
         Color color = Color.WHITE;
         //particles.add(new Particle(new PVector(0.5f, 0.5f), Color.WHITE, sequencer, -1, 1 / 40f, 1 / 40f));
@@ -46,12 +47,15 @@ public class ParticleManager {
             }
             riseTime = random.nextFloat() + 1f;
             downTime = random.nextFloat() + 1f;
+            sleepTime = random.nextFloat() * 3;
             maxBrightness = Math.max(0.2f, random.nextFloat() - .1f);
             minBrightness = random.nextFloat() * 0.2f;
             while (maxBrightness < minBrightness)
                 minBrightness -= 0.1f;
             sequencer.addSequence(new Sequence(maxBrightness, riseTime));
+            sequencer.addSequence(new Sequence(-1, sleepTime));
             sequencer.addSequence(new Sequence(minBrightness, downTime));
+            sequencer.addSequence(new Sequence(-1, sleepTime));
             particles.add(new Particle(new PVector((random.nextFloat() * 1000 - 500) / 40f, (random.nextFloat() * 1000 - 500) / 40f), color, sequencer, 1 / 40f, 1 / 40f));
         }
 

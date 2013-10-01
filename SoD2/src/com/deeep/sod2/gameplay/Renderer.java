@@ -4,12 +4,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.math.collision.BoundingBox;
 import com.deeep.sod2.graphics.Assets;
+import com.deeep.sod2.graphics.ShapeRenderer;
 import com.deeep.sod2.utility.Camera;
 import com.deeep.sod2.utility.Constants;
 
@@ -31,8 +27,6 @@ public class Renderer {
     /** The world to draw all the entities of */
     private World world;
     //--------------------Debugging stuff TODO remove -------------//
-    /** Temporary shaperenderer for debugging */
-    private ShapeRenderer shapeRenderer;
     /** Temporary texture to display something on the screen */
     private TextureRegion texture;
     //-------------------------------------------------------------//
@@ -44,7 +38,6 @@ public class Renderer {
         Camera.getInstance().setFrustum(cam.frustum);
         this.spriteBatch = spriteBatch;
         //TODO remove testing purposes only */
-        shapeRenderer = new ShapeRenderer();
         texture = Assets.getAssets().getRegion("snakes/snake_1_head");
     }
 
@@ -52,7 +45,6 @@ public class Renderer {
         cam.update();
         cam.position.set(FRUSTUM_WIDTH / 2 + world.camera.getX(), FRUSTUM_HEIGHT / 2 + world.camera.getY(), 0);
         spriteBatch.setProjectionMatrix(cam.combined);
-        shapeRenderer.setProjectionMatrix(cam.combined);
         renderBackground();
         renderObjects();
     }
@@ -66,22 +58,10 @@ public class Renderer {
     }
 
     private void renderObjects() {
-        shapeRenderer.setColor(Color.DARK_GRAY);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.rect(0, 0, 15, 15);
-        shapeRenderer.end();
-        shapeRenderer.setColor(Color.RED);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        for (int x = 0; x < 16; x++) {
-            for (int y = 0; y < 16; y++) {
-                //shapeRenderer.line(x, 0, x, y);
-                //shapeRenderer.line(0, y, x, y);
-            }
-        }
-        shapeRenderer.end();
-        spriteBatch.begin();
 
-            world.draw(spriteBatch, texture);
+        spriteBatch.begin();
+        // ShapeRenderer.drawRectangle(spriteBatch,0,0,15,15,true);
+        world.draw(spriteBatch, texture);
 
         spriteBatch.end();
     }
