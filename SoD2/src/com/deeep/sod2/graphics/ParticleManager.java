@@ -23,7 +23,7 @@ public class ParticleManager {
         random = new Random();
 
         for(int i=0; i< 10000; i++){
-            particles.add(new Particle(new PVector(i/40, (i/100000)/40), Color.WHITE, -1, 1/40, 1/40));
+            particles.add(new Particle(new PVector((random.nextFloat()*1000-500)/40f, (random.nextFloat()*1000-500)/40f), Color.WHITE, -1, 1/40f, 1/40f));
         }
     }
 
