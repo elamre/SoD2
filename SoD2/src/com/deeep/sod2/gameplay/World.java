@@ -79,7 +79,7 @@ public class World {
                 if(camera.y+.1f<maxCamOffSetY){
                     camera.y += .1f;
                     for(Particle p: particleManager.particles){
-                        p.move(0, .01f);
+                        p.move(0.f, .01f);
                     }
                 }
             }
