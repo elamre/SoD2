@@ -60,7 +60,7 @@ public class Particle {
     }
 
     public void draw(SpriteBatch graphics){
-        if(lifespan<0 && lifespan!=-1f) return;
+        if(lifespan<0 && lifespan!=-1) return;
         double t = lifespan;
         if(lifespan!=-1) t=255;
         ShapeRenderer.setColor(new Color(r, g, b, (float)t));
