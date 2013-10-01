@@ -18,7 +18,7 @@ public class ShapeRenderer {
     private static Color color;
 
     static {
-        rectangle = new Sprite(Assets.getAssets().getRegion("snakes/snake_2_tail"));
+        rectangle = Assets.getAssets().getBlankSprite();//new Sprite(Assets.getAssets().getRegion("snakes/snake_2_tail"));
         setColor(Color.BLACK);
     }
 
