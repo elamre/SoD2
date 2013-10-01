@@ -2,6 +2,8 @@ package com.deeep.sod2.graphics;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.deeep.sod2.particle.Sequence;
+import com.deeep.sod2.particle.Sequencer;
 import com.deeep.sod2.utility.Logger;
 
 import java.util.Random;
@@ -14,109 +16,99 @@ import java.util.Random;
  */
 
 public class Particle {
-
-    /** Red green blue color*/
-    protected float r = 255.f, g = 255.f, b = 255.f;
-    protected float width, height;
-
-    /** Used for fading particles, that do not die*/
-    protected double fade = 0;
-    protected boolean fadeGrowing = true;
-    protected Color color;
-
-    /** Ticks before ceasing to exist*/
-    public double lifespan;
-
-    /** Location vector (x,y)*/
+    /** Location vector (x,y) */
     public PVector location;
-
-    /** Velocity to add to position vector*/
+    /** Velocity to add to position vector */
     public PVector velocity;
-
-    /** Velocity to add to velocity vector*/
+    /** Velocity to add to velocity vector */
     public PVector acceleration;
+    /** Red green blue color */
+    private float width, height;
+    /** Used for fading particles, that do not die */
+    private Sequencer sequencer;
+    /** The color of the particles */
+    private Color color;
 
     /** Constructor when specified a particle color */
-    public Particle(PVector v, Color c, float lifetime, float w, float h){
+    public Particle(PVector v, Color c, Sequencer sequencer, float w, float h) {
         location = v.get();
-        acceleration = new PVector(0.0F,0.00F);
-        velocity = new PVector(0.0F,0.0F);
-        lifespan = lifetime;
+        acceleration = new PVector(0.0F, 0.00F);
+        velocity = new PVector(0.0F, 0.0F);
         width = w;
         height = h;
-        if(c!=null) setColor(c);
-        fade = new Random().nextFloat();
-        fadeGrowing = new Random().nextBoolean();
+        color = new Color(1, 1, 1, 1);
+        setColor(c);
+        this.sequencer = sequencer;
     }
 
     /**
      * Updates the particle
+     *
      * @param delta delta to update the particle with
      */
-    public void update(float delta){
+    public void update(float delta) {
         location.add(velocity);
-        velocity.add(new PVector(acceleration.x*delta, acceleration.y*delta));
-        if(lifespan!=-1)lifespan -= delta;
-        else{
-            if(fadeGrowing) fade+=delta/4;
-            else fade-=delta/4;
-        }
-        if(fade < 0) fadeGrowing = true;
-        if(fade > 1) fadeGrowing = false;
+        velocity.add(new PVector(acceleration.x * delta, acceleration.y * delta));
+        if (sequencer != null)
+            sequencer.update(delta);
     }
 
-    /** Move the particle directly
-     *  @param x x movement
-     *  @param y y movement
+    /**
+     * Move the particle directly
+     *
+     * @param x x movement
+     * @param y y movement
      */
-    public void move(float x, float y){
-        location.x+=x;
-        location.y+=y;
+    public void move(float x, float y) {
+        location.x += x;
+        location.y += y;
     }
 
     /**
      * Draw the particle
+     *
      * @param graphics SpriteBatch to be drawn with
      */
-    public void draw(SpriteBatch graphics){
-        if(lifespan<0 && lifespan!=-1) return;
-        double t = lifespan/255;
-        if(lifespan==-1) t=fade;
-        ShapeRenderer.setColor(new Color(r, g, b, (float)t));
-        ShapeRenderer.drawRectangle(graphics, location.x-2, location.y-2, width, height, true);
+    public void draw(SpriteBatch graphics) {
+        if (isDead())
+            return;
+        if (sequencer != null) {
+            float alpha = 1;
+            alpha = sequencer.getValue();
+            color.a = alpha;
+        }
+        ShapeRenderer.setColor(color);
+        ShapeRenderer.drawRectangle(graphics, location.x - 2, location.y - 2, width, height, true);
     }
 
     /**
      * Returns, whether or not the particle is dead. If lifespan is -1 then the
      * particle will live until removed and this will return false
+     *
      * @return whether the particle is "alive"
      */
-    public boolean isDead(){
-        return lifespan<0.0 && lifespan!=-1 ? true : false;
+    public boolean isDead() {
+        return (sequencer != null) ? sequencer.isFinished() : false;
     }
 
-    public void setHeight(float h){
-        height = h;
-    }
-
-    public void setWidth(float w){
-        width = w;
-    }
-
-    public float getHeight(){
+    public float getHeight() {
         return height;
     }
 
-    public float getWidth(){
+    public void setHeight(float h) {
+        height = h;
+    }
+
+    public float getWidth() {
         return width;
     }
 
-    public Color getColor(){
-        return new Color(r, g, b, lifespan<0.0 ? 255 : (float)lifespan);
+    public void setWidth(float w) {
+        width = w;
     }
 
     public void setColor(Color c) {
-        if(color==null) return;
+        if (color == null) return;
         color = c;
     }
 
