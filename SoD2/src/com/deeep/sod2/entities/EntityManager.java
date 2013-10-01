@@ -58,6 +58,11 @@ public class EntityManager {
         entities.remove(e);
     }
 
+    /**
+     *
+     * @param key the index of desired entity
+     * @return the entity with index "key"
+     */
     public Entity getEntity(int key){
         return entities.get(key);
     }
