@@ -25,12 +25,21 @@ public class EntityManager {
     }
 
     /**
-     * Add a new Entity to the HashMap
+     * Add a new Entity to the HashMap for single player
      * @param e the entity to be added
      */
-    public void addEntity(Entity e){
+    public void addEntitySinglePlayer(Entity e){
         e.setDebug(false);
         entities.put(entities.size(), e);
+    }
+
+    /**
+     * Add a new Entity to the HashMap for multi player
+     * @param e the entity to be added
+     */
+    public void addEntityMultiPlayer(Entity e){
+        e.setDebug(false);
+        entities.put(e.getId(), e);
     }
 
     /**
