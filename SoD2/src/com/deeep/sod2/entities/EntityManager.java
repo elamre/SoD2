@@ -11,7 +11,7 @@ import java.util.Iterator;
  */
 public class EntityManager {
 
-    //The HashMap, that contains entities and their respective ids
+    /**The HashMap, that contains entities and their respective ids*/
     public HashMap<Integer, Entity> entities = new HashMap<Integer, Entity>();
 
     public EntityManager() {
