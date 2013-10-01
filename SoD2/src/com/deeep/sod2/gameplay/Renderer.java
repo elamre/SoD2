@@ -26,7 +26,7 @@ public class Renderer {
     private final float FRUSTUM_HEIGHT = Constants.VIRTUAL_HEIGHT / (Constants.BLOCK_SIZE * Constants.SCALE);
     /** The camera controlling the viewing */
     private OrthographicCamera cam;
-    /** The spritebatch to draw everything on */
+    /** The sprite batch to draw everything on */
     private SpriteBatch spriteBatch;
     /** The world to draw all the entities of */
     private World world;
@@ -35,15 +35,12 @@ public class Renderer {
     private ShapeRenderer shapeRenderer;
     /** Temporary texture to display something on the screen */
     private TextureRegion texture;
-    /** Temporary Grid, for debugging purposes */
-    private Grid grid;
     //-------------------------------------------------------------//
 
     public Renderer(SpriteBatch spriteBatch, World world) {
         this.world = world;
         cam = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
         cam.position.set(FRUSTUM_WIDTH / 2, FRUSTUM_HEIGHT / 2, 0);
-        grid = new Grid(1, 15, 15, Color.BLUE);
         Camera.getInstance().setFrustum(cam.frustum);
         this.spriteBatch = spriteBatch;
         //TODO remove testing purposes only */
@@ -83,9 +80,9 @@ public class Renderer {
         }
         shapeRenderer.end();
         spriteBatch.begin();
-        grid.draw(spriteBatch);
-        world.block.draw(spriteBatch);
-        spriteBatch.draw(texture, world.block.getX(), world.block.getY(), 1, 1);
+
+            world.draw(spriteBatch, texture);
+
         spriteBatch.end();
     }
 }

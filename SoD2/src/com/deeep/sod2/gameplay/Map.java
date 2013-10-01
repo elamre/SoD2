@@ -1,21 +1,18 @@
 package com.deeep.sod2.gameplay;
 
 import com.deeep.sod2.entities.Entity;
+import com.deeep.sod2.entities.EntityManager;
 
 /**
  * Created with IntelliJ IDEA.
  * User: Elmar
  * Date: 10/1/13
  * Time: 9:11 AM
- * To change this template use File | Settings | File Templates.
  */
 public class Map {
 
-    public void setEntity(int x, int y) {
+    public void update(){
 
     }
 
-    public Entity getEntity() {
-        return null;
-    }
 }

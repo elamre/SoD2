@@ -9,7 +9,6 @@ import com.deeep.sod2.graphics.ShapeRenderer;
  * User: Elmar
  * Date: 9/30/13
  * Time: 7:42 PM
- * To change this template use File | Settings | File Templates.
  */
 public class Grid {
     private float size = 0;

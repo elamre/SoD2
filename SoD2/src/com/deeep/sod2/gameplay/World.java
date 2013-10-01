@@ -1,7 +1,11 @@
 package com.deeep.sod2.gameplay;
 
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.deeep.sod2.entities.Block;
+import com.deeep.sod2.entities.EntityManager;
 
 import java.util.ArrayList;
 
@@ -10,7 +14,6 @@ import java.util.ArrayList;
  * User: Elmar
  * Date: 9/29/13
  * Time: 7:46 PM
- * To change this template use File | Settings | File Templates.
  */
 public class World {
     /** TODO remove */
@@ -20,8 +23,15 @@ public class World {
     /** TODO remove */
     private Controller controller;
 
-    /** Dont pay too much attention to this. This is just to test the camera and the view port */
+    private Map map;
+    private EntityManager entityManager;
+    private Grid grid;
+
+    /** Don't pay too much attention to this. This is just to test the camera and the view port */
     public World() {
+        map = new Map();
+        entityManager = new EntityManager();
+        grid = new Grid(1, 15, 15, Color.BLUE);
         block = new Block(0, -1, 1, 1);
         camera = new Block(0, -1, -2, -2);
         controller = new Controller();
@@ -77,5 +87,13 @@ public class World {
 
     public void update(float deltaT) {
         controller.update();
+        map.update();
+        entityManager.update(deltaT);
+    }
+
+    public void draw(SpriteBatch spriteBatch, TextureRegion texture){
+        grid.draw(spriteBatch);
+        block.draw(spriteBatch);
+        spriteBatch.draw(texture, block.getX(), block.getY(), 1, 1);
     }
 }
