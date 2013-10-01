@@ -8,6 +8,7 @@ import com.deeep.sod2.entities.Block;
 import com.deeep.sod2.entities.EntityManager;
 import com.deeep.sod2.graphics.PVector;
 import com.deeep.sod2.graphics.Particle;
+import com.deeep.sod2.graphics.ParticleManager;
 
 import java.util.ArrayList;
 
@@ -30,12 +31,13 @@ public class World {
     private Grid grid;
 
     /** TODO remove */
-    private Particle p = new Particle(new PVector(0f, 0f), Color.GREEN, -1f, 160, 240);
+    private ParticleManager particleManager;
 
     /** Don't pay too much attention to this. This is just to test the camera and the view port */
     public World() {
         map = new Map();
         entityManager = new EntityManager();
+        particleManager = new ParticleManager();
         grid = new Grid(1, 15, 15, Color.BLUE);
         block = new Block(0, -1, 1, 1);
         camera = new Block(0, -1, -2, -2);
@@ -94,13 +96,13 @@ public class World {
         controller.update();
         map.update();
         entityManager.update(deltaT);
-        p.update(deltaT);
+        particleManager.update(deltaT);
     }
 
     public void draw(SpriteBatch spriteBatch, TextureRegion texture){
         grid.draw(spriteBatch);
         block.draw(spriteBatch);
         spriteBatch.draw(texture, block.getX(), block.getY(), 1, 1);
-        p.draw(spriteBatch);
+        particleManager.draw(spriteBatch);
     }
 }

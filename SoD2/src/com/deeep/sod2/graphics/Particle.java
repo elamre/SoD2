@@ -31,17 +31,6 @@ public class Particle {
     /** Velocity to add to velocity vector*/
     public PVector acceleration;
 
-    private Random random = new Random();
-
-    public Particle(PVector v, float lifetime, float w, float h){
-        location = v.get();
-        acceleration = new PVector(0.0F,0.0F);
-        velocity = new PVector(0.0F,0.0F);
-        lifespan = lifetime;
-        width = w;
-        height = h;
-    }
-
     /** Constructor when specified a particle color */
     public Particle(PVector v, Color c, float lifetime, float w, float h){
         location = v.get();
@@ -53,20 +42,33 @@ public class Particle {
         setColor(c);
     }
 
+    /**
+     * Updates the particle
+     * @param delta delta to update the particle with
+     */
     public void update(float delta){
         location.add(velocity);
         velocity.add(new PVector(acceleration.x*delta, acceleration.y*delta));
         if(lifespan!=-1)lifespan -= delta;
     }
 
+    /**
+     * Draw the particle
+     * @param graphics SpriteBatch to be drawn with
+     */
     public void draw(SpriteBatch graphics){
         if(lifespan<0 && lifespan!=-1) return;
         double t = lifespan;
         if(lifespan==-1) t=255;
         ShapeRenderer.setColor(new Color(r, g, b, (float)t));
-        ShapeRenderer.drawRectangle(graphics, location.x, location.y, width, height, true);
+        ShapeRenderer.drawRectangle(graphics, location.x-2, location.y-2, width, height, true);
     }
 
+    /**
+     * Returns, whether or not the particle is dead. If lifespan is -1 then the
+     * particle will live until removed and this will return false
+     * @return whether the particle is "alive"
+     */
     public boolean isDead(){
         return lifespan<0.0 && lifespan!=-1 ? true : false;
     }
