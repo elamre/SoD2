@@ -1,6 +1,7 @@
 package com.deeep.sod2.entities;
 
 import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * Created with IntelliJ IDEA.
@@ -57,8 +58,11 @@ public class EntityManager {
      * @param delta the delta value to update the entities with
      */
     public void update(float delta){
-        for(int i=0; i<entities.size(); i++){
-            entities.get(i).update(delta);
+        Iterator<Integer> keySetIterator = entities.keySet().iterator();
+
+        while(keySetIterator.hasNext()){
+            Integer key = keySetIterator.next();
+            entities.get(key).update(delta);
         }
     }
 
