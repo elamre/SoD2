@@ -39,6 +39,14 @@ public class Grid {
         this.color = color;
     }
 
+    public int getWidth(){
+        return width;
+    }
+
+    public int getHeight(){
+        return height;
+    }
+
     public void draw(SpriteBatch spriteBatch) {
         ShapeRenderer.setColor(color);
         for (int x = 0; x < width + 1; x++) {

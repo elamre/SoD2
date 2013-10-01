@@ -21,8 +21,8 @@ public class Assets {
     private static Assets assets;
     /** Just a check to be sure that the assets aren't loaded multiple times */
     private static boolean loaded = false;
-    /** The atlas containing all the images */
-    private TextureAtlas textureAtlas;
+    /** The atlases containing all the images */
+    private TextureAtlas textureAtlas, planetTextureAtlas;
     /** Logger instance */
     private Logger logger = Logger.getInstance();
     /** The texture region for the shape renderer */
@@ -53,6 +53,7 @@ public class Assets {
             blankSprite = new Sprite(new Texture(pixmap));
             //pixmap.dispose();
             textureAtlas = new TextureAtlas(Gdx.files.internal("images/TextureAtlas.txt"));
+            planetTextureAtlas = new TextureAtlas(Gdx.files.internal("images/PlanetTextureAtlas.txt"));
             logger.system(Assets.class, "All assets have been loaded");
             loaded = true;
         }
@@ -76,5 +77,15 @@ public class Assets {
      */
     public TextureRegion getRegion(String name) {
         return textureAtlas.findRegion(name);
+    }
+
+    /**
+     * Returns a planet texture
+     *
+     * @param planetId id of desired planet
+     * @return the planet texture connected to the id
+     */
+    public TextureRegion getPlanetTexture(int planetId) {
+        return planetTextureAtlas.findRegion("planets/planet"+planetId);
     }
 }

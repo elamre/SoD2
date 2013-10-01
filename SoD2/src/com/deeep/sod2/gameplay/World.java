@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.deeep.sod2.entities.Block;
 import com.deeep.sod2.entities.EntityManager;
+import com.deeep.sod2.graphics.Assets;
 import com.deeep.sod2.graphics.PVector;
 import com.deeep.sod2.graphics.Particle;
 import com.deeep.sod2.graphics.ParticleManager;
@@ -30,6 +31,10 @@ public class World {
     private EntityManager entityManager;
     private Grid grid;
 
+    /** Min/Max offset for camera in units*/
+    /** TODO Should be modified by the grid  in constructor */
+    public static float minCamOffSetX = -2f, maxCamOffSetX, minCamOffSetY = -2f, maxCamOffSetY;
+
     /** TODO remove */
     private ParticleManager particleManager;
 
@@ -37,8 +42,10 @@ public class World {
     public World() {
         map = new Map();
         entityManager = new EntityManager();
+        grid = new Grid(1, 20, 20, Color.BLUE);
+            maxCamOffSetX = grid.getWidth() - 8;
+            maxCamOffSetY = grid.getHeight() - 4;
         particleManager = new ParticleManager();
-        grid = new Grid(1, 15, 15, Color.BLUE);
         block = new Block(0, -1, 1, 1);
         camera = new Block(0, -1, -2, -2);
         controller = new Controller();
@@ -69,25 +76,36 @@ public class World {
         controller.registerKey(Input.Keys.UP, new InputReactListener() {
             @Override
             public void inputReact() {
-                camera.y += .1f;
+                if(camera.y+.1f<maxCamOffSetY){
+                    camera.y += .1f;
+                    for(Particle p: particleManager.particles){
+                        p.move(0, .01f);
+                    }
+                }
             }
         }, InputReactListener.Event.HOLD);
         controller.registerKey(Input.Keys.DOWN, new InputReactListener() {
             @Override
             public void inputReact() {
-                camera.y -= .1f;
+                if(camera.y-.1f>=minCamOffSetY){
+                    camera.y -= .1f;
+                }
             }
         }, InputReactListener.Event.HOLD);
         controller.registerKey(Input.Keys.LEFT, new InputReactListener() {
             @Override
             public void inputReact() {
-                camera.x -= .1f;
+                if(camera.x-.1f>=minCamOffSetX){
+                    camera.x -= .1f;
+                }
             }
         }, InputReactListener.Event.HOLD);
         controller.registerKey(Input.Keys.RIGHT, new InputReactListener() {
             @Override
             public void inputReact() {
-                camera.x += .1f;
+                if(camera.x+.1f<maxCamOffSetX){
+                    camera.x += .1f;
+                }
             }
         }, InputReactListener.Event.HOLD);
     }

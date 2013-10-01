@@ -16,12 +16,13 @@ import java.util.Random;
 public class Particle {
 
     /** Red green blue color*/
-    private float r = 255.f, g = 255.f, b = 255.f;
-    private float width, height;
+    protected float r = 255.f, g = 255.f, b = 255.f;
+    protected float width, height;
 
     /** Used for fading particles, that do not die*/
-    private double fade = 0;
-    private boolean fadeGrowing = true;
+    protected double fade = 0;
+    protected boolean fadeGrowing = true;
+    protected Color color;
 
     /** Ticks before ceasing to exist*/
     public double lifespan;
@@ -43,7 +44,7 @@ public class Particle {
         lifespan = lifetime;
         width = w;
         height = h;
-        setColor(c);
+        if(c!=null) setColor(c);
         fade = new Random().nextFloat();
         fadeGrowing = new Random().nextBoolean();
     }
@@ -62,6 +63,15 @@ public class Particle {
         }
         if(fade < 0) fadeGrowing = true;
         if(fade > 1) fadeGrowing = false;
+    }
+
+    /** Move the particle directly
+     *  @param x x movement
+     *  @param y y movement
+     */
+    public void move(float x, float y){
+        location.x+=x;
+        location.y+=y;
     }
 
     /**
@@ -106,9 +116,8 @@ public class Particle {
     }
 
     public void setColor(Color c) {
-        r = c.r;
-        g = c.g;
-        b = c.b;
+        if(color==null) return;
+        color = c;
     }
 
 }
