@@ -67,7 +67,7 @@ public class EntityList {/* The packet id to assign to packets. Will increment a
             register();
         logger.debug(EntityList.class, "Retrieving id for class: " + entity.getClass().toString());
         if (!entityToType.containsKey(entity.getClass())) {
-            logger.warn(EntityList.class, "Entity isnt registered");
+            logger.warn(EntityList.class, "Entity isn't registered");
             return 0;
         }
 
