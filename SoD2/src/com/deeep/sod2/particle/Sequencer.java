@@ -12,25 +12,44 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class Sequencer {
+    /** This array list holds all the sequences it will iterate over before the sequencer is finished */
     private ArrayList<Sequence> sequences = new ArrayList<Sequence>();
+    /** The value of the sequence in use */
     private float value = 0;
+    /** The index of the sequence it's currently using */
     private int index = 0;
+    /** If the sequencer has to restart after the last sequence */
     private boolean repeat = false;
-    private float initialValue;
 
+    /**
+     * simple constructor. Not sure what else to do here
+     *
+     * @param repeat If the sequencer has to restart after the last sequence
+     */
     public Sequencer(boolean repeat) {
         this.repeat = repeat;
     }
 
+    /**
+     * Adds a new sequence to the arraylist and thus to the sequencer
+     *
+     * @param sequence the sequence to add
+     */
     public void addSequence(Sequence sequence) {
         sequences.add(sequence);
         sequence.activate(sequences.size() - 1);
     }
 
+    /** TODO figure out when to actually use this */
     public void clearSequence() {
         sequences.clear();
     }
 
+    /**
+     * Updates the current state of the sequencer. Increments the index if the current sequence is done
+     *
+     * @param deltaT time that has passed
+     */
     public void update(float deltaT) {
         if (sequences.get(index).isFinished()) {
             if (repeat) {
@@ -46,11 +65,20 @@ public class Sequencer {
         }
     }
 
+    /**
+     * Returns the value of the current sequencer
+     *
+     * @return value
+     */
     public float getValue() {
-
         return value;
     }
 
+    /**
+     * Returns if the sequencer is finished and thus can be recycled
+     *
+     * @return true if done, false otherwise
+     */
     public boolean isFinished() {
         if (index == -1) {
             return true;
