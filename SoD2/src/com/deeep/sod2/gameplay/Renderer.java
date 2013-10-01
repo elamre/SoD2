@@ -35,12 +35,15 @@ public class Renderer {
     private ShapeRenderer shapeRenderer;
     /** Temporary texture to display something on the screen */
     private TextureRegion texture;
+    /** Temporary Grid, for debugging purposes */
+    private Grid grid;
     //-------------------------------------------------------------//
 
     public Renderer(SpriteBatch spriteBatch, World world) {
         this.world = world;
         cam = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
         cam.position.set(FRUSTUM_WIDTH / 2, FRUSTUM_HEIGHT / 2, 0);
+        grid = new Grid(1, 15, 15, Color.BLUE);
         Camera.getInstance().setFrustum(cam.frustum);
         this.spriteBatch = spriteBatch;
         //TODO remove testing purposes only */
@@ -66,7 +69,7 @@ public class Renderer {
     }
 
     private void renderObjects() {
-        shapeRenderer.setColor(Color.WHITE);
+        shapeRenderer.setColor(Color.DARK_GRAY);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.rect(0, 0, 15, 15);
         shapeRenderer.end();
@@ -74,12 +77,13 @@ public class Renderer {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         for (int x = 0; x < 16; x++) {
             for (int y = 0; y < 16; y++) {
-                shapeRenderer.line(x, 0, x, y);
-                shapeRenderer.line(0, y, x, y);
+                //shapeRenderer.line(x, 0, x, y);
+                //shapeRenderer.line(0, y, x, y);
             }
         }
         shapeRenderer.end();
         spriteBatch.begin();
+        grid.draw(spriteBatch);
         world.block.draw(spriteBatch);
         spriteBatch.draw(texture, world.block.getX(), world.block.getY(), 1, 1);
         spriteBatch.end();

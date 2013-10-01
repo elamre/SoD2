@@ -30,10 +30,10 @@ public class ShapeRenderer {
     public static void drawRectangle(SpriteBatch batch, float x, float y, float width, float height, boolean filled) {
         if (Camera.getInstance().inVision(x, y, width, height)) {
             if (!filled) {
-                drawLine(batch, x, y, x + width, y, 0.01f);
-                drawLine(batch, x, y, x, y + height, 0.01f);
-                drawLine(batch, x, y + height, x + width, y + height, 0.01f);
-                drawLine(batch, x + width, y, x + height, y + height, 0.01f);
+                drawLine(batch, x, y, x + width, y, 0.025f);
+                drawLine(batch, x, y, x, y + height, 0.025f);
+                drawLine(batch, x, y + height, x + width, y + height, 0.025f);
+                drawLine(batch, x + width, y, x + height, y + height, 0.025f);
             } else {
                 rectangle.setPosition(x, y);
                 rectangle.setSize(width, height);
@@ -44,8 +44,8 @@ public class ShapeRenderer {
 
     public static void drawLine(SpriteBatch batch, float x1, float y1, float x2, float y2, float width) {
         if (Camera.getInstance().inVision(x1, y1, Math.max(1, Math.abs(x2 - x1)), Math.max(1, Math.abs(y2 - y1)))) {
-            rectangle.setSize(x2 - x1 + width, y2 - y1 + width);
-            rectangle.setPosition(x1, y1);
+            rectangle.setSize(x2 - x1 + width / 2, y2 - y1 + width / 2);
+            rectangle.setPosition(x1 - width / 2, y1);
             rectangle.draw(batch);
         }
     }
