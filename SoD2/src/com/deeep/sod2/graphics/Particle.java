@@ -19,6 +19,10 @@ public class Particle {
     private float r = 255.f, g = 255.f, b = 255.f;
     private float width, height;
 
+    /** Used for fading particles, that do not die*/
+    private double fade = 0;
+    private boolean fadeGrowing = true;
+
     /** Ticks before ceasing to exist*/
     public double lifespan;
 
@@ -40,6 +44,8 @@ public class Particle {
         width = w;
         height = h;
         setColor(c);
+        fade = new Random().nextFloat();
+        fadeGrowing = new Random().nextBoolean();
     }
 
     /**
@@ -50,6 +56,12 @@ public class Particle {
         location.add(velocity);
         velocity.add(new PVector(acceleration.x*delta, acceleration.y*delta));
         if(lifespan!=-1)lifespan -= delta;
+        else{
+            if(fadeGrowing) fade+=delta/4;
+            else fade-=delta/4;
+        }
+        if(fade < 0) fadeGrowing = true;
+        if(fade > 1) fadeGrowing = false;
     }
 
     /**
@@ -58,8 +70,8 @@ public class Particle {
      */
     public void draw(SpriteBatch graphics){
         if(lifespan<0 && lifespan!=-1) return;
-        double t = lifespan;
-        if(lifespan==-1) t=255;
+        double t = lifespan/255;
+        if(lifespan==-1) t=fade;
         ShapeRenderer.setColor(new Color(r, g, b, (float)t));
         ShapeRenderer.drawRectangle(graphics, location.x-2, location.y-2, width, height, true);
     }

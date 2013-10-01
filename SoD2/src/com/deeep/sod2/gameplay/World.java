@@ -100,9 +100,9 @@ public class World {
     }
 
     public void draw(SpriteBatch spriteBatch, TextureRegion texture){
+        particleManager.draw(spriteBatch);
         grid.draw(spriteBatch);
         block.draw(spriteBatch);
         spriteBatch.draw(texture, block.getX(), block.getY(), 1, 1);
-        particleManager.draw(spriteBatch);
     }
 }
