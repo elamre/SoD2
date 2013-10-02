@@ -60,7 +60,7 @@ public class ParticleManager{
             particles.add(new Particle(new PVector((random.nextFloat() * 1000 - 500) / 40f, (random.nextFloat() * 1000 - 500) / 40f), color, sequencer, 1 / 40f, 1 / 40f));
         }
 
-        int[] planetIds = {1, 2, 3, 4, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
+        int[]  planetIds = {1, 2, 3, 4, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
         for (int i = 0; i < 100; i++) {
             int id = planetIds[random.nextInt(planetIds.length)];
             float size = 58f - random.nextFloat() * 25 - random.nextFloat() * 25;
