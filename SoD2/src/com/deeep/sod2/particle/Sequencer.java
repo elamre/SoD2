@@ -51,17 +51,17 @@ public class Sequencer {
      * @param deltaT time that has passed
      */
     public void update(float deltaT) {
-        if (sequences.get(index).isFinished()) {
-            if (repeat) {
-                index = (index < sequences.size() - 1) ? index + 1 : 0;
-                sequences.get(index).activate(value);
-            } else {
-                index = -1;
-            }
-        }
         if (index != -1) {
             value = sequences.get(index).getValue();
             sequences.get(index).update(deltaT);
+            if (sequences.get(index).isFinished()) {
+                if (repeat) {
+                    index = (index < sequences.size() - 1) ? index + 1 : 0;
+                    sequences.get(index).activate(value);
+                } else {
+                    index = -1;
+                }
+            }
         }
     }
 

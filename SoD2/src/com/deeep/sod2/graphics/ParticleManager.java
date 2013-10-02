@@ -9,6 +9,8 @@ package com.deeep.sod2.graphics;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.deeep.sod2.gameplay.World;
+import com.deeep.sod2.particle.FormulaTypes;
 import com.deeep.sod2.particle.Sequence;
 import com.deeep.sod2.particle.Sequencer;
 
@@ -33,8 +35,7 @@ public class ParticleManager{
         float minBrightness = 0;
         float sleepTime = 0;
         int colorRandom = 0;
-        Color color = Color.WHITE;
-        //particles.add(new Particle(new PVector(0.5f, 0.5f), Color.WHITE, sequencer, -1, 1 / 40f, 1 / 40f));
+        Color color;
         for (int i = 0; i < 5000; i++) {
             Sequencer sequencer = new Sequencer(true);
             if ((colorRandom = random.nextInt(30)) == 1) {
@@ -49,15 +50,16 @@ public class ParticleManager{
             riseTime = random.nextFloat() + 1f;
             downTime = random.nextFloat() + 1f;
             sleepTime = random.nextFloat() * 3;
-            maxBrightness = Math.max(0.2f, random.nextFloat() - .1f);
+            maxBrightness = Math.max(0.2f, random.nextFloat());
             minBrightness = random.nextFloat() * 0.2f;
             while (maxBrightness < minBrightness)
                 minBrightness -= 0.1f;
-            sequencer.addSequence(new Sequence(maxBrightness, riseTime));
-            sequencer.addSequence(new Sequence(-1, sleepTime));
-            sequencer.addSequence(new Sequence(minBrightness, downTime));
-            sequencer.addSequence(new Sequence(-1, sleepTime));
-            particles.add(new Particle(new PVector((random.nextFloat() * 1000 - 500) / 40f, (random.nextFloat() * 1000 - 500) / 40f), color, sequencer, 1 / 40f, 1 / 40f));
+            sequencer.addSequence(new Sequence(new FormulaTypes.Linear(riseTime, maxBrightness)));
+            sequencer.addSequence(new Sequence(new FormulaTypes.Sleep(sleepTime)));
+            sequencer.addSequence(new Sequence(new FormulaTypes.Linear(downTime, minBrightness)));
+            sequencer.addSequence(new Sequence(new FormulaTypes.Sleep(sleepTime)));
+           // particles.add(new Particle(new PVector(0.5f, 0.5f), Color.WHITE, sequencer, 0.1f, 0.1f));
+            particles.add(new Particle(new PVector((random.nextFloat() * (World.maxCamOffSetX + 12)), (random.nextFloat() * (World.maxCamOffSetY + 8))), color, sequencer, 1 / 40f, 1 / 40f));
         }
 
         int[] planetIds = {1, 2, 3, 4, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};

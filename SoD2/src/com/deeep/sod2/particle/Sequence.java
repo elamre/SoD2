@@ -12,25 +12,24 @@ import com.deeep.sod2.utility.Logger;
 public class Sequence {
     /** The current value of the sequence, this will be adjusted */
     private float value = 0;
-    /** The amount the value will change every ms */
-    private float deltaValue;
-    /** The total amount of lifetime for this sequence, it will be finish after the life time */
+    /** The total amount of lifetime for this sequence, it will be finished after the life time */
     private float lifeTime = 0;
-    /** The to finish with ending value */
-    private float endingValue = 0;
+    /** The current stateTime */
+    private float stateTime = 0;
     /** To reset the lifetime with */
     private float initialLifeTime = 0;
+    /** The formula to calculate the new value with */
+    private Formula formula;
 
     /**
      * Constructor for each sequence for now. TODO add more algorithms Exponential and Sinus
-     * if ending value is -1, it wont change over the course TODO add a boolean for this
+     * if ending value is -1, it wont change over the course
      *
-     * @param endingValue the value the sequence should end with
-     * @param lifeTime    the time in which it should reach that value
+     * @param formula the formula to use
      */
-    public Sequence(float endingValue, float lifeTime) {
-        this.endingValue = endingValue;
-        this.initialLifeTime = lifeTime;
+    public Sequence(Formula formula) {
+        this.formula = formula;
+        this.initialLifeTime = formula.period;
     }
 
     /**
@@ -40,15 +39,10 @@ public class Sequence {
      * @param startValue the value it's starting with
      */
     public void activate(float startValue) {
-        lifeTime = initialLifeTime;
         this.value = startValue;
-        if (endingValue != -1) {
-            float delta = endingValue - startValue;
-            this.deltaValue = delta / lifeTime;
-        } else {
-            deltaValue = 0;
-        }
-
+        stateTime = 0;
+        formula.initialize(startValue);
+        lifeTime = initialLifeTime;
     }
 
     /** @return the current value */
@@ -62,10 +56,11 @@ public class Sequence {
      * @param deltaT time that has passed
      */
     public void update(float deltaT) {
-        if (lifeTime > 0) {
-            value += deltaValue * deltaT;
-        }
+        stateTime += deltaT;
         lifeTime -= deltaT;
+        if (lifeTime > 0) {
+            value = formula.getValue(stateTime);
+        }
     }
 
     /**
