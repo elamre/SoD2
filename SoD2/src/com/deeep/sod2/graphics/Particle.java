@@ -15,7 +15,7 @@ import java.util.Random;
  * Date: 10/1/13
  */
 
-public class Particle {
+public class Particle implements Comparable<Particle>{
     /** Location vector (x,y) */
     public PVector location;
     /** Velocity to add to position vector */
@@ -23,7 +23,7 @@ public class Particle {
     /** Velocity to add to velocity vector */
     public PVector acceleration;
     /** Red green blue color */
-    private float width, height;
+    private float width, height, size;
     /** Used for fading particles, that do not die */
     private Sequencer sequencer;
     /** The color of the particles */
@@ -39,6 +39,7 @@ public class Particle {
         color = new Color(1, 1, 1, 1);
         setColor(c);
         this.sequencer = sequencer;
+        size = (float) Math.sqrt(width*height);
     }
 
     /**
@@ -95,6 +96,10 @@ public class Particle {
         return height;
     }
 
+    public float getSize() {
+        return size;
+    }
+
     public void setHeight(float h) {
         height = h;
     }
@@ -110,6 +115,17 @@ public class Particle {
     public void setColor(Color c) {
         if (color == null) return;
         color = c;
+    }
+
+
+    public int compareTo(Particle other) {
+        double cSize = other.getSize();
+
+        /** ascending order */
+        /** return (int) (this.size - compareSalary); */
+
+        /** descending order */
+        return (int) (cSize - this.getSize());
     }
 
 }

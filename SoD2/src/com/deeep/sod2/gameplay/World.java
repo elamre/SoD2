@@ -79,7 +79,8 @@ public class World {
                 if(camera.y+.1f<maxCamOffSetY){
                     camera.y += .1f;
                     for(Particle p: particleManager.particles){
-                        p.move(0.f, .01f);
+                        /** If the particle is a planet move it */
+                        p.move(0.f, .001f*((float)p.getWidth()*3f*p.getHeight()*3f));
                     }
                 }
             }
@@ -89,6 +90,10 @@ public class World {
             public void inputReact() {
                 if(camera.y-.1f>=minCamOffSetY){
                     camera.y -= .1f;
+                    for(Particle p: particleManager.particles){
+                        /** If the particle is a planet move it */
+                        p.move(0.f, -.001f*((float)p.getWidth()*3f*p.getHeight()*3f));
+                    }
                 }
             }
         }, InputReactListener.Event.HOLD);
@@ -97,6 +102,10 @@ public class World {
             public void inputReact() {
                 if(camera.x-.1f>=minCamOffSetX){
                     camera.x -= .1f;
+                    for(Particle p: particleManager.particles){
+                        /** If the particle is a planet move it */
+                        p.move(-.001f*((float)p.getWidth()*3f*p.getHeight()*3f), 0.f);
+                    }
                 }
             }
         }, InputReactListener.Event.HOLD);
@@ -105,6 +114,10 @@ public class World {
             public void inputReact() {
                 if(camera.x+.1f<maxCamOffSetX){
                     camera.x += .1f;
+                    for(Particle p: particleManager.particles){
+                        /** If the particle is a planet move it */
+                        p.move(.001f*((float)p.getWidth()*3f*p.getHeight()*3f), 0.f);
+                    }
                 }
             }
         }, InputReactListener.Event.HOLD);
