@@ -92,7 +92,7 @@ public class World {
                     camera.y -= .1f;
                     for(Particle p: particleManager.particles){
                         /** If the particle is a planet move it */
-                        p.move(0.f, -.001f*((float)p.getWidth()*3f*p.getHeight()*3f));
+                        p.move(0.f, -.001f*((float)p.getWidth()*2f*p.getHeight()*2f));
                     }
                 }
             }
@@ -104,7 +104,7 @@ public class World {
                     camera.x -= .1f;
                     for(Particle p: particleManager.particles){
                         /** If the particle is a planet move it */
-                        p.move(-.001f*((float)p.getWidth()*3f*p.getHeight()*3f), 0.f);
+                        p.move(-.001f*((float)p.getWidth()*2f*p.getHeight()*2f), 0.f);
                     }
                 }
             }
@@ -116,7 +116,7 @@ public class World {
                     camera.x += .1f;
                     for(Particle p: particleManager.particles){
                         /** If the particle is a planet move it */
-                        p.move(.001f*((float)p.getWidth()*3f*p.getHeight()*3f), 0.f);
+                        p.move(.001f*((float)p.getWidth()*2f*p.getHeight()*2f), 0.f);
                     }
                 }
             }
@@ -135,5 +135,6 @@ public class World {
         grid.draw(spriteBatch);
         block.draw(spriteBatch);
         spriteBatch.draw(texture, block.getX(), block.getY(), 1, 1);
+        spriteBatch.draw(Assets.getAssets().getBitmapCharacter('0'),-1, -1, 1/5, 1/5);
     }
 }

@@ -88,4 +88,21 @@ public class Assets {
     public TextureRegion getPlanetTexture(int planetId) {
         return planetTextureAtlas.findRegion("planets/planet"+planetId);
     }
+
+    /**
+     * Gets a character from the bitmap font font.png
+     *
+     */
+    public TextureRegion getBitmapCharacter(char c){
+        String tileCharacters =
+                " !\"#$%^'()*+,-./0123456789:;<=>?@" +
+                "ABCDERFGIJKLMNOPQRSTUVWXYZ[\\]^_`"+
+                "abcdefghijklmnopqrstuvwxyz{|}~ ";
+        for(int i=0; i<tileCharacters.length(); i++){
+            if(c==tileCharacters.charAt(i)){
+                return new TextureRegion(new Texture(Gdx.files.internal("images/gui/font.png")), (float)i%8, (float)i/8, 8f, 8f);
+            }
+        }
+        return new TextureRegion(new Texture(Gdx.files.internal("images/gui/font.png")), 0f, 0f, 8f, 8f);
+    }
 }
