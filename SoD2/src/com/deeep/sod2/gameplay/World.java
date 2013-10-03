@@ -8,10 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.deeep.sod2.entities.Block;
 import com.deeep.sod2.entities.EntityManager;
-import com.deeep.sod2.graphics.Assets;
-import com.deeep.sod2.graphics.PVector;
-import com.deeep.sod2.graphics.Particle;
-import com.deeep.sod2.graphics.ParticleManager;
+import com.deeep.sod2.graphics.*;
 
 import java.util.ArrayList;
 
@@ -135,9 +132,11 @@ public class World {
     public void draw(SpriteBatch spriteBatch, TextureRegion texture){
         particleManager.draw(spriteBatch);
         grid.draw(spriteBatch);
+        ShapeRenderer.setColor(Color.WHITE);
+        ShapeRenderer.drawRectangle(spriteBatch,1,1,4,4,true);
         block.draw(spriteBatch);
         spriteBatch.draw(texture, block.getX(), block.getY(), 1, 1);
-        drawString(spriteBatch, "hello, World!", 1, 1);
+        drawString(spriteBatch, "hello, World!", 4, 4);
     }
 
     public void drawString(SpriteBatch spriteBatch, String s, int x, int y){

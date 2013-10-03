@@ -24,6 +24,8 @@ public class Renderer {
     private final float FRUSTUM_HEIGHT = Constants.VIRTUAL_HEIGHT / (Constants.BLOCK_SIZE * Constants.SCALE);
     /** The camera controlling the viewing */
     private OrthographicCamera cam;
+    /** The camera for the hud stuff */
+    private OrthographicCamera hudCam;
     /** The sprite batch to draw everything on */
     private SpriteBatch spriteBatch;
     /** The world to draw all the entities of */
@@ -35,6 +37,7 @@ public class Renderer {
 
     public Renderer(SpriteBatch spriteBatch, World world) {
         this.world = world;
+        hudCam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         cam = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
         cam.position.set(FRUSTUM_WIDTH / 2, FRUSTUM_HEIGHT / 2, 0);
         Camera.getInstance().setFrustum(cam.frustum);
@@ -45,10 +48,13 @@ public class Renderer {
 
     public void render() {
         cam.update();
+        hudCam.update();
         cam.position.set(FRUSTUM_WIDTH / 2 + world.camera.getX(), FRUSTUM_HEIGHT / 2 + world.camera.getY(), 0);
         spriteBatch.setProjectionMatrix(cam.combined);
         renderBackground();
         renderObjects();
+        spriteBatch.setProjectionMatrix(hudCam.combined);
+        renderHud();
     }
 
     private void renderBackground() {
@@ -61,10 +67,20 @@ public class Renderer {
 
     private void renderObjects() {
 
-        spriteBatch.begin();
-        // ShapeRenderer.drawRectangle(spriteBatch,0,0,15,15,true);
+        spriteBatch.begin();                       // ShapeRenderer.drawRectangle(spriteBatch,0,0,15,15,true);
         world.draw(spriteBatch, texture);
+        spriteBatch.end();
 
+    }
+
+    private void renderHud() {
+        spriteBatch.setProjectionMatrix(hudCam.combined);
+        spriteBatch.begin();
+        spriteBatch.setColor(Color.WHITE);
+        ShapeRenderer.setColor(Color.WHITE);
+        ShapeRenderer.drawRectangle(spriteBatch,2,2,5,10,true);
+       // Assets.getAssets().getBitmapFont().setColor(Color.WHITE);
+        world.drawString(spriteBatch, "hello, World!", 20, 20);
         spriteBatch.end();
     }
 

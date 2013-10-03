@@ -15,7 +15,7 @@ import java.util.Random;
  * Date: 10/1/13
  */
 
-public class Particle implements Comparable<Particle>{
+public class Particle implements Comparable<Particle> {
     /** Location vector (x,y) */
     public PVector location;
     /** Velocity to add to position vector */
@@ -39,7 +39,7 @@ public class Particle implements Comparable<Particle>{
         color = new Color(1, 1, 1, 1);
         setColor(c);
         this.sequencer = sequencer;
-        size = (float) Math.sqrt(width*height);
+        size = (float) Math.sqrt(width * height);
     }
 
     /**
@@ -73,13 +73,15 @@ public class Particle implements Comparable<Particle>{
     public void draw(SpriteBatch graphics) {
         if (isDead())
             return;
+        float alpha = 1;
         if (sequencer != null) {
-            float alpha = 1;
             alpha = sequencer.getValue();
-            color.a = alpha;
         }
+        color.a -= alpha;
         ShapeRenderer.setColor(color);
         ShapeRenderer.drawRectangle(graphics, location.x - 2, location.y - 2, width, height, true);
+        color.a += alpha;
+        ShapeRenderer.setColor(color);
     }
 
     /**
@@ -96,12 +98,12 @@ public class Particle implements Comparable<Particle>{
         return height;
     }
 
-    public float getSize() {
-        return size;
-    }
-
     public void setHeight(float h) {
         height = h;
+    }
+
+    public float getSize() {
+        return size;
     }
 
     public float getWidth() {
@@ -116,7 +118,6 @@ public class Particle implements Comparable<Particle>{
         if (color == null) return;
         color = c;
     }
-
 
     public int compareTo(Particle other) {
         double cSize = other.getSize();

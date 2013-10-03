@@ -19,12 +19,11 @@ public class ShapeRenderer {
 
     static {
         rectangle = Assets.getAssets().getBlankSprite();//new Sprite(Assets.getAssets().getRegion("snakes/snake_2_tail"));
-        setColor(Color.BLACK);
+        setColor(Color.WHITE);
     }
 
     public static void setColor(Color color1) {
         color = color1;
-
         rectangle.setColor(color);
     }
 

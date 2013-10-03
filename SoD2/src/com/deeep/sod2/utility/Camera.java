@@ -19,6 +19,7 @@ public class Camera {
     private Vector3 point2;
     /** The boundary box itself */
     private BoundingBox boundingBox;
+    private boolean inHud = false;
     /** The reference to the frustum */
     private Frustum frustum;
 
@@ -50,6 +51,8 @@ public class Camera {
      * @return true if no frustum exists, or if the object is within vision. false otherwise
      */
     public boolean inVision(float x, float y, float width, float height) {
+        if (inHud)
+            return true;
         point1.set(x, y, 0);
         point2.set(x + width, y + height, 0);
         boundingBox.set(point1, point2);
@@ -58,5 +61,13 @@ public class Camera {
         if (frustum.boundsInFrustum(boundingBox))
             return true;
         return false;
+    }
+
+    public void switchToHud() {
+        this.inHud = true;
+    }
+
+    public void switchToGame() {
+        this.inHud = false;
     }
 }

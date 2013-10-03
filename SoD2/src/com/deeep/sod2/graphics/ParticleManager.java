@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-public class ParticleManager{
+public class ParticleManager {
     /** Particles ot be managed */
     public ArrayList<Particle> particles;
     public Random random;
@@ -58,7 +58,7 @@ public class ParticleManager{
             sequencer.addSequence(new Sequence(new FormulaTypes.Sleep(sleepTime)));
             sequencer.addSequence(new Sequence(new FormulaTypes.Linear(downTime, minBrightness)));
             sequencer.addSequence(new Sequence(new FormulaTypes.Sleep(sleepTime)));
-           // particles.add(new Particle(new PVector(0.5f, 0.5f), Color.WHITE, sequencer, 0.1f, 0.1f));
+            // particles.add(new Particle(new PVector(0.5f, 0.5f), Color.WHITE, sequencer, 0.1f, 0.1f));
             particles.add(new Particle(new PVector((random.nextFloat() * (World.maxCamOffSetX + 12)), (random.nextFloat() * (World.maxCamOffSetY + 8))), color, sequencer, 1 / 40f, 1 / 40f));
         }
 

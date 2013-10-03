@@ -8,8 +8,10 @@ package com.deeep.sod2.particle;
  * To change this template use File | Settings | File Templates.
  */
 public class FormulaTypes {
-    /** TODO  Y = a^x + b */
+    /** TODO  Y = ab^X */
     public static class Exponential extends Formula {
+        private float b;
+        private float a;
 
         public Exponential(float period, float endValue) {
             super(period, endValue);
@@ -17,12 +19,15 @@ public class FormulaTypes {
 
         @Override
         protected float calculate(float stateTime) {
-            return 0;  //To change body of implemented methods use File | Settings | File Templates.
+            return (float) (Math.pow(stateTime, a) + b);  //To change body of implemented methods use File | Settings | File Templates.
         }
 
         @Override
         public void initialize(float startValue) {
-            //To change body of implemented methods use File | Settings | File Templates.
+            a = 1;
+            // endvalue = ? ^ period + startvalue
+            b = startValue;
+
         }
     }
 
