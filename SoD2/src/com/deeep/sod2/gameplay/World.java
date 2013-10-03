@@ -79,7 +79,8 @@ public class World {
                     camera.y += .1f;
                     for(Particle p: particleManager.particles){
                         /** If the particle is a planet move it */
-                        p.move(0.f, .001f*((float)p.getWidth()*3f*p.getHeight()*3f));
+                        if(p instanceof Planet) p.move(0.f, .001f*((float)p.getWidth()*8f*p.getHeight()*8f));
+                        else p.move(0.f, 0.95f/10f);
                     }
                 }
             }
@@ -91,7 +92,8 @@ public class World {
                     camera.y -= .1f;
                     for(Particle p: particleManager.particles){
                         /** If the particle is a planet move it */
-                        p.move(0.f, -.001f*((float)p.getWidth()*2f*p.getHeight()*2f));
+                        if(p instanceof Planet) p.move(0.f, -.001f*((float)p.getWidth()*8f*p.getHeight()*8f));
+                        else p.move(0.f, -0.95f/10f);
                     }
                 }
             }
@@ -103,7 +105,8 @@ public class World {
                     camera.x -= .1f;
                     for(Particle p: particleManager.particles){
                         /** If the particle is a planet move it */
-                        p.move(-.001f*((float)p.getWidth()*2f*p.getHeight()*2f), 0.f);
+                        if(p instanceof Planet) p.move(-.001f*((float)p.getWidth()*8f*p.getHeight()*8f), 0.f);
+                        else p.move(-0.95f/10f, 0.f);
                     }
                 }
             }
@@ -115,7 +118,8 @@ public class World {
                     camera.x += .1f;
                     for(Particle p: particleManager.particles){
                         /** If the particle is a planet move it */
-                        p.move(.001f*((float)p.getWidth()*2f*p.getHeight()*2f), 0.f);
+                        if(p instanceof Planet) p.move(.001f*((float)p.getWidth()*8f*p.getHeight()*8f), 0.f);
+                        else p.move(0.95f/10f, 0.f);
                     }
                 }
             }
