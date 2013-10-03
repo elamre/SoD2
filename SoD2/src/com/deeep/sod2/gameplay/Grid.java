@@ -55,5 +55,11 @@ public class Grid {
                 ShapeRenderer.drawLine(spriteBatch, 0, y, x, y, 0.025f);
             }
         }
+        ShapeRenderer.setColor(new Color(0.1f, 0.4f, 0.5f, 0.3f));
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                ShapeRenderer.drawRectangle(spriteBatch, x, y, 1f, 1f, true);
+            }
+        }
     }
 }
