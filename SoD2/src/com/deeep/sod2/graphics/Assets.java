@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -27,6 +28,8 @@ public class Assets {
     private Logger logger = Logger.getInstance();
     /** The texture region for the shape renderer */
     private Sprite blankSprite;
+    /** Standard font*/
+    private BitmapFont font;
 
     /** Find a use for this, if there is any TODO */
     public Assets() {
@@ -52,6 +55,7 @@ public class Assets {
             pixmap.fillRectangle(0, 0, 64, 64);
             blankSprite = new Sprite(new Texture(pixmap));
             //pixmap.dispose();
+            font = loadBitmapFont();
             textureAtlas = new TextureAtlas(Gdx.files.internal("images/TextureAtlas.txt"));
             planetTextureAtlas = new TextureAtlas(Gdx.files.internal("images/PlanetTextureAtlas.txt"));
             logger.system(Assets.class, "All assets have been loaded");
@@ -90,19 +94,25 @@ public class Assets {
     }
 
     /**
-     * Gets a character from the bitmap font font.png
-     *
+     * Loads the bitmap font as BitmapFont object
+     * @return null or the font
      */
-    public TextureRegion getBitmapCharacter(char c){
-        String tileCharacters =
-                " !\"#$%^'()*+,-./0123456789:;<=>?@" +
-                "ABCDERFGIJKLMNOPQRSTUVWXYZ[\\]^_`"+
-                "abcdefghijklmnopqrstuvwxyz{|}~ ";
-        for(int i=0; i<tileCharacters.length(); i++){
-            if(c==tileCharacters.charAt(i)){
-                return new TextureRegion(new Texture(Gdx.files.internal("images/gui/font.png")), (float)i%8, (float)i/8, 8f, 8f);
-            }
-        }
-        return new TextureRegion(new Texture(Gdx.files.internal("images/gui/font.png")), 0f, 0f, 8f, 8f);
+    public BitmapFont loadBitmapFont(){
+        Texture texture = null;
+        try{texture = new Texture(Gdx.files.internal("font/font.png"));}
+        catch (NullPointerException e){Logger.getInstance().error(this.getClass(), e.getStackTrace());}
+        texture.setFilter(Texture.TextureFilter.MipMapNearestNearest, Texture.TextureFilter.MipMapNearestNearest);
+        BitmapFont font = new BitmapFont(Gdx.files.internal("font/font.fnt"), new TextureRegion(texture), false);
+        if(font != null) return font;
+        Logger.getInstance().error(this.getClass(), "Couldn't find specified font!");
+        return null;
+    }
+
+    /**
+     * Returns the bitmap font as BitmapFont object
+     * @return null or the font
+     */
+    public BitmapFont getBitmapFont(){
+        return font;
     }
 }

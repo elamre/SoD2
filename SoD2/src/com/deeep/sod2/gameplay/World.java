@@ -1,7 +1,9 @@
 package com.deeep.sod2.gameplay;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.deeep.sod2.entities.Block;
@@ -135,6 +137,15 @@ public class World {
         grid.draw(spriteBatch);
         block.draw(spriteBatch);
         spriteBatch.draw(texture, block.getX(), block.getY(), 1, 1);
-        spriteBatch.draw(Assets.getAssets().getBitmapCharacter('0'),-1, -1, 1/5, 1/5);
+        drawString(spriteBatch, "hello, World!", 1, 1);
+    }
+
+    public void drawString(SpriteBatch spriteBatch, String s, int x, int y){
+        spriteBatch.flush();
+        //Gdx.gl10.glEnable(GL10.GL_ALPHA_TEST);
+        //Gdx.gl10.glAlphaFunc(GL10.GL_GREATER, 0.5f);
+        Assets.getAssets().getBitmapFont().draw(spriteBatch, s, x, y);
+        spriteBatch.flush();
+        //Gdx.gl10.glDisable(GL10.GL_ALPHA_TEST);
     }
 }
