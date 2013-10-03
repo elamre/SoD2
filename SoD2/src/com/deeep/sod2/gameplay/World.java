@@ -80,7 +80,7 @@ public class World {
                     for(Particle p: particleManager.particles){
                         /** If the particle is a planet move it */
                         if(p instanceof Planet) p.move(0.f, .001f*((float)p.getWidth()*8f*p.getHeight()*8f));
-                        else p.move(0.f, 0.95f/10f);
+                        else if(p instanceof Star) ((Star)p).updatePos(camera);
                     }
                 }
             }
@@ -93,7 +93,7 @@ public class World {
                     for(Particle p: particleManager.particles){
                         /** If the particle is a planet move it */
                         if(p instanceof Planet) p.move(0.f, -.001f*((float)p.getWidth()*8f*p.getHeight()*8f));
-                        else p.move(0.f, -0.95f/10f);
+                        else if(p instanceof Star) ((Star)p).updatePos(camera);
                     }
                 }
             }
@@ -106,7 +106,7 @@ public class World {
                     for(Particle p: particleManager.particles){
                         /** If the particle is a planet move it */
                         if(p instanceof Planet) p.move(-.001f*((float)p.getWidth()*8f*p.getHeight()*8f), 0.f);
-                        else p.move(-0.95f/10f, 0.f);
+                        else if(p instanceof Star) ((Star)p).updatePos(camera);
                     }
                 }
             }
@@ -119,7 +119,7 @@ public class World {
                     for(Particle p: particleManager.particles){
                         /** If the particle is a planet move it */
                         if(p instanceof Planet) p.move(.001f*((float)p.getWidth()*8f*p.getHeight()*8f), 0.f);
-                        else p.move(0.95f/10f, 0.f);
+                        else if(p instanceof Star && !(p instanceof Planet)) ((Star)p).updatePos(camera);
                     }
                 }
             }

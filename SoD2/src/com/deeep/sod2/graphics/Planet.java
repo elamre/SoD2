@@ -26,7 +26,7 @@ public class Planet extends Particle {
      */
     @Override
     public void update(float delta) {
-        location.add(velocity);
+        //location.add(velocity);
     }
 
     /**

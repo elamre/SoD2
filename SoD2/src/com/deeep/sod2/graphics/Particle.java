@@ -15,7 +15,7 @@ import java.util.Random;
  * Date: 10/1/13
  */
 
-public class Particle implements Comparable<Particle> {
+public class Particle {
     /** Location vector (x,y) */
     public PVector location;
     /** Velocity to add to position vector */
