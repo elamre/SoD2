@@ -28,6 +28,8 @@ public class EntityList {/* The packet id to assign to packets. Will increment a
      */
     public static void register() {
         registerEntity(new Block());
+        registerEntity(new Tail());
+        registerEntity(new Head());
         registered = true;
     }
 
@@ -65,12 +67,10 @@ public class EntityList {/* The packet id to assign to packets. Will increment a
     public static int getEntityType(Entity entity) {
         if (!registered)
             register();
-        logger.debug(EntityList.class, "Retrieving id for class: " + entity.getClass().toString());
         if (!entityToType.containsKey(entity.getClass())) {
             logger.warn(EntityList.class, "Entity isn't registered");
             return 0;
         }
-
         return entityToType.get(entity.getClass());
     }
 

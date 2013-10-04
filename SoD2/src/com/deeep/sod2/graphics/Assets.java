@@ -102,10 +102,8 @@ public class Assets {
      */
     public BitmapFont loadBitmapFont(){
         Texture texture = null;
-        try{texture = new Texture(Gdx.files.internal("font/font.png"));}
-        catch (NullPointerException e){Logger.getInstance().error(this.getClass(), e.getStackTrace());}
+        texture = new Texture(Gdx.files.internal("font/font.png"));
 
-        texture.setFilter(Texture.TextureFilter.MipMapNearestNearest, Texture.TextureFilter.MipMapNearestNearest);
         BitmapFont font = new BitmapFont(Gdx.files.internal("font/font.fnt"), new TextureRegion(texture), false);
         if(font != null) return font;
         Logger.getInstance().error(this.getClass(), "Couldn't find specified font!");

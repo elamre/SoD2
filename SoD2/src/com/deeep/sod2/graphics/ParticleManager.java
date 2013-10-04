@@ -59,7 +59,7 @@ public class ParticleManager {
             sequencer.addSequence(new Sequence(new FormulaTypes.Linear(downTime, minBrightness)));
             sequencer.addSequence(new Sequence(new FormulaTypes.Sleep(sleepTime)));
             // particles.add(new Particle(new PVector(0.5f, 0.5f), Color.WHITE, sequencer, 0.1f, 0.1f));
-            particles.add(new Star(new PVector((random.nextFloat() * (World.maxCamOffSetX + 12)), (random.nextFloat() * (World.maxCamOffSetY + 8))), color, sequencer, 1 / 40f, 1 / 40f));
+            particles.add(new Star(new PVector((random.nextFloat() * (20)), (random.nextFloat() * (10))), color, sequencer, 1 / 40f, 1 / 40f));
         }
 
         int[] planetIds = {1, 2, 3, 4, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};

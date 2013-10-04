@@ -31,8 +31,6 @@ public class Renderer {
     /** The world to draw all the entities of */
     private World world;
     //--------------------Debugging stuff TODO remove -------------//
-    /** Temporary texture to display something on the screen */
-    private TextureRegion texture;
     //-------------------------------------------------------------//
 
     public Renderer(SpriteBatch spriteBatch, World world) {
@@ -43,13 +41,13 @@ public class Renderer {
         Camera.getInstance().setFrustum(cam.frustum);
         this.spriteBatch = spriteBatch;
         //TODO remove testing purposes only */
-        texture = Assets.getAssets().getRegion("snakes/snake_1_head");
     }
 
     public void render() {
         cam.update();
         hudCam.update();
-        cam.position.set(FRUSTUM_WIDTH / 2 + world.camera.getX(), FRUSTUM_HEIGHT / 2 + world.camera.getY(), 0);
+        Camera.getInstance().update(Gdx.graphics.getDeltaTime());
+        cam.position.set( Camera.getInstance().getX(), Camera.getInstance().getY(), 0);
         spriteBatch.setProjectionMatrix(cam.combined);
         renderBackground();
         renderObjects();
@@ -66,9 +64,8 @@ public class Renderer {
     }
 
     private void renderObjects() {
-
         spriteBatch.begin();                       // ShapeRenderer.drawRectangle(spriteBatch,0,0,15,15,true);
-        world.draw(spriteBatch, texture);
+        world.draw(spriteBatch);
         spriteBatch.end();
 
     }
@@ -78,9 +75,10 @@ public class Renderer {
         spriteBatch.begin();
         spriteBatch.setColor(Color.WHITE);
         ShapeRenderer.setColor(Color.WHITE);
-        ShapeRenderer.drawRectangle(spriteBatch,2,2,5,10,true);
-       // Assets.getAssets().getBitmapFont().setColor(Color.WHITE);
-        world.drawString(spriteBatch, "hello, World!", 20, 20);
+        ShapeRenderer.drawRectangle(spriteBatch, 2, 2, 5, 10, true);
+        spriteBatch.draw(Assets.getAssets().getButton(true), 1, 1);
+        // Assets.getAssets().getBitmapFont().setColor(Color.WHITE);
+        //world.drawString(spriteBatch, "hello, World!", 20, 20);
         spriteBatch.end();
     }
 

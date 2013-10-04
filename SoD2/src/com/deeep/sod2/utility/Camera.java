@@ -3,6 +3,7 @@ package com.deeep.sod2.utility;
 import com.badlogic.gdx.math.Frustum;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
+import com.deeep.sod2.entities.Entity;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,6 +15,14 @@ import com.badlogic.gdx.math.collision.BoundingBox;
 public class Camera {
     /** The singleton instance */
     private static Camera ourInstance = new Camera();
+    /** The deltaX and y */
+    private float deltaX = 0.01f;
+    private float previousXDistance = 0;
+    private float deltaY = 0.01f;
+    private float previousYDistance = 0;
+    /** The current position of the camera */
+    private float x;
+    private float y;
     /** 2 points to make the boundary box */
     private Vector3 point1;
     private Vector3 point2;
@@ -22,6 +31,7 @@ public class Camera {
     private boolean inHud = false;
     /** The reference to the frustum */
     private Frustum frustum;
+    private Entity focus;
 
     /** Default constructor */
     private Camera() {
@@ -36,8 +46,44 @@ public class Camera {
         return ourInstance;
     }
 
+    public void setFocus(Entity focus) {
+        this.focus = focus;
+        x = focus.getX() + 0.5f;
+        y = focus.getY() + 0.5f;
+    }
+
     public void setFrustum(Frustum frustum) {
         this.frustum = frustum;
+    }
+
+    public void update(float deltaT) {
+        if (focus != null) {
+            if (x > focus.getX() + deltaT) {
+                deltaX = -1f;
+            } else if (x < focus.getX() - deltaT) {
+                deltaX = 1f;
+            } else {
+                deltaX = 0;
+            }
+            if (y > focus.getY()+deltaT) {
+                deltaY = -1f;
+            } else if (y < focus.getY()-deltaT) {
+                deltaY = 1f;
+            } else {
+                deltaY = 0;
+            }
+
+            y += deltaY * deltaT;
+            x += deltaX * deltaT;
+        }
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
     }
 
     /**

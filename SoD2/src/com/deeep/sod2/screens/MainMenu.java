@@ -25,7 +25,7 @@ import com.deeep.sod2.utility.Logger;
  * Time: 10:16 AM
  * To change this template use File | Settings | File Templates.
  */
-public class MenuScreen implements Screen {
+public class MainMenu implements Screen {
     /** Logger instance to log all events to. Please don't use system.out.print */
     private Logger logger = Logger.getInstance();
     /** The core system. Use this to switch screens */
@@ -35,7 +35,7 @@ public class MenuScreen implements Screen {
      * Constructor for the menu screen doesn't do much yet
      * @param core reference for the core
      */
-    public MenuScreen(Core core) {
+    public MainMenu(Core core) {
         this.core = core;
     }
 

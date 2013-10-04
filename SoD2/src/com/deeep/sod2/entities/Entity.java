@@ -17,15 +17,17 @@ import com.deeep.sod2.utility.Logger;
 public abstract class Entity {
     /** The interval between debug messages */
     private final float debugThreshold = 1;
+    /** The position of the entity */
+    public float x;
+    public float y;
     /** Width and height of the entity */
     protected float width = 1f;
     protected float height = 1f;
     /** The angle of the entity IN DEGREES. */
     protected boolean debug = true;
-    /** The position of the entity */
-    public float x;
-    public float y;
+    /** The angle the entity is facing */
     protected float angle;
+    /** The texture region to be drawn */
     protected TextureRegion textureRegion;
     /** The id this particular entity goes by */
     private int id;
@@ -35,6 +37,7 @@ public abstract class Entity {
     private float debugTimer = 0;
     /** The owner of this entity */
     private int owner = 0;
+    /** Logger instance */
     private Logger logger = Logger.getInstance();
 
     /** USE THIS ONLY FOR REGISTERING THE ENTITY! SHOULD NOT BE USED OTHERWISE! */
@@ -47,9 +50,9 @@ public abstract class Entity {
         this.entityType = EntityList.getEntityType(this);
         this.owner = owner;
         this.id = id;
-        onCreate();
         this.x = x;
         this.y = y;
+        onCreate();
     }
 
     /** Use this function instead of the constructor */
@@ -81,10 +84,7 @@ public abstract class Entity {
                 drawDebug(spriteBatch);
             }
             if (textureRegion != null) {
-                spriteBatch.draw(textureRegion, x + (1 - width), y + (1 - height), width / 2, height / 2, width, height, 1, 1, angle);
-                spriteBatch.setColor(.7f, .7f, .7f, .7f);
-                spriteBatch.draw(textureRegion, x - (1 - width) * 2, y - (1 - height) * 2, width / 2, height / 2, width, height, 1, 1, angle);
-                spriteBatch.setColor(1, 1, 1, 1);
+                spriteBatch.draw(textureRegion, x, y, 0, 0, width, height, 1, 1, angle);
             }
         }
     }
@@ -174,8 +174,8 @@ public abstract class Entity {
 
     protected void setTextureRegion(TextureRegion textureRegion) {
         this.textureRegion = textureRegion;
-        this.width = 0.8f;
-        this.height = 0.8f;
+        this.width = 1;
+        this.height = 1;
     }
 
     public String toString() {
