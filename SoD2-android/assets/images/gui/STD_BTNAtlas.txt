@@ -1,0 +1,18 @@
+STD_BTN.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+active
+  rotate: false
+  xy: 0, 0
+  size: 104, 15
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+inactive
+  rotate: false
+  xy: 104, 0
+  size: 104, 15
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
