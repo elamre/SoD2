@@ -79,8 +79,8 @@ public class World {
                     camera.y += .1f;
                     for(Particle p: particleManager.particles){
                         /** If the particle is a planet move it */
-                        if(p instanceof Planet) p.move(0.f, .001f*((float)p.getWidth()*8f*p.getHeight()*8f));
-                        else if(p instanceof Star) ((Star)p).updatePos(camera);
+                        if(p instanceof Planet) p.move(0.f, .001f*(p.getWidth()*8f*p.getHeight()*8f));
+                        else if(p instanceof Star) ((Star)p).updatePosRelativeTo(camera);
                     }
                 }
             }
@@ -92,8 +92,8 @@ public class World {
                     camera.y -= .1f;
                     for(Particle p: particleManager.particles){
                         /** If the particle is a planet move it */
-                        if(p instanceof Planet) p.move(0.f, -.001f*((float)p.getWidth()*8f*p.getHeight()*8f));
-                        else if(p instanceof Star) ((Star)p).updatePos(camera);
+                        if(p instanceof Planet) p.move(0.f, -.001f*(p.getWidth()*8f*p.getHeight()*8f));
+                        else if(p instanceof Star) ((Star)p).updatePosRelativeTo(camera);
                     }
                 }
             }
@@ -104,9 +104,9 @@ public class World {
                 if(camera.x-.1f>=minCamOffSetX){
                     camera.x -= .1f;
                     for(Particle p: particleManager.particles){
-                        /** If the particle is a planet move it */
-                        if(p instanceof Planet) p.move(-.001f*((float)p.getWidth()*8f*p.getHeight()*8f), 0.f);
-                        else if(p instanceof Star) ((Star)p).updatePos(camera);
+                        /** If the particle is a planet move it depending on it's width and height */
+                        if(p instanceof Planet) p.move(-.001f*(p.getWidth()*8f*p.getHeight()*8f), 0.f);
+                        else if(p instanceof Star) ((Star)p).updatePosRelativeTo(camera);
                     }
                 }
             }
@@ -119,7 +119,7 @@ public class World {
                     for(Particle p: particleManager.particles){
                         /** If the particle is a planet move it */
                         if(p instanceof Planet) p.move(.001f*((float)p.getWidth()*8f*p.getHeight()*8f), 0.f);
-                        else if(p instanceof Star && !(p instanceof Planet)) ((Star)p).updatePos(camera);
+                        else if(p instanceof Star && !(p instanceof Planet)) ((Star)p).updatePosRelativeTo(camera);
                     }
                 }
             }
@@ -140,6 +140,7 @@ public class World {
         ShapeRenderer.drawRectangle(spriteBatch,1,1,4,4,true);
         block.draw(spriteBatch);
         spriteBatch.draw(texture, block.getX(), block.getY(), 1, 1);
+        spriteBatch.draw(Assets.getAssets().getButton(true), 1, 1);
         drawString(spriteBatch, "hello, World!", 4, 4);
     }
 

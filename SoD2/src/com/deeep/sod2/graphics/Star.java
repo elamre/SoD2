@@ -24,7 +24,7 @@ public class Star extends Particle {
      * Updates the stars position
      * @param camera the camera of which the stars position should be adjusted to
      */
-    public void updatePos(Block camera){
+    public void updatePosRelativeTo(Block camera){
         location.x+=(camera.x-oldCamX)*0.9f;
         location.y+=(camera.y-oldCamY)*0.9f;
 

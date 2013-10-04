@@ -23,7 +23,7 @@ public class Assets {
     /** Just a check to be sure that the assets aren't loaded multiple times */
     private static boolean loaded = false;
     /** The atlases containing all the images */
-    private TextureAtlas textureAtlas, planetTextureAtlas;
+    private TextureAtlas textureAtlas, planetTextureAtlas, STD_BTNAtlas;
     /** Logger instance */
     private Logger logger = Logger.getInstance();
     /** The texture region for the shape renderer */
@@ -56,8 +56,11 @@ public class Assets {
             blankSprite = new Sprite(new Texture(pixmap));
             //pixmap.dispose();
             font = loadBitmapFont();
+
             textureAtlas = new TextureAtlas(Gdx.files.internal("images/TextureAtlas.txt"));
             planetTextureAtlas = new TextureAtlas(Gdx.files.internal("images/PlanetTextureAtlas.txt"));
+            STD_BTNAtlas = new TextureAtlas(Gdx.files.internal("images/gui/STD_BTNAtlas.txt"));
+
             logger.system(Assets.class, "All assets have been loaded");
             loaded = true;
         }
@@ -115,5 +118,14 @@ public class Assets {
      */
     public BitmapFont getBitmapFont(){
         return font;
+    }
+
+    /**
+     * Returns a button texture
+     * @param active if TRUE return the active button
+     * @return the button texture
+     */
+    public TextureRegion getButton(boolean active){
+        return active ? STD_BTNAtlas.findRegion("active") : STD_BTNAtlas.findRegion("inactive");
     }
 }

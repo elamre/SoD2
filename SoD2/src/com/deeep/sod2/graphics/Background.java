@@ -28,18 +28,5 @@ public class Background {
         }
     }
 
-    public void removeStar(int side){
-        switch (side){
-            case 0:
-                break;
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-        }
-    }
-
 
 }
