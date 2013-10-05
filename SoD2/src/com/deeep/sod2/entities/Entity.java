@@ -23,8 +23,7 @@ public abstract class Entity {
     /** Width and height of the entity */
     protected float width = 1f;
     protected float height = 1f;
-    /** The angle of the entity IN DEGREES. */
-    protected boolean debug = true;
+    protected boolean debug = false;
     /** The angle the entity is facing */
     protected float angle;
     /** The texture region to be drawn */
@@ -79,13 +78,13 @@ public abstract class Entity {
 
     public void draw(SpriteBatch spriteBatch) {
         if (Camera.getInstance().inVision(x, y, width, height)) {
-            implementDraw_1(spriteBatch);
             if (debug) {
                 drawDebug(spriteBatch);
             }
             if (textureRegion != null) {
-                spriteBatch.draw(textureRegion, x, y, 0, 0, width, height, 1, 1, angle);
+                spriteBatch.draw(textureRegion, x + (1 - width)/2, y + (1 - height)/2, width / 2, height / 2, width, height, 1, 1, angle);
             }
+            implementDraw_1(spriteBatch);
         }
     }
 

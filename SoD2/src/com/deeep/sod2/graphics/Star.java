@@ -25,8 +25,8 @@ public class Star extends Particle {
 
     public void update(float deltaT) {
         super.update(deltaT);
-        location.x += (Camera.getInstance().getX() - oldCamX) * (0.95f * maxBrightness);
-        location.y += (Camera.getInstance().getY() - oldCamY) * (0.95f * maxBrightness);
+        location.x += (Camera.getInstance().getX() - oldCamX) * (0.95f + maxBrightness / 10);
+        location.y += (Camera.getInstance().getY() - oldCamY) * (0.95f + maxBrightness / 10);
 
         oldCamX = Camera.getInstance().getX();
         oldCamY = Camera.getInstance().getY();

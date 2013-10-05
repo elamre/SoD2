@@ -1,6 +1,7 @@
 package com.deeep.sod2.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.deeep.sod2.entities.pickups.Pickup;
 import com.deeep.sod2.utility.Logger;
 
 import java.util.ArrayList;
@@ -42,7 +43,9 @@ public class Snake extends Entity {
      *
      * @param tail the tail to add
      */
-    public void addTail(Tail tail) {
+    public void addTail(Tail tail, Pickup pickUp) {
+        pickUp.onCreate();
+        tail.setPickup(pickUp);
         tails.add(tail);
     }
 
@@ -55,6 +58,7 @@ public class Snake extends Entity {
     /** @param deltaT  */
     public void update(float deltaT) {
         tickTimer += deltaT;
+        Logger.getInstance().debug(this.getClass(), " Angle: " + getAngle());
         if (tickTimer >= tickTime) {
             tickTimer -= tickTimer;
             move();
@@ -88,9 +92,11 @@ public class Snake extends Entity {
         while (i > 0) {
             tails.get(i).setX(tails.get(i - 1).getX());
             tails.get(i).setY(tails.get(i - 1).getY());
+            tails.get(i).setAngle(tails.get(i - 1).getAngle());
             i--;
         }
         if (tails.size() > 0) {
+            tails.get(i).setAngle(head.getAngle());
             tails.get(0).setX(x);
             tails.get(0).setY(y);
         }
@@ -142,6 +148,7 @@ public class Snake extends Entity {
                 }
                 break;
         }
+        head.setAngle(dir.dir);
     }
 
     public void setSkin(int skin) {
@@ -153,7 +160,12 @@ public class Snake extends Entity {
 
     /** the direction of the snake */
     public enum Direction {
-        NORTH, EAST, SOUTH, WEST;
+        NORTH(90), EAST(0), SOUTH(270), WEST(180);
+        int dir;
+
+        Direction(int dir) {
+            this.dir = dir;
+        }
     }
 
 }

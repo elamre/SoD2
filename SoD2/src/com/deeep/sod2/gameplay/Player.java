@@ -5,6 +5,8 @@ import com.deeep.sod2.entities.EntityManager;
 import com.deeep.sod2.entities.Head;
 import com.deeep.sod2.entities.Snake;
 import com.deeep.sod2.entities.Tail;
+import com.deeep.sod2.entities.pickups.HearthPickup;
+import com.deeep.sod2.entities.pickups.Pickup;
 import com.deeep.sod2.utility.Camera;
 
 /**
@@ -66,11 +68,12 @@ public class Player {
 
     public void setEntityManager(EntityManager entityManager) {
         this.entityManager = new EntityManager();
+
         snake = new Snake();
         snake.setHead((Head) entityManager.addEntitySinglePlayer(new Head(entityManager.getNextSinglePlayerId(), 0, 1, 1)));
-        snake.addTail((Tail) entityManager.addEntitySinglePlayer(new Tail(entityManager.getNextSinglePlayerId(), 0, 1, 1)));
-        snake.addTail((Tail) entityManager.addEntitySinglePlayer(new Tail(entityManager.getNextSinglePlayerId(), 0, 1, 1)));
-        snake.addTail((Tail) entityManager.addEntitySinglePlayer(new Tail(entityManager.getNextSinglePlayerId(), 0, 1, 1)));
+        snake.addTail((Tail) entityManager.addEntitySinglePlayer(new Tail(entityManager.getNextSinglePlayerId(), 0, 1, 1)),new HearthPickup(entityManager.getNextSinglePlayerId(), 1, 1));
+        snake.addTail((Tail) entityManager.addEntitySinglePlayer(new Tail(entityManager.getNextSinglePlayerId(), 0, 1, 1)),new HearthPickup(entityManager.getNextSinglePlayerId(), 1, 1));
+        snake.addTail((Tail) entityManager.addEntitySinglePlayer(new Tail(entityManager.getNextSinglePlayerId(), 0, 1, 1)),new HearthPickup(entityManager.getNextSinglePlayerId(), 1, 1));
         setSkin(1);
         Camera.getInstance().setFocus(snake, .5f, .5f);
     }

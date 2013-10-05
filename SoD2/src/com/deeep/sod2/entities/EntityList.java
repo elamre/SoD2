@@ -1,5 +1,6 @@
 package com.deeep.sod2.entities;
 
+import com.deeep.sod2.entities.pickups.HearthPickup;
 import com.deeep.sod2.utility.Logger;
 
 import java.util.HashMap;
@@ -30,6 +31,7 @@ public class EntityList {/* The packet id to assign to packets. Will increment a
         registerEntity(new Block());
         registerEntity(new Tail());
         registerEntity(new Head());
+        registerEntity(new HearthPickup());
         registered = true;
     }
 

@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.deeep.sod2.entities.Block;
 import com.deeep.sod2.entities.EntityManager;
 import com.deeep.sod2.entities.Snake;
+import com.deeep.sod2.entities.pickups.HearthPickup;
 import com.deeep.sod2.graphics.*;
 
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ public class World {
         grid = new Grid(1, 20, 20, Color.BLUE);
         particleManager = new ParticleManager();
         player.setEntityManager(entityManager);
+        entityManager.addEntitySinglePlayer(new HearthPickup(entityManager.getNextSinglePlayerId(), 3, 3));
     }
 
     public void update(float deltaT) {
