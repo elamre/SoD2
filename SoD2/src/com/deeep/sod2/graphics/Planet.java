@@ -9,8 +9,12 @@ package com.deeep.sod2.graphics;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.deeep.sod2.utility.Camera;
 
 public class Planet extends Particle {
+
+    /** to keep track of how much the camera has moved since it last updated the stars position */
+    private float oldCamX, oldCamY;
 
     public int planetId;
 
@@ -26,7 +30,12 @@ public class Planet extends Particle {
      */
     @Override
     public void update(float delta) {
-        //location.add(velocity);
+        super.update(delta);
+        location.x += (Camera.getInstance().getX() - oldCamX) * .2f;
+        location.y += (Camera.getInstance().getY() - oldCamY) * .2f;
+
+        oldCamX = Camera.getInstance().getX();
+        oldCamY = Camera.getInstance().getY();
     }
 
     /**

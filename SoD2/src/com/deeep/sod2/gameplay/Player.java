@@ -72,7 +72,7 @@ public class Player {
         snake.addTail((Tail) entityManager.addEntitySinglePlayer(new Tail(entityManager.getNextSinglePlayerId(), 0, 1, 1)));
         snake.addTail((Tail) entityManager.addEntitySinglePlayer(new Tail(entityManager.getNextSinglePlayerId(), 0, 1, 1)));
         setSkin(1);
-        Camera.getInstance().setFocus(snake);
+        Camera.getInstance().setFocus(snake, .5f, .5f);
     }
 
     public void update(float deltaT) {

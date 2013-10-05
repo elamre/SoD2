@@ -17,7 +17,7 @@ public class Sequencer {
     /** The value of the sequence in use */
     private float value = 0;
     /** The index of the sequence it's currently using */
-    private int index = 0;
+    private int index = -1;
     /** If the sequencer has to restart after the last sequence */
     private boolean repeat = false;
 
@@ -38,11 +38,20 @@ public class Sequencer {
     public void addSequence(Sequence sequence) {
         sequences.add(sequence);
         sequence.activate(sequences.size() - 1);
+        index = (index == -1) ? 0 : index;
+    }
+
+    public void startSingleSequence(float startValue, Sequence sequence) {
+        clearSequence();
+        sequences.add(sequence);
+        sequence.activate(startValue);
+        index = 0;
     }
 
     /** TODO figure out when to actually use this */
     public void clearSequence() {
         sequences.clear();
+        index = -1;
     }
 
     /**
@@ -84,5 +93,9 @@ public class Sequencer {
             return true;
         }
         return false;
+    }
+
+    public int getIndex(){
+        return index;
     }
 }

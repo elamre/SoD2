@@ -4,6 +4,9 @@ import com.badlogic.gdx.math.Frustum;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.deeep.sod2.entities.Entity;
+import com.deeep.sod2.particle.FormulaTypes;
+import com.deeep.sod2.particle.Sequence;
+import com.deeep.sod2.particle.Sequencer;
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,11 +18,15 @@ import com.deeep.sod2.entities.Entity;
 public class Camera {
     /** The singleton instance */
     private static Camera ourInstance = new Camera();
-    /** The deltaX and y */
-    private float deltaX = 0.01f;
-    private float previousXDistance = 0;
-    private float deltaY = 0.01f;
-    private float previousYDistance = 0;
+    /** The previous x and y of the focus */
+    private float previousFocusY = 0;
+    private float previousFocusX = 0;
+    /** If the focus is a dynamic object, adjust to its speed */
+    private float updateInterval = 1f;
+    private boolean movableFocus = false;
+    /** Sequencers to follow the focus */
+    private Sequencer xSequencer;
+    private Sequencer ySequencer;
     /** The current position of the camera */
     private float x;
     private float y;
@@ -28,6 +35,7 @@ public class Camera {
     private Vector3 point2;
     /** The boundary box itself */
     private BoundingBox boundingBox;
+    /** If the camera is in the hud */
     private boolean inHud = false;
     /** The reference to the frustum */
     private Frustum frustum;
@@ -36,6 +44,8 @@ public class Camera {
     /** Default constructor */
     private Camera() {
         boundingBox = new BoundingBox();
+        xSequencer = new Sequencer(false);
+        ySequencer = new Sequencer(false);
         point1 = new Vector3(0, 0, 0);
         point2 = new Vector3(1, 1, 0);
     }
@@ -46,35 +56,46 @@ public class Camera {
         return ourInstance;
     }
 
-    public void setFocus(Entity focus) {
+    /**
+     * Sets the focus on an entity
+     *
+     * @param focus the entity to focus
+     */
+    public void setFocus(Entity focus, float offsetX, float offsetY) {
         this.focus = focus;
-        x = focus.getX() + 0.5f;
-        y = focus.getY() + 0.5f;
+        xSequencer.startSingleSequence(0, new Sequence(new FormulaTypes.Linear(1, focus.getX() + offsetX)));
+        ySequencer.startSingleSequence(0, new Sequence(new FormulaTypes.Linear(1, focus.getY() + offsetY)));
     }
 
+    /**
+     * sets the frustum instance
+     *
+     * @param frustum instance
+     */
     public void setFrustum(Frustum frustum) {
         this.frustum = frustum;
     }
 
+    /**
+     * update method, will follow the focus entity. TODO put some work
+     *
+     * @param deltaT delta time
+     */
     public void update(float deltaT) {
         if (focus != null) {
-            if (x > focus.getX() + deltaT) {
-                deltaX = -1f;
-            } else if (x < focus.getX() - deltaT) {
-                deltaX = 1f;
-            } else {
-                deltaX = 0;
+            if ((focus.getX() != previousFocusX)) {
+                xSequencer.startSingleSequence(x, new Sequence(new FormulaTypes.Linear(updateInterval + (.1f * updateInterval), focus.getX())));
             }
-            if (y > focus.getY()+deltaT) {
-                deltaY = -1f;
-            } else if (y < focus.getY()-deltaT) {
-                deltaY = 1f;
-            } else {
-                deltaY = 0;
-            }
+            if ((focus.getY() != previousFocusY)) {
 
-            y += deltaY * deltaT;
-            x += deltaX * deltaT;
+                ySequencer.startSingleSequence(y, new Sequence(new FormulaTypes.Linear(updateInterval + (.1f * updateInterval), focus.getY())));
+            }
+            previousFocusX = focus.getX();
+            previousFocusY = focus.getY();
+            xSequencer.update(deltaT);
+            ySequencer.update(deltaT);
+            x = xSequencer.getValue();
+            y = ySequencer.getValue();
         }
     }
 
@@ -109,11 +130,16 @@ public class Camera {
         return false;
     }
 
+    /** switches to the HUD TODO do something here */
     public void switchToHud() {
         this.inHud = true;
     }
 
     public void switchToGame() {
         this.inHud = false;
+    }
+
+    public boolean isInHud() {
+        return inHud;
     }
 }

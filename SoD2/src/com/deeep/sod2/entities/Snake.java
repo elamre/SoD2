@@ -58,7 +58,6 @@ public class Snake extends Entity {
         if (tickTimer >= tickTime) {
             tickTimer -= tickTimer;
             move();
-            Logger.getInstance().debug(this.getClass(), "MOVE to: " + x + ", " + y);
         }
         //TODO send the positions
         //To change body of implemented methods use File | Settings | File Templates.

@@ -10,26 +10,26 @@ package com.deeep.sod2.graphics;
 import com.badlogic.gdx.graphics.Color;
 import com.deeep.sod2.entities.Block;
 import com.deeep.sod2.particle.Sequencer;
+import com.deeep.sod2.utility.Camera;
 
 public class Star extends Particle {
 
-    /** to keep track of how much the camera has moved since it last updated the stars position*/
+    /** to keep track of how much the camera has moved since it last updated the stars position */
     private float oldCamX, oldCamY;
+    private float maxBrightness;
 
-    public Star(PVector v, Color c, Sequencer sequencer, float w, float h) {
+    public Star(PVector v, Color c, Sequencer sequencer, float maxBrightness, float w, float h) {
         super(v, c, sequencer, w, h);
+        this.maxBrightness = maxBrightness;
     }
 
-    /**
-     * Updates the stars position
-     * @param camera the camera of which the stars position should be adjusted to
-     */
-    public void updatePosRelativeTo(Block camera){
-        location.x+=(camera.x-oldCamX)*0.9f;
-        location.y+=(camera.y-oldCamY)*0.9f;
+    public void update(float deltaT) {
+        super.update(deltaT);
+        location.x += (Camera.getInstance().getX() - oldCamX) * (0.95f * maxBrightness);
+        location.y += (Camera.getInstance().getY() - oldCamY) * (0.95f * maxBrightness);
 
-        oldCamX = camera.x;
-        oldCamY = camera.y;
+        oldCamX = Camera.getInstance().getX();
+        oldCamY = Camera.getInstance().getY();
     }
 
 }
