@@ -3,6 +3,7 @@ package com.deeep.sod2.entities.pickups;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.deeep.sod2.entities.Entity;
+import com.deeep.sod2.entities.Snake;
 import com.deeep.sod2.particle.FormulaTypes;
 import com.deeep.sod2.particle.Sequence;
 import com.deeep.sod2.particle.Sequencer;
@@ -41,7 +42,14 @@ public abstract class Pickup extends Entity {
         setHeight(size);
     }
 
-    public abstract void action();
+    /**
+     * the action to be executed when the pickup is used. If nothing should happen, and the pick up should not removed,
+     * return false;
+     *
+     * @param owner use this for origin and such
+     * @return true if the pickup has been used
+     */
+    public abstract boolean action(Snake owner);
 
     @Override
     public void implementDraw_1(SpriteBatch spriteBatch) {

@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Frustum;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.deeep.sod2.entities.Entity;
+import com.deeep.sod2.entities.TickAbleEntity;
 import com.deeep.sod2.particle.FormulaTypes;
 import com.deeep.sod2.particle.Sequence;
 import com.deeep.sod2.particle.Sequencer;
@@ -21,6 +22,9 @@ public class Camera {
     /** The previous x and y of the focus */
     private float previousFocusY = 0;
     private float previousFocusX = 0;
+    /** The amount the camera focus should deviate from the focus entity */
+    private float offsetX;
+    private float offsetY;
     /** If the focus is a dynamic object, adjust to its speed */
     private float updateInterval = 1f;
     private boolean movableFocus = false;
@@ -63,6 +67,9 @@ public class Camera {
      */
     public void setFocus(Entity focus, float offsetX, float offsetY) {
         this.focus = focus;
+        movableFocus = focus instanceof TickAbleEntity;
+        this.offsetX = offsetX;
+        this.offsetY = offsetY;
         xSequencer.startSingleSequence(0, new Sequence(new FormulaTypes.Linear(1, focus.getX() + offsetX)));
         ySequencer.startSingleSequence(0, new Sequence(new FormulaTypes.Linear(1, focus.getY() + offsetY)));
     }
@@ -84,11 +91,14 @@ public class Camera {
     public void update(float deltaT) {
         if (focus != null) {
             if ((focus.getX() != previousFocusX)) {
-                xSequencer.startSingleSequence(x, new Sequence(new FormulaTypes.Linear(updateInterval + (.1f * updateInterval), focus.getX())));
+                if (movableFocus)
+                    updateInterval = ((TickAbleEntity) focus).getTickTime();
+                xSequencer.startSingleSequence(x, new Sequence(new FormulaTypes.Linear(updateInterval + (.1f * updateInterval), focus.getX() + offsetX)));
             }
             if ((focus.getY() != previousFocusY)) {
-
-                ySequencer.startSingleSequence(y, new Sequence(new FormulaTypes.Linear(updateInterval + (.1f * updateInterval), focus.getY())));
+                if (movableFocus)
+                    updateInterval = ((TickAbleEntity) focus).getTickTime();
+                ySequencer.startSingleSequence(y, new Sequence(new FormulaTypes.Linear(updateInterval + (.1f * updateInterval), focus.getY() + offsetY)));
             }
             previousFocusX = focus.getX();
             previousFocusY = focus.getY();

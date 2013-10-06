@@ -51,17 +51,18 @@ public class Tail extends Entity {
         pickup.setAngle(angle);
     }
 
-    public void action(){
+    public boolean action(Snake snake) {
         if (pickup != null) {
-            pickup.action();
+            return pickup.action(snake);
         }
+        return false;
     }
 
     @Override
     public void implementDraw_1(SpriteBatch spriteBatch) {
         if (pickup != null) {
             pickup.draw(spriteBatch);
-           // spriteBatch.draw(pickup.getTextureRegion(), x, y);
+            // spriteBatch.draw(pickup.getTextureRegion(), x, y);
         }
         //To change body of implemented methods use File | Settings | File Templates.
     }

@@ -13,13 +13,9 @@ import java.util.ArrayList;
  * Time: 6:30 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Snake extends Entity {
+public class Snake extends TickAbleEntity {
     /** Direction list to add new actions */
     private ArrayList<Direction> directions = new ArrayList<Direction>();
-    /** the tick timer */
-    private float tickTimer = 0;
-    /** The tick maximum tick time. the lower it is, the faster each tick will come */
-    private float tickTime = 1;
     /** The head of the snake */
     private Head head;
     /** An array list containing all the tail parts */
@@ -55,21 +51,9 @@ public class Snake extends Entity {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    /** @param deltaT  */
-    public void update(float deltaT) {
-        tickTimer += deltaT;
-        Logger.getInstance().debug(this.getClass(), " Angle: " + getAngle());
-        if (tickTimer >= tickTime) {
-            tickTimer -= tickTimer;
-            move();
-        }
-        //TODO send the positions
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
-
     @Override
-    public void implementUpdate_1(float deltaT) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public void implementUpdate_2(float deltaT) {
+        //TODO send the positions
     }
 
     @Override
@@ -96,7 +80,7 @@ public class Snake extends Entity {
             i--;
         }
         if (tails.size() > 0) {
-            tails.get(i).setAngle(head.getAngle());
+            tails.get(i).setAngle(head.getAngle() + 180);
             tails.get(0).setX(x);
             tails.get(0).setY(y);
         }
@@ -155,6 +139,13 @@ public class Snake extends Entity {
         head.setSkin(skin);
         for (int i = 0; i < tails.size(); i++) {
             tails.get(i).setSkin(skin);
+        }
+    }
+
+    public void fireAction() {
+        if (tails.get(tails.size() - 1).action(this)) {
+            tails.remove(tails.size() - 1);
+            //TODO Send it to server
         }
     }
 

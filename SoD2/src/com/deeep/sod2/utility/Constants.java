@@ -9,7 +9,7 @@ package com.deeep.sod2.utility;
  */
 public class Constants {
     /** Scaling factor. The lower the scale the more blocks fit on the screen */
-    public static final float SCALE = 2;
+    public static final float SCALE = 2f;
     /** The block size in pixels */
     public static final float BLOCK_SIZE = 40;
     /** The virtual width in pixels, we are targeting this resolution */

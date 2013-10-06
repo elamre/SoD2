@@ -9,7 +9,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.deeep.sod2.entities.Block;
 import com.deeep.sod2.entities.EntityManager;
 import com.deeep.sod2.entities.Snake;
+import com.deeep.sod2.entities.pickups.BulletPickup;
+import com.deeep.sod2.entities.pickups.CompassPickup;
 import com.deeep.sod2.entities.pickups.HearthPickup;
+import com.deeep.sod2.entities.pickups.SpeedPickup;
 import com.deeep.sod2.graphics.*;
 
 import java.util.ArrayList;
@@ -40,6 +43,9 @@ public class World {
         particleManager = new ParticleManager();
         player.setEntityManager(entityManager);
         entityManager.addEntitySinglePlayer(new HearthPickup(entityManager.getNextSinglePlayerId(), 3, 3));
+        entityManager.addEntitySinglePlayer(new BulletPickup(entityManager.getNextSinglePlayerId(), 4, 4));
+        entityManager.addEntitySinglePlayer(new CompassPickup(entityManager.getNextSinglePlayerId(), 5, 5));
+        entityManager.addEntitySinglePlayer(new SpeedPickup(entityManager.getNextSinglePlayerId(), 6, 6));
     }
 
     public void update(float deltaT) {
