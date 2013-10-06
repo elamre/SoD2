@@ -50,7 +50,7 @@ public class World {
 
     public void update(float deltaT) {
         player.update(deltaT);
-        map.update();
+        map.update(deltaT);
         entityManager.update(deltaT);
         particleManager.update(deltaT);
     }
