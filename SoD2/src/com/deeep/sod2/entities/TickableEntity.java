@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public abstract class TickAbleEntity extends Entity {
     /** the tick timer */
     protected float tickTimer = 0;
-    /** The tick maximum tick time. the lower it is, the faster each tick will come */
+    /** The tick maximum tick  time. the lower it is, the faster each tick will come */
     protected float tickTime = 1;
     /** This is the tick time the entity will return to after all the tick changes */
     protected float defaultTickTime = 1;
@@ -49,12 +49,10 @@ public abstract class TickAbleEntity extends Entity {
             speedUps.remove(speedUp);
         }
         removeSpeedUps.clear();
-        ;
         tickTimer += deltaT;
         if (tickTimer >= tickTime) {
-            tickTimer -= tickTime;
             move();
-            //Logger.getInstance().debug(this.getClass(),"MOVE");
+            tickTimer -= tickTime;
         }
     }
 
