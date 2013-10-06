@@ -3,6 +3,7 @@ package com.deeep.sod2.gameplay;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deeep.sod2.entities.Entity;
+import com.deeep.sod2.io.Save;
 
 import java.util.ArrayList;
 
@@ -21,7 +22,7 @@ public class Map {
         this.width = width;
         this.height = height;
         map = new ArrayList[height][width];
-        grid = new Grid(0.2f, width, height, Color.BLUE);
+        grid = new Grid(0.2f, width, height, Color.BLUE, Save.LEVEL_1);
     }
 
     public Map(Map map) {

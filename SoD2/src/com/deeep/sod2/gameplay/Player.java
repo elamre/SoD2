@@ -1,10 +1,7 @@
 package com.deeep.sod2.gameplay;
 
 import com.badlogic.gdx.Input;
-import com.deeep.sod2.entities.EntityManager;
-import com.deeep.sod2.entities.Head;
-import com.deeep.sod2.entities.Snake;
-import com.deeep.sod2.entities.Tail;
+import com.deeep.sod2.entities.*;
 import com.deeep.sod2.entities.pickups.HearthPickup;
 import com.deeep.sod2.entities.pickups.Pickup;
 import com.deeep.sod2.entities.pickups.SpeedPickup;
@@ -83,7 +80,7 @@ public class Player {
         snake.addTail((Tail) entityManager.addEntitySinglePlayer(new Tail(entityManager.getNextSinglePlayerId(), 0, 1, 1)), new SpeedPickup(entityManager.getNextSinglePlayerId(), 1, 1));
         snake.addTail((Tail) entityManager.addEntitySinglePlayer(new Tail(entityManager.getNextSinglePlayerId(), 0, 1, 1)), new SpeedPickup(entityManager.getNextSinglePlayerId(), 1, 1));
         setSkin(1);
-        Camera.getInstance().setFocus(snake, .5f, .5f);
+        Camera.getInstance().setFocus((TickAbleEntity)snake, .5f, .5f);
     }
 
     public void update(float deltaT) {

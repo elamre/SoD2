@@ -4,10 +4,10 @@ import com.badlogic.gdx.math.Frustum;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.deeep.sod2.entities.Entity;
-import com.deeep.sod2.entities.TickAbleEntity;
 import com.deeep.sod2.particle.FormulaTypes;
 import com.deeep.sod2.particle.Sequence;
 import com.deeep.sod2.particle.Sequencer;
+import com.deeep.sod2.entities.TickAbleEntity;
 
 /**
  * Created with IntelliJ IDEA.

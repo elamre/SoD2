@@ -3,6 +3,8 @@ package com.deeep.sod2.gameplay;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deeep.sod2.graphics.ShapeRenderer;
+import com.deeep.sod2.io.Save;
+import com.deeep.sod2.tiles.AbstractTile;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,15 +14,23 @@ import com.deeep.sod2.graphics.ShapeRenderer;
  */
 public class Grid {
     private float size = 0;
+
+    /** Width and height of grid in units (tiles)*/
     private int width = 0;
     private int height = 0;
+
+    /** Color of grid lines */
     private Color color;
 
-    public Grid(float size, int width, int height, Color color) {
+    /** Tile array*/
+    private AbstractTile[] tiles;
+
+    public Grid(float size, int width, int height, Color color, Save save) {
         this.size = size;
         this.width = width;
         this.height = height;
         this.color = color;
+        this.tiles = save.getTiles();
     }
 
     public void setSize(float size) {
@@ -55,10 +65,9 @@ public class Grid {
                 ShapeRenderer.drawLine(spriteBatch, 0, y, x, y, 0.025f);
             }
         }
-        ShapeRenderer.setColor(new Color(0.1f, 0.4f, 0.5f, 0.3f));
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                ShapeRenderer.drawRectangle(spriteBatch, x, y, 1f, 1f, true);
+        for(int y=0; y<height; y++){
+            for(int x=0; x<width; x++){
+                try{tiles[x+y*width].draw(spriteBatch);}catch (NullPointerException e){}
             }
         }
     }

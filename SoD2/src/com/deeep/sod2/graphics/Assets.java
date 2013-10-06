@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.deeep.sod2.io.Save;
 import com.deeep.sod2.utility.Logger;
 
 /**
@@ -56,6 +57,7 @@ public class Assets {
             blankSprite = new Sprite(new Texture(pixmap));
             //pixmap.dispose();
             font = loadBitmapFont();
+            Save.loadSaves();
 
             textureAtlas = new TextureAtlas(Gdx.files.internal("images/TextureAtlas.txt"));
             planetTextureAtlas = new TextureAtlas(Gdx.files.internal("images/PlanetTextureAtlas.txt"));

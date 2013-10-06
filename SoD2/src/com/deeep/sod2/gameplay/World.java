@@ -14,6 +14,7 @@ import com.deeep.sod2.entities.pickups.CompassPickup;
 import com.deeep.sod2.entities.pickups.HearthPickup;
 import com.deeep.sod2.entities.pickups.SpeedPickup;
 import com.deeep.sod2.graphics.*;
+import com.deeep.sod2.io.Save;
 
 import java.util.ArrayList;
 
@@ -39,7 +40,7 @@ public class World {
         entityManager = new EntityManager();
         player = new Player("Elmar", true);
 
-        grid = new Grid(1, 20, 20, Color.BLUE);
+        grid = new Grid(1, 20, 20, Color.BLUE, Save.LEVEL_1);
         particleManager = new ParticleManager();
         player.setEntityManager(entityManager);
         entityManager.addEntitySinglePlayer(new HearthPickup(entityManager.getNextSinglePlayerId(), 3, 3));
