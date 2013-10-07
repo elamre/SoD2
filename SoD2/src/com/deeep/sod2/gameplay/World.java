@@ -38,15 +38,13 @@ public class World {
     public World() {
         map = new Map();
         entityManager = new EntityManager();
-        player = new Player("Elmar", true);
+        Save.loadSaves(entityManager);
+        player = new Player("Elmar is bad at chess", true);
 
         grid = new Grid(1, 20, 20, Color.BLUE, Save.LEVEL_1);
         particleManager = new ParticleManager();
         player.setEntityManager(entityManager);
-        entityManager.addEntitySinglePlayer(new HearthPickup(entityManager.getNextSinglePlayerId(), 3, 3));
-        entityManager.addEntitySinglePlayer(new BulletPickup(entityManager.getNextSinglePlayerId(), 4, 4));
-        entityManager.addEntitySinglePlayer(new CompassPickup(entityManager.getNextSinglePlayerId(), 5, 5));
-        entityManager.addEntitySinglePlayer(new SpeedPickup(entityManager.getNextSinglePlayerId(), 6, 6));
+        entityManager.addEntitiesSinglePlayer(Save.LEVEL_1.getEntities());
     }
 
     public void update(float deltaT) {

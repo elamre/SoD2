@@ -57,7 +57,6 @@ public class Assets {
             blankSprite = new Sprite(new Texture(pixmap));
             //pixmap.dispose();
             font = loadBitmapFont();
-            Save.loadSaves();
 
             textureAtlas = new TextureAtlas(Gdx.files.internal("images/TextureAtlas.txt"));
             planetTextureAtlas = new TextureAtlas(Gdx.files.internal("images/PlanetTextureAtlas.txt"));

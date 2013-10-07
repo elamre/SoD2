@@ -97,4 +97,13 @@ public class EntityManager {
             entities.get(key).draw(spriteBatch);
         }
     }
+
+    public void addEntitiesSinglePlayer(Entity[] ent) {
+        if(ent == null) return;
+        for(Entity e: ent){
+            if(e==null)continue;
+            e.setDebug(false);
+            this.entities.put(this.entities.size(), e);
+        }
+    }
 }
