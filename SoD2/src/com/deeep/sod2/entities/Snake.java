@@ -1,5 +1,6 @@
 package com.deeep.sod2.entities;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deeep.sod2.entities.pickups.Pickup;
 import com.deeep.sod2.utility.Logger;
@@ -87,6 +88,7 @@ public class Snake extends TickAbleEntity {
         calculatePos();
         head.setX(x);
         head.setY(y);
+        Logger.getInstance().debug(this.getClass(),"FPS: "+ Gdx.graphics.getFramesPerSecond());
     }
 
     /**

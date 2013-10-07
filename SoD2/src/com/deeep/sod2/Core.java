@@ -13,7 +13,7 @@ public class Core extends AbstractGame {
     @Override
     public void create() {
         Assets.getAssets().load();
-        setScreen(new GameScreen(this));
+        setScreen(new MainMenu(this));
     }
 
     /** This will get rid of all the assets to prevent a memory leak */

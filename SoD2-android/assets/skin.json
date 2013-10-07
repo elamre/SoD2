@@ -1,0 +1,23 @@
+{
+   com.badlogic.gdx.graphics.g2d.BitmapFont: {
+      normaltext: { file: font/font.fnt },
+   },
+   com.badlogic.gdx.graphics.Color: {
+      red: { a: 1, b: 0, g: 0, r: 1 },
+      green: { a: 1, b: 0, g: 1, r: 0 },
+      blue: { a: 1, b: 1, g: 0, r: 0 },
+      white: { a: 1, b: 1, g: 1, r: 1 },
+      black: { a: 1, b: 0, g: 0, r: 0 }
+   },
+   "com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle": {
+      default: { font: normaltext, fontColor: white },
+      normal-text: { font: normaltext, fontColor: white },
+   },
+   com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
+      default: { "up": "gui/menu/button", "pressedOffsetX": 1, "pressedOffsetY": -1 },
+      transparent:{ },
+   },
+   "com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": {
+      default: { "font": normaltext, "up": "gui/menu/button", "pressedOffsetX": 1, "pressedOffsetY": -1 },
+   }
+}

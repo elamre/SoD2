@@ -39,7 +39,7 @@ public class MainMenu implements Screen {
 
     @Override
     public void show() {
-        Gdx.gl.glClearColor(0, .25f, 0, 1);
+        //Gdx.gl.glClearColor(0, .25f, 0, 1);
 
         Gdx.input.setInputProcessor(stage = new Stage());
         skin = new Skin();
