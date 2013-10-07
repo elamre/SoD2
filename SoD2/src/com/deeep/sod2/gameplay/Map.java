@@ -3,6 +3,7 @@ package com.deeep.sod2.gameplay;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deeep.sod2.entities.Entity;
+import com.deeep.sod2.entities.Tail;
 import com.deeep.sod2.io.Save;
 
 import java.util.ArrayList;
@@ -34,8 +35,24 @@ public class Map {
     }
 
     public void update(float deltaT) {
-        for (int y = 0; y<height; y++){
-            //for ()
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                for (int i = 0; i < map[width][height].size(); i++) {
+                    //map[y][x].collision(map[width][height]);
+                }
+            }
+        }
+    }
+
+    public void collision(ArrayList<Entity> map) {
+        if (map != null) {
+            for (int i = 0; i < map.size(); i++) {
+                //if (map.get(i) != this) {
+                if (map.get(i) instanceof Tail) {
+                    //Do something
+                }
+                //}
+            }
         }
     }
 

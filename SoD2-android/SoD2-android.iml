@@ -16,27 +16,15 @@
       <configuration />
     </facet>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="false">
-    <output url="file://$MODULE_DIR$/bin/classes" />
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/gen" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="1.7" jdkType="JavaSDK" />
+    <orderEntry type="jdk" jdkName="Android 4.3 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="SoD2" exported="" />
-    <orderEntry type="module-library" exported="">
-      <library name="gdx.jar">
-        <CLASSES>
-          <root url="file:///SoD2/libs/gdx.jar" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="file:///SoD2/libs/gdx-sources.jar" />
-        </SOURCES>
-      </library>
-    </orderEntry>
     <orderEntry type="module-library" exported="">
       <library name="gdx-backend-android.jar">
         <CLASSES>
@@ -49,14 +37,21 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library" exported="">
-      <library name="tween-engine-api.jar">
+      <library>
         <CLASSES>
-          <root url="file:///SoD2/libs/tween-engine-api.jar" />
+          <root url="jar://$MODULE_DIR$/../SoD2/libs/gdx.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES>
-          <root url="file:///SoD2/libs/tween-engine-api-sources.jar" />
-        </SOURCES>
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../SoD2/libs/tween-engine-api.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
       </library>
     </orderEntry>
   </component>

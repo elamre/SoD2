@@ -1,6 +1,7 @@
 package com.deeep.sod2;
 
 import com.badlogic.gdx.Gdx;
+import com.deeep.sod2.menu.MainMenu;
 import com.deeep.sod2.screens.AbstractGame;
 import com.deeep.sod2.screens.GameScreen;
 import com.deeep.sod2.graphics.Assets;

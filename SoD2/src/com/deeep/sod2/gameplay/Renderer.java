@@ -76,7 +76,6 @@ public class Renderer {
         spriteBatch.setColor(Color.WHITE);
         ShapeRenderer.setColor(Color.WHITE);
         ShapeRenderer.drawRectangle(spriteBatch, 2, 2, 5, 10, true);
-        spriteBatch.draw(Assets.getAssets().getButton(true), 1, 1);
         // Assets.getAssets().getBitmapFont().setColor(Color.WHITE);
         //world.drawString(spriteBatch, "hello, World!", 20, 20);
         spriteBatch.end();
