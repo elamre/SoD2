@@ -46,6 +46,7 @@ public class World {
 
         grid = new Grid(1, loadedSave.width, loadedSave.height, Color.BLUE, loadedSave);
         particleManager = new ParticleManager();
+        player.setSnakeSpawnPoint(loadedSave.spawnX, loadedSave.spawnY);
         player.setEntityManager(entityManager);
         entityManager.addEntitiesSinglePlayer(loadedSave.getEntities());
     }

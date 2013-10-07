@@ -1,8 +1,5 @@
 package com.deeep.sod2.entities;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.deeep.sod2.utility.Logger;
-
 import java.util.ArrayList;
 
 /**
@@ -19,6 +16,15 @@ public abstract class TickAbleEntity extends Entity {
     protected float tickTime = 1;
     /** This is the tick time the entity will return to after all the tick changes */
     protected float defaultTickTime = 1;
+
+    /**
+     * 0 NORTH
+     * 1 EAST
+     * 2 SOUTH
+     * 3 WEST
+     */
+    protected float direction;
+
     private ArrayList<SpeedUp> speedUps = new ArrayList<SpeedUp>();
     private ArrayList<SpeedUp> removeSpeedUps = new ArrayList<SpeedUp>();
 
@@ -58,6 +64,14 @@ public abstract class TickAbleEntity extends Entity {
 
     public float getTickTime() {
         return tickTime;
+    }
+
+    public float getDirection() {
+        return direction;
+    }
+
+    public void setDirection(float direction) {
+        this.direction = direction;
     }
 
     public abstract void move();
