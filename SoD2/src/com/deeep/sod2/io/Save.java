@@ -3,6 +3,8 @@ package com.deeep.sod2.io;
 import com.badlogic.gdx.Gdx;
 import com.deeep.sod2.entities.Entity;
 import com.deeep.sod2.entities.EntityManager;
+import com.deeep.sod2.entities.pickups.BulletPickup;
+import com.deeep.sod2.entities.pickups.CompassPickup;
 import com.deeep.sod2.entities.pickups.HearthPickup;
 import com.deeep.sod2.entities.pickups.SpeedPickup;
 import com.deeep.sod2.tiles.AbstractTile;
@@ -42,9 +44,13 @@ public class Save {
     /**Loaded entities from image
      *
      * 0x(FF)FF0000 SPEED
-     * 0x(FF)00FF00 HEALTH
+     * 0x(FF)00FF00 HEART
+     * 0x(FF)0000FF COMPASS
+     * 0x(FF)000000 BULLET
     */
     private Entity[] entities;
+
+    public int width, height;
 
     public static Save LEVEL_1;
 
@@ -67,30 +73,29 @@ public class Save {
     public void loadLevel(int level, EntityManager entityManager) throws IOException {
         BufferedImage img = ImageIO.read(Gdx.files.internal("data/save/level" + level + ".png").file());
         BufferedImage entImg = ImageIO.read(Gdx.files.internal("data/save/level" + level + "ent.png").file());
-        int w = img.getWidth();
-        int h = img.getHeight()-1;
-        tiles = new AbstractTile[w*h];
-        entities = new Entity[w*h];
-        for(int y=0; y<h; y++){
-            for(int x=0; x<w; x++){
+        width = img.getWidth();
+        height = img.getHeight();
+        tiles = new AbstractTile[width*height];
+        entities = new Entity[width*height];
+        for(int y=height-1; y>=0; y--){
+            for(int x=0; x<width; x++){
                 int rgb = img.getRGB(x, y);
                 switch (rgb){
-                    case 0xff808080: tiles[x+y*w] = new RegularTile(x, y); break;
-                    default: tiles[x+y*w] = new EmptyTile(x, y); break;
+                    case 0xff808080: tiles[x+y*width] = new RegularTile(x, y); break;
+                    default: tiles[x+y*width] = new EmptyTile(x, y); break;
                 }
             }
         }
 
-        w = entImg.getWidth();
-        h = entImg.getHeight();
-
-        for(int y=0; y<h; y++){
-            for(int x=0; x<w; x++){
+        for(int y=0; y<height-1; y++){
+            for(int x=0; x<width; x++){
                 int rgb = entImg.getRGB(x, y);
                 switch (rgb){
                     case 0xff808080: break;
-                    case 0xffff0000: entities[x+y*w] = new SpeedPickup(entityManager.getNextSinglePlayerId(), x, h-y-2); break;
-                    case 0xff00ff00: entities[x+y*w] = new HearthPickup(entityManager.getNextSinglePlayerId(), x, h-y-2); break;
+                    case 0xffff0000: entities[x+y*width] = new SpeedPickup(entityManager.getNextSinglePlayerId(), x, height-y-2); break;
+                    case 0xff00ff00: entities[x+y*width] = new HearthPickup(entityManager.getNextSinglePlayerId(), x, height-y-2); break;
+                    case 0xff0000ff: entities[x+y*width] = new CompassPickup(entityManager.getNextSinglePlayerId(), x, height-y-2); break;
+                    case 0xff000000: entities[x+y*width] = new BulletPickup(entityManager.getNextSinglePlayerId(), x, height-y-2); break;
                 }
             }
         }

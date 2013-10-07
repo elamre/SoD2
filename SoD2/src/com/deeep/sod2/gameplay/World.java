@@ -33,18 +33,21 @@ public class World {
     /** TODO remove */
     private Player player;
     private ParticleManager particleManager;
+    /** Current level*/
+    private Save loadedSave;
 
     /** Don't pay too much attention to this. This is just to test the camera and the view port */
     public World() {
         map = new Map();
         entityManager = new EntityManager();
         Save.loadSaves(entityManager);
+        loadedSave = Save.LEVEL_1;
         player = new Player("Elmar is bad at chess", true);
 
-        grid = new Grid(1, 20, 20, Color.BLUE, Save.LEVEL_1);
+        grid = new Grid(1, loadedSave.width, loadedSave.height, Color.BLUE, loadedSave);
         particleManager = new ParticleManager();
         player.setEntityManager(entityManager);
-        entityManager.addEntitiesSinglePlayer(Save.LEVEL_1.getEntities());
+        entityManager.addEntitiesSinglePlayer(loadedSave.getEntities());
     }
 
     public void update(float deltaT) {
