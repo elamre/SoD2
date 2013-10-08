@@ -25,13 +25,19 @@ public abstract class TickAbleEntity extends Entity {
      */
     protected float direction;
 
+    /** 0 <= Health points >= 255*/
+    protected float health;
+
+    /** Level of the entity*/
+    protected int level;
+
     private ArrayList<SpeedUp> speedUps = new ArrayList<SpeedUp>();
     private ArrayList<SpeedUp> removeSpeedUps = new ArrayList<SpeedUp>();
 
     /** Use this function instead of the constructor */
     @Override
     public void onCreate() {
-        //To change body of implemented methods use File | Settings | File Templates.
+
     }
 
     public void increaseSpeed(float amount, float duration, boolean permanent) {
@@ -99,5 +105,27 @@ public abstract class TickAbleEntity extends Entity {
         public void update(float deltaT) {
             counter += deltaT;
         }
+    }
+    public float getHealth() {
+        return health;
+    }
+
+    public void setHealth(float health) {
+        if(health<0 || health>255) return;
+        this.health = health;
+    }
+
+    public void damage(float d){
+        if(d>health || health-d<1e-6) health=0;
+        else health-=d;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        if(level<0 || level>255) return;
+        this.level = level;
     }
 }
