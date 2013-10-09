@@ -16,6 +16,7 @@ public abstract class TickAbleEntity extends Entity {
     protected float tickTime = 1;
     /** This is the tick time the entity will return to after all the tick changes */
     protected float defaultTickTime = 1;
+
     /**
      * 0 NORTH
      * 1 EAST
@@ -23,6 +24,13 @@ public abstract class TickAbleEntity extends Entity {
      * 3 WEST
      */
     protected float direction;
+
+    /** 0 <= Health points >= 255*/
+    protected float health;
+
+    /** Level of the entity*/
+    protected int level;
+
     /** For multiple tick action usage */
     private ArrayList<TickAction> tickActions = new ArrayList<TickAction>();
     /** This arraylist contains all the not repeatable actions which are due to */
@@ -101,5 +109,27 @@ public abstract class TickAbleEntity extends Entity {
         @Override
         public void action() {
         }
+    }
+    public float getHealth() {
+        return health;
+    }
+
+    public void setHealth(float health) {
+        if(health<0 || health>255) return;
+        this.health = health;
+    }
+
+    public void damage(float d){
+        if(d>health || health-d<1e-6) health=0;
+        else health-=d;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        if(level<0 || level>255) return;
+        this.level = level;
     }
 }

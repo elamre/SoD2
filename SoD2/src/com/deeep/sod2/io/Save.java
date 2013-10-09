@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.deeep.sod2.entities.Entity;
 import com.deeep.sod2.entities.EntityManager;
+import com.deeep.sod2.entities.Turret;
 import com.deeep.sod2.entities.pickups.BulletPickup;
 import com.deeep.sod2.entities.pickups.CompassPickup;
 import com.deeep.sod2.entities.pickups.HearthPickup;
@@ -87,7 +88,6 @@ public class Save {
         for (int y = height-1; y >= 0; y--) {
             for (int x = 0; x < width; x++) {
                 int rgb = image.getPixel(x, y);
-                System.out.println(rgb);
                 switch (rgb) {
                     case 0x808080ff: tiles[x+y*width] = new RegularTile(x, y); break;
                     case 0xff6a00ff: tiles[x+y*width] = new ObstacleTile(x, y); break;
@@ -112,6 +112,7 @@ public class Save {
                     case 254: entities[x+y*width] = new SpeedPickup(entityManager.getNextSinglePlayerId(), x, height-y-2); break;
                     case 253: entities[x+y*width] = new BulletPickup(entityManager.getNextSinglePlayerId(), x, height-y-2); break;
                     case 252: entities[x+y*width] = new CompassPickup(entityManager.getNextSinglePlayerId(), x, height-y-2); break;
+                    case 251: entities[x+y*width] = new Turret(x, y, g, b); break;
                 }
             }
         }
