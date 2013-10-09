@@ -16,7 +16,6 @@ public abstract class TickAbleEntity extends Entity {
     protected float tickTime = 1;
     /** This is the tick time the entity will return to after all the tick changes */
     protected float defaultTickTime = 1;
-
     /**
      * 0 NORTH
      * 1 EAST
@@ -24,8 +23,13 @@ public abstract class TickAbleEntity extends Entity {
      * 3 WEST
      */
     protected float direction;
-
+    /** For multiple tick action usage */
+    private ArrayList<TickAction> tickActions = new ArrayList<TickAction>();
+    /** This arraylist contains all the not repeatable actions which are due to */
+    private ArrayList<TickAction> removeTickActions = new ArrayList<TickAction>();
+    /** This arraylist will contain all the speedups */
     private ArrayList<SpeedUp> speedUps = new ArrayList<SpeedUp>();
+    /** This arraylist contains all the due to speedups, so we can remove them */
     private ArrayList<SpeedUp> removeSpeedUps = new ArrayList<SpeedUp>();
 
     /** Use this function instead of the constructor */
@@ -39,6 +43,10 @@ public abstract class TickAbleEntity extends Entity {
             speedUps.add(new SpeedUp(duration, amount));
         }
         tickTime -= amount;
+    }
+
+    public void addTickAction(TickAction tickAction){
+
     }
 
     @Override
@@ -78,26 +86,20 @@ public abstract class TickAbleEntity extends Entity {
 
     public abstract void implementUpdate_2(float deltaT);
 
-    class SpeedUp {
-        private float duration = 1f;
+    class SpeedUp extends TickAction {
         private float amount = 1f;
-        private float counter = 0;
 
         SpeedUp(float duration, float amount) {
-            this.duration = duration;
+            super(duration, false);
             this.amount = amount;
-        }
-
-        public boolean isFinished() {
-            return counter >= duration;
         }
 
         public float getAmount() {
             return amount;
         }
 
-        public void update(float deltaT) {
-            counter += deltaT;
+        @Override
+        public void action() {
         }
     }
 }

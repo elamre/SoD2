@@ -82,13 +82,13 @@ public class Snake extends TickAbleEntity {
         }
         if (tails.size() > 0) {
             tails.get(i).setAngle(head.getAngle() + 180);
-            tails.get(0).setX(x);
-            tails.get(0).setY(y);
+            tails.get(0).setX(getX());
+            tails.get(0).setY(getY());
         }
         calculatePos();
-        head.setX(x);
-        head.setY(y);
-        Logger.getInstance().debug(this.getClass(),"FPS: "+ Gdx.graphics.getFramesPerSecond());
+        head.setX(getX());
+        head.setY(getY());
+        Logger.getInstance().debug(this.getClass(), "FPS: " + Gdx.graphics.getFramesPerSecond());
     }
 
     /**
@@ -99,7 +99,7 @@ public class Snake extends TickAbleEntity {
         switch (dir) {
             case NORTH:
                 if (prevDir != Direction.SOUTH) {
-                    y++;
+                    setY(getY() + 1);
                     prevDir = dir;
                 } else {
                     dir = prevDir;
@@ -108,7 +108,7 @@ public class Snake extends TickAbleEntity {
                 break;
             case EAST:
                 if (prevDir != Direction.WEST) {
-                    x++;
+                    setX(getX() + 1);
                     prevDir = dir;
                 } else {
                     dir = prevDir;
@@ -117,7 +117,7 @@ public class Snake extends TickAbleEntity {
                 break;
             case SOUTH:
                 if (prevDir != Direction.NORTH) {
-                    y--;
+                    setY(getY() - 1);
                     prevDir = dir;
                 } else {
                     dir = prevDir;
@@ -126,7 +126,7 @@ public class Snake extends TickAbleEntity {
                 break;
             case WEST:
                 if (prevDir != Direction.EAST) {
-                    x--;
+                    setX(getX() - 1);
                     prevDir = dir;
                 } else {
                     dir = prevDir;
@@ -135,6 +135,15 @@ public class Snake extends TickAbleEntity {
                 break;
         }
         head.setAngle(dir.dir);
+    }
+
+    @Override
+    public void collide(ArrayList<Entity> entities) {
+        for (Entity entity : entities) {
+            if (entity instanceof Tail) {
+                Logger.getInstance().debug(this.getClass(), "WOIJFWOEIJFWOEIJF");
+            }
+        }
     }
 
     public void setSkin(int skin) {

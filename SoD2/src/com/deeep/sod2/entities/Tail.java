@@ -41,8 +41,8 @@ public class Tail extends Entity {
 
     @Override
     public void implementUpdate_1(float deltaT) {
-        pickup.setX(x);
-        pickup.setY(y);
+        pickup.setX(getX());
+        pickup.setY(getY());
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
