@@ -1,5 +1,6 @@
 package com.deeep.sod2.gameplay;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.deeep.sod2.entities.*;
 import com.deeep.sod2.entities.pickups.HearthPickup;
@@ -73,13 +74,13 @@ public class Player {
         snake.setSkin(skinId);
     }
 
-    public void setSnakeSpawnPoint(int x, int y){
+    public void setSnakeSpawnPoint(int x, int y) {
         spawnX = x;
         spawnY = y;
     }
 
     public void setEntityManager(EntityManager entityManager) {
-        this.entityManager = new EntityManager();
+        this.entityManager = entityManager;
 
         snake = new Snake();
         snake.setHead((Head) entityManager.addEntitySinglePlayer(new Head(entityManager.getNextSinglePlayerId(), 0, 1, 1)));
@@ -88,13 +89,18 @@ public class Player {
         snake.addTail((Tail) entityManager.addEntitySinglePlayer(new Tail(entityManager.getNextSinglePlayerId(), 0, spawnX, spawnY)), new SpeedPickup(entityManager.getNextSinglePlayerId(), spawnX, spawnY));
         snake.addTail((Tail) entityManager.addEntitySinglePlayer(new Tail(entityManager.getNextSinglePlayerId(), 0, spawnX, spawnY)), new SpeedPickup(entityManager.getNextSinglePlayerId(), spawnX, spawnY));
         setSkin(1);
-        Camera.getInstance().setFocus((TickAbleEntity)snake, .5f, .5f);
+        Camera.getInstance().setFocus((TickAbleEntity) snake, .5f, .5f);
     }
 
     public void update(float deltaT) {
         if (selfControlled && snake != null) {
             controller.update();
             snake.update(deltaT);
+        }
+        if (Gdx.input.isTouched()) {
+            float x = Camera.getInstance().getTouchUnitX();
+            float y = Camera.getInstance().getTouchUnitY();
+            entityManager.addEntitySinglePlayer(new Coin(entityManager.getNextSinglePlayerId(), x, y));
         }
     }
 }

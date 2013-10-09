@@ -38,6 +38,7 @@ public class EntityList {/* The packet id to assign to packets. Will increment a
         registerEntity(new CompassPickup());
         registerEntity(new SpeedPickup());
         registerEntity(new BulletPickup());
+        registerEntity(new Coin());
         registered = true;
     }
 

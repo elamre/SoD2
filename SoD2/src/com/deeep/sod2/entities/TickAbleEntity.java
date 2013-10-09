@@ -16,7 +16,6 @@ public abstract class TickAbleEntity extends Entity {
     protected float tickTime = 1;
     /** This is the tick time the entity will return to after all the tick changes */
     protected float defaultTickTime = 1;
-
     /**
      * 0 NORTH
      * 1 EAST
@@ -24,13 +23,10 @@ public abstract class TickAbleEntity extends Entity {
      * 3 WEST
      */
     protected float direction;
-
-    /** 0 <= Health points >= 255*/
+    /** 0 <= Health points >= 255 */
     protected float health;
-
-    /** Level of the entity*/
+    /** Level of the entity */
     protected int level;
-
     /** For multiple tick action usage */
     private ArrayList<TickAction> tickActions = new ArrayList<TickAction>();
     /** This arraylist contains all the not repeatable actions which are due to */
@@ -40,10 +36,11 @@ public abstract class TickAbleEntity extends Entity {
     /** This arraylist contains all the due to speedups, so we can remove them */
     private ArrayList<SpeedUp> removeSpeedUps = new ArrayList<SpeedUp>();
 
-    /** Use this function instead of the constructor */
-    @Override
-    public void onCreate() {
-        //To change body of implemented methods use File | Settings | File Templates.
+
+
+
+    protected TickAbleEntity(int id, int owner, int x, int y) {
+        super(id, owner, x, y);
     }
 
     public void increaseSpeed(float amount, float duration, boolean permanent) {
@@ -53,7 +50,7 @@ public abstract class TickAbleEntity extends Entity {
         tickTime -= amount;
     }
 
-    public void addTickAction(TickAction tickAction){
+    public void addTickAction(TickAction tickAction) {
 
     }
 
@@ -94,6 +91,29 @@ public abstract class TickAbleEntity extends Entity {
 
     public abstract void implementUpdate_2(float deltaT);
 
+    public float getHealth() {
+        return health;
+    }
+
+    public void setHealth(float health) {
+        if (health < 0 || health > 255) return;
+        this.health = health;
+    }
+
+    public void damage(float d) {
+        if (d > health || health - d < 1e-6) health = 0;
+        else health -= d;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        if (level < 0 || level > 255) return;
+        this.level = level;
+    }
+
     class SpeedUp extends TickAction {
         private float amount = 1f;
 
@@ -109,27 +129,5 @@ public abstract class TickAbleEntity extends Entity {
         @Override
         public void action() {
         }
-    }
-    public float getHealth() {
-        return health;
-    }
-
-    public void setHealth(float health) {
-        if(health<0 || health>255) return;
-        this.health = health;
-    }
-
-    public void damage(float d){
-        if(d>health || health-d<1e-6) health=0;
-        else health-=d;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        if(level<0 || level>255) return;
-        this.level = level;
     }
 }

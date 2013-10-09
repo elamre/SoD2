@@ -26,6 +26,10 @@ public class Snake extends TickAbleEntity {
     /** The previous direction of the snake, used for checking */
     private Direction prevDir = Direction.EAST;
 
+    public Snake() {
+        super(0, 0, 0, 0);
+    }
+
     /**
      * Sets the head of the snake.
      *

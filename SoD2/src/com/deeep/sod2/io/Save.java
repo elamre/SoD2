@@ -29,6 +29,8 @@ public class Save {
 
     public static Save LEVEL_1;
     public int width, height;
+    /** Spawn coordinate for the snake*/
+    public int spawnX, spawnY;
     /**
     *0 : empty tile   : BLACK
     *1 : regular tile : GRAY
@@ -55,9 +57,6 @@ public class Save {
      */
     private Entity[] entities;
 
-    /** Spawn coordinate for the snake*/
-    public int spawnX, spawnY;
-    
     public Save(int level, EntityManager entityManager) {
         try {
             loadLevel(level, entityManager);
@@ -112,7 +111,7 @@ public class Save {
                     case 254: entities[x+y*width] = new SpeedPickup(entityManager.getNextSinglePlayerId(), x, height-y-2); break;
                     case 253: entities[x+y*width] = new BulletPickup(entityManager.getNextSinglePlayerId(), x, height-y-2); break;
                     case 252: entities[x+y*width] = new CompassPickup(entityManager.getNextSinglePlayerId(), x, height-y-2); break;
-                    case 251: entities[x+y*width] = new Turret(x, y, g, b); break;
+                    case 251: entities[x+y*width] = new Turret(entityManager.getNextSinglePlayerId(),x, y, g, b); break;
                 }
             }
         }

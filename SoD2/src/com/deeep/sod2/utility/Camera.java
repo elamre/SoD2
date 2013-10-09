@@ -1,5 +1,6 @@
 package com.deeep.sod2.utility;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Frustum;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
@@ -151,5 +152,21 @@ public class Camera {
 
     public boolean isInHud() {
         return inHud;
+    }
+
+    public float getTouchUnitX() {
+        return x + (float) Gdx.input.getX() / (Constants.BLOCK_SIZE * Constants.SCALE) - (Constants.VIRTUAL_WIDTH / (Constants.BLOCK_SIZE * Constants.SCALE) / 2);
+    }
+
+    public int getTouchPixelX() {
+        return Gdx.input.getX();
+    }
+
+    public float getTouchUnitY() {
+        return y + (Gdx.graphics.getHeight() - (float) Gdx.input.getY()) / (Constants.BLOCK_SIZE * Constants.SCALE) - (Constants.VIRTUAL_HEIGHT / (Constants.BLOCK_SIZE * Constants.SCALE) / 2);
+    }
+
+    public int getTouchPixelY() {
+        return Gdx.input.getY();
     }
 }
