@@ -1,6 +1,7 @@
 package com.deeep.sod2.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.deeep.sod2.gameplay.Map;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -82,7 +83,7 @@ public class EntityManager {
      */
     public void update(float delta) {
         Iterator<Integer> keySetIterator = entities.keySet().iterator();
-
+        Map.getInstance().update(delta);
         while (keySetIterator.hasNext()) {
             Integer key = keySetIterator.next();
             entities.get(key).update(delta);
@@ -99,9 +100,9 @@ public class EntityManager {
     }
 
     public void addEntitiesSinglePlayer(Entity[] ent) {
-        if(ent == null) return;
-        for(Entity e: ent){
-            if(e==null)continue;
+        if (ent == null) return;
+        for (Entity e : ent) {
+            if (e == null) continue;
             e.setDebug(false);
             this.entities.put(this.entities.size(), e);
         }

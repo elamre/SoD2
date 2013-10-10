@@ -3,8 +3,8 @@ package com.deeep.sod2.graphics;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.deeep.sod2.utility.Camera;
-import com.deeep.sod2.utility.Logger;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,6 +25,10 @@ public class ShapeRenderer {
     public static void setColor(Color color1) {
         color = color1;
         rectangle.setColor(color);
+    }
+
+    public static void drawRectangle(SpriteBatch spriteBatch, Rectangle rectangle, boolean filled) {
+        drawRectangle(spriteBatch, rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight(), filled);
     }
 
     public static void drawRectangle(SpriteBatch batch, float x, float y, float width, float height, boolean filled) {

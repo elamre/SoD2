@@ -3,9 +3,12 @@ package com.deeep.sod2.entities;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.deeep.sod2.gameplay.Map;
 import com.deeep.sod2.graphics.ShapeRenderer;
 import com.deeep.sod2.utility.Camera;
 import com.deeep.sod2.utility.Logger;
+
+import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,9 +20,6 @@ import com.deeep.sod2.utility.Logger;
 public abstract class Entity {
     /** The interval between debug messages */
     private final float debugThreshold = 1;
-    /** The position of the entity */
-    public float x;
-    public float y;
     /** Width and height of the entity */
     protected float width = 1f;
     protected float height = 1f;
@@ -28,6 +28,9 @@ public abstract class Entity {
     protected float angle;
     /** The texture region to be drawn */
     protected TextureRegion textureRegion;
+    /** The position of the entity */
+    protected float x;
+    protected float y;
     /** The id this particular entity goes by */
     private int id;
     /** The type of the entity */
@@ -38,10 +41,21 @@ public abstract class Entity {
     private int owner = 0;
     /** Logger instance */
     private Logger logger = Logger.getInstance();
+    /** If the entity has to be centered. Set false if it traverses cells with a speed */
+    private boolean center = true;
 
     /** USE THIS ONLY FOR REGISTERING THE ENTITY! SHOULD NOT BE USED OTHERWISE! */
     public Entity() {
 
+    }
+
+    public Entity(int id, int owner, float x, float y) {
+        this.entityType = EntityList.getEntityType(this);
+        this.owner = owner;
+        this.id = id;
+        this.x = x;
+        this.y = y;
+        onCreate();
     }
 
 
@@ -82,7 +96,10 @@ public abstract class Entity {
                 drawDebug(spriteBatch);
             }
             if (textureRegion != null) {
-                spriteBatch.draw(textureRegion, x + (1 - width)/2, y + (1 - height)/2, width / 2, height / 2, width, height, 1, 1, angle);
+                if (center)
+                    spriteBatch.draw(textureRegion, x + (1 - width) / 2, y + (1 - height) / 2, width / 2, height / 2, width, height, 1, 1, angle);
+                else
+                    spriteBatch.draw(textureRegion, x, y, width / 2, height / 2, width, height, 1, 1, angle);
             }
             implementDraw_1(spriteBatch);
         }
@@ -177,7 +194,15 @@ public abstract class Entity {
         this.height = 1;
     }
 
+    public void collide(ArrayList<Entity> entities) {
+
+    }
+
     public String toString() {
-        return "id: " + this.id + " [" + (int) getX() + "," + (int) getY() + "] size: [" + width + "," + height + "]";
+        return "type: " + entityType + " id: " + this.id + " [" + (int) getX() + "," + (int) getY() + "] size: [" + width + "," + height + "]";
+    }
+
+    public void setCenter(boolean center) {
+        this.center = center;
     }
 }

@@ -12,32 +12,34 @@ import com.deeep.sod2.graphics.ShapeRenderer;
  * Date : 08-10-13
  */
 
-public class Turret extends Entity{
+public class Turret extends Entity {
 
     protected int level;
     protected float health;
 
-    public Turret(float x, float y, int level, float health) {
-        this.x = x;
-        this.y = y;
-        this.level = level;
+    /** USE THIS ONLY FOR REGISTERING THE ENTITY! SHOULD NOT BE USED OTHERWISE! */
+    public Turret() {
+    }
+
+    public Turret(int id, int x, int y, float health, int level) {
+        super(id, -1, x, y);
         this.health = health;
+        this.level = level;
+        setTextureRegion(Assets.getAssets().getRegion("Tiles/turret"));
     }
 
-    @Override
-    public void implementDraw_1(SpriteBatch spriteBatch) {
-        ShapeRenderer.setColor(new Color(1f-level/255f, 0f, 0f, (15f-level)/15f));
-        ShapeRenderer.drawRectangle(spriteBatch, x, y, 1f, 1f, true);
-    }
 
-    /**
-     * Use this function instead of the constructor
-     */
+    /** Use this function instead of the constructor */
     @Override
     public void onCreate() {
     }
 
     @Override
     public void implementUpdate_1(float deltaT) {
+    }
+
+    @Override
+    public void implementDraw_1(SpriteBatch spriteBatch) {
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 }

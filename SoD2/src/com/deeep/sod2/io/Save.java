@@ -1,7 +1,6 @@
 package com.deeep.sod2.io;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -27,6 +26,8 @@ public class Save {
 
     public static Save LEVEL_1;
     public int width, height;
+    /** Spawn coordinate for the snake*/
+    public int spawnX, spawnY;
     /**
     *0 : empty tile   : BLACK
     *1 : regular tile : GRAY
@@ -53,9 +54,6 @@ public class Save {
      */
     private Entity[] entities;
 
-    /** Spawn coordinate for the snake*/
-    public int spawnX, spawnY;
-    
     public Save(int level, EntityManager entityManager) {
         try {
             loadLevel(level, entityManager);
@@ -90,7 +88,8 @@ public class Save {
                     case 0x808080ff: tiles[x+y*width] = new RegularTile(x, y); break;
                     case 0xff6a00ff: tiles[x+y*width] = new ObstacleTile(x, y); break;
                     case 0x0000ffff:
-                        tiles[x+y*width] = new RegularTile(x, y, new Color(0.05f, 0.7f, 0.8f, 0.8f));
+                        /**Spawn point location*/
+                        tiles[x+y*width] = new RegularTile(x, y);
                         spawnX = x;
                         spawnY = y;
                         break;
@@ -114,7 +113,7 @@ public class Save {
                     case 254: entities[x+y*width] = new SpeedPickup(entityManager.getNextSinglePlayerId(), x, height-y-2); break;
                     case 253: entities[x+y*width] = new BulletPickup(entityManager.getNextSinglePlayerId(), x, height-y-2); break;
                     case 252: entities[x+y*width] = new CompassPickup(entityManager.getNextSinglePlayerId(), x, height-y-2); break;
-                    case 251: entities[x+y*width] = new Turret(x, height-y-2, g, b);break;
+                    case 251: entities[x+y*width] = new Turret(entityManager.getNextSinglePlayerId(),x, y, g, b); break;
                 }
             }
         }
