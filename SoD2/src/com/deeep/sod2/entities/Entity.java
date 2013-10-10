@@ -3,6 +3,7 @@ package com.deeep.sod2.entities;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.deeep.sod2.gameplay.Map;
 import com.deeep.sod2.graphics.ShapeRenderer;
 import com.deeep.sod2.utility.Camera;
@@ -43,6 +44,8 @@ public abstract class Entity {
     private Logger logger = Logger.getInstance();
     /** If the entity has to be centered. Set false if it traverses cells with a speed */
     private boolean center = true;
+    private boolean alive = true;
+    private Rectangle hitBox = new Rectangle(1, 1, 1, 1);
 
     /** USE THIS ONLY FOR REGISTERING THE ENTITY! SHOULD NOT BE USED OTHERWISE! */
     public Entity() {
@@ -55,7 +58,6 @@ public abstract class Entity {
         this.id = id;
         this.x = x;
         this.y = y;
-        onCreate();
     }
 
 
@@ -65,7 +67,6 @@ public abstract class Entity {
         this.id = id;
         this.x = x;
         this.y = y;
-        onCreate();
     }
 
     /** Use this function instead of the constructor */
@@ -139,6 +140,18 @@ public abstract class Entity {
         return entityType;
     }
 
+    public Rectangle getHitBox() {
+        hitBox.set(x, y, width, height);
+        return hitBox;
+    }
+
+    public boolean overlaps(Rectangle rectangle) {
+        hitBox.set(x, y, width, height);
+        if (hitBox.overlaps(rectangle))
+            return true;
+        return false;
+    }
+
     public float getAngle() {
         return angle;
     }
@@ -194,8 +207,8 @@ public abstract class Entity {
         this.height = 1;
     }
 
-    public void collide(ArrayList<Entity> entities) {
-
+    public boolean isAlive() {
+        return alive;
     }
 
     public String toString() {
@@ -204,5 +217,9 @@ public abstract class Entity {
 
     public void setCenter(boolean center) {
         this.center = center;
+    }
+
+    public void die() {
+        alive = false;
     }
 }

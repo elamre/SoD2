@@ -2,8 +2,7 @@ package com.deeep.sod2.entities.pickups;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.deeep.sod2.entities.Entity;
-import com.deeep.sod2.entities.Snake;
+import com.deeep.sod2.entities.*;
 import com.deeep.sod2.gameplay.Map;
 import com.deeep.sod2.particle.FormulaTypes;
 import com.deeep.sod2.particle.Sequence;
@@ -16,7 +15,8 @@ import com.deeep.sod2.particle.Sequencer;
  * Time: 4:58 PM
  * To change this template use File | Settings | File Templates.
  */
-public abstract class Pickup extends Entity {
+public abstract class Pickup extends Entity implements CollideAble {
+    private boolean pickupAble = true;
     private float rotationSpeed = 80;
     private float size = 1;
     private Sequencer sequencer;
@@ -55,5 +55,16 @@ public abstract class Pickup extends Entity {
     @Override
     public void implementDraw_1(SpriteBatch spriteBatch) {
         //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void Collide(EntityManager entityManager, Entity entity) {
+        if (pickupAble) {
+            if (entity instanceof Snake) {
+               // ((Snake) entity).addTail((Tail) entityManager.addEntitySinglePlayer(new Tail(entityManager.getNextSinglePlayerId(), entity.getId(), 0, 0)), this);
+                pickupAble = false;
+                System.out.println("Colliding with: " + entity);
+            }
+        }
     }
 }

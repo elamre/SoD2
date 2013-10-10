@@ -10,17 +10,17 @@ import com.deeep.sod2.graphics.Assets;
  * Time: 6:30 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Head extends Entity {
+public class Head extends Entity implements CollideAble {
     /** USE THIS ONLY FOR REGISTERING THE ENTITY! SHOULD NOT BE USED OTHERWISE! */
     public Head() {
     }
 
-    public void setSkin(int skinId){
-        setTextureRegion(Assets.getAssets().getRegion("snakes/snake_1_head"));
-    }
-
     public Head(int id, int owner, int x, int y) {
         super(id, owner, x, y);
+    }
+
+    public void setSkin(int skinId) {
+        setTextureRegion(Assets.getAssets().getRegion("snakes/snake_1_head"));
     }
 
     /** Use this function instead of the constructor */
@@ -36,6 +36,11 @@ public class Head extends Entity {
 
     @Override
     public void implementDraw_1(SpriteBatch spriteBatch) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void Collide(EntityManager entityManager, Entity entity) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 }
