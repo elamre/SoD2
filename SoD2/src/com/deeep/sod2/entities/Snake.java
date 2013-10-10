@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * Date: 10/3/13
  * Time: 6:30 PM
  */
-public class Snake extends TickAbleEntity implements CollideAble{
+public class Snake extends TickAbleEntity implements CollideAble {
     /** X and Y coordinate of latest checkpoint */
     public float checkPointX, checkPointY;
     /** Direction list to add new actions */
@@ -58,6 +58,7 @@ public class Snake extends TickAbleEntity implements CollideAble{
     public void addTail(Tail tail, Pickup pickUp) {
         pickUp.onCreate();
         tail.setPickup(pickUp);
+        tail.setSkin(1);
         tails.add(tail);
     }
 

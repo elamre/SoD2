@@ -20,6 +20,7 @@ public class EntityManager {
     public HashMap<Integer, Entity> entities = new HashMap<Integer, Entity>();
     private int id = 1;
     /** Should contain all the collect ables */
+    private ArrayList<Entity> addToList = new ArrayList<Entity>();
     private ArrayList<CollectAble> collectAbles = new ArrayList<CollectAble>();
     private ArrayList<Entity> collideAbles = new ArrayList<Entity>();
     private ArrayList<Snake> snakes = new ArrayList<Snake>();
@@ -39,20 +40,27 @@ public class EntityManager {
      * @param e the entity to be added
      */
     public Entity addEntitySinglePlayer(Entity e) {
-        e.setDebug(false);
-        entities.put(id, e);
-        if (e instanceof CollectAble) {
-            collectAbles.add((CollectAble) e);
-        }
-        if (e instanceof CollideAble) {
-            collideAbles.add(e);
-        }
-        if (e instanceof Snake) {
-            snakes.add((Snake) e);
-        }
-        e.onCreate();
-        id++;
+        addToList.add(e);
+
         return e;
+    }
+
+    private void addAllEntities() {
+        for (Entity entity : addToList) {
+            entity.setDebug(false);
+            entities.put(entity.getId(), entity);
+            if (entity instanceof CollectAble) {
+                collectAbles.add((CollectAble) entity);
+            }
+            if (entity instanceof CollideAble) {
+                collideAbles.add(entity);
+            }
+            if (entity instanceof Snake) {
+                snakes.add((Snake) entity);
+            }
+            entity.onCreate();
+        }
+        addToList.clear();
     }
 
     public int getNextSinglePlayerId() {
@@ -141,6 +149,7 @@ public class EntityManager {
                 }
             }
         }
+        addAllEntities();
         for (Entity entity : removeList) {
             removeEntity(entity);
         }
