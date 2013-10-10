@@ -59,12 +59,15 @@ public abstract class Pickup extends Entity implements CollideAble {
 
     @Override
     public void Collide(EntityManager entityManager, Entity entity) {
-        if (pickupAble) {
-            if (entity instanceof Snake) {
-               // ((Snake) entity).addTail((Tail) entityManager.addEntitySinglePlayer(new Tail(entityManager.getNextSinglePlayerId(), entity.getId(), 0, 0)), this);
-                pickupAble = false;
-                System.out.println("Colliding with: " + entity);
-            }
+        if (entity instanceof Snake) {
+            ((Snake) entity).addTail((Tail) entityManager.addEntitySinglePlayer(new Tail(entityManager.getNextSinglePlayerId(), entity.getId(), 0, 0)), this);
+            die();
+            reset();
         }
+    }
+
+    public void reset() {
+        setWidth(1);
+        setHeight(1);
     }
 }
