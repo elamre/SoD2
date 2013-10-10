@@ -154,6 +154,11 @@ public class Camera {
         return inHud;
     }
 
+    /**
+     * Returns the x vector of the touch coordinated. It's relative to the worlds unit system
+     *
+     * @return x value of touch in floats
+     */
     public float getTouchUnitX() {
         return x + (float) Gdx.input.getX() / (Constants.BLOCK_SIZE * Constants.SCALE) - (Constants.VIRTUAL_WIDTH / (Constants.BLOCK_SIZE * Constants.SCALE) / 2);
     }
@@ -162,6 +167,11 @@ public class Camera {
         return Gdx.input.getX();
     }
 
+    /**
+     * Returns the y vector of the touch coordinated. It's relative to the worlds unit system
+     *
+     * @return y value of touch in floats
+     */
     public float getTouchUnitY() {
         return y + (Gdx.graphics.getHeight() - (float) Gdx.input.getY()) / (Constants.BLOCK_SIZE * Constants.SCALE) - (Constants.VIRTUAL_HEIGHT / (Constants.BLOCK_SIZE * Constants.SCALE) / 2);
     }
