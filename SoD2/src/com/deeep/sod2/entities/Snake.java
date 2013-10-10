@@ -26,6 +26,13 @@ public class Snake extends TickAbleEntity {
     private Direction prevDir = Direction.EAST;
     /** X and Y coordinate of latest checkpoint*/
     public float checkPointX, checkPointY;
+    /** Direction of the latest checkpoint*/
+    public Direction checkPointDirection;
+    /** Spawn X and Y coordinate*/
+    public float spawnX;
+    public float spawnY;
+    /** Spawn direction*/
+    public Direction spawnDirection;
 
     public Snake() {
         super(0, 0, 0, 0);
@@ -173,6 +180,18 @@ public class Snake extends TickAbleEntity {
         Direction(int dir) {
             this.dir = dir;
         }
+    }
+
+    /** Happens once the snake runs out of lives */
+    public void onDeath(){
+        if(checkPointX == 0 || checkPointY == 0){
+
+
+        }
+    }
+
+    public Direction getDir(){
+        return dir;
     }
 
 }

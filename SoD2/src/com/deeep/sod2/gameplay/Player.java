@@ -78,9 +78,10 @@ public class Player {
         snake.setSkin(skinId);
     }
 
-    public void setSnakeSpawnPoint(int x, int y) {
-        spawnX = x;
-        spawnY = y;
+    public void setSnakeSpawnPoint(int x, int y, Snake.Direction direction) {
+        snake.spawnX = x;
+        snake.spawnY = y;
+        snake.setDirection(direction);
     }
 
     public void setEntityManager(EntityManager entityManager) {

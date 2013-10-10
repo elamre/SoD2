@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deeep.sod2.entities.Entity;
 import com.deeep.sod2.entities.Snake;
+import com.deeep.sod2.graphics.Assets;
 import com.deeep.sod2.graphics.ShapeRenderer;
 
 /**
@@ -19,10 +20,12 @@ public class CheckPointTile extends AbstractTile{
         setX(x);
         setY(y);
         setColor(new Color(0.05f, 0.7f, 0.1f, 0.5f));
+        this.textureRegion = Assets.getAssets().getRegion("Tiles/glass");
     }
 
     @Override
     public void draw(SpriteBatch spriteBatch) {
+        spriteBatch.draw(textureRegion, x, y, 1, 1, 1, 1, 1, 1, 0);
         ShapeRenderer.setColor(color);
         ShapeRenderer.drawRectangle(spriteBatch, x, y, 1, 1, true);
     }
@@ -31,5 +34,6 @@ public class CheckPointTile extends AbstractTile{
     public void onStep(Entity stepper){
         ((Snake) stepper).checkPointX = x;
         ((Snake) stepper).checkPointY = y;
+        ((Snake) stepper).checkPointDirection = ((Snake) stepper).getDir();
     }
 }
