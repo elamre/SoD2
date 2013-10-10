@@ -32,7 +32,6 @@ public class Coin extends Entity {
 
     public Coin(int id, float x, float y) {
         super(id, -1, x, y);
-        setCenter(false);
         setX(x);
         setY(y);
     }
@@ -68,13 +67,13 @@ public class Coin extends Entity {
         dy *= .1f;
         dx *= .1f;
         dxSequencer = new Sequencer(false);
-        dxSequencer.addSequence(new Sequence(new FormulaTypes.Linear(.5f, dx)));
+        dxSequencer.addSequence(new Sequence(new FormulaTypes.Linear(.2f, dx)));
         dySequencer = new Sequencer(false);
-        dySequencer.addSequence(new Sequence(new FormulaTypes.Linear(.5f, dy)));
+        dySequencer.addSequence(new Sequence(new FormulaTypes.Linear(.2f, dy)));
         transparencySequence = new Sequencer(false);
-        transparencySequence.addSequence(new Sequence(new FormulaTypes.Linear(0.1f,1)));
-        transparencySequence.addSequence(new Sequence(new FormulaTypes.Sleep(2)));
-        transparencySequence.addSequence(new Sequence(new FormulaTypes.Linear(2, 0)));
+        transparencySequence.addSequence(new Sequence(new FormulaTypes.Sleep(2.5f + random.nextFloat() * 2.5f)));
+        transparencySequence.addSequence(new Sequence(new FormulaTypes.Linear(0.5f + random.nextFloat() * 0.5f, 0)));
+        transparencySequence.start(1);
         frames = new TextureRegion[20];
         TextureRegion[][] temp;
         temp = Assets.getAssets().getRegion("animations/coin_strip20").split(40, 40);
@@ -82,6 +81,7 @@ public class Coin extends Entity {
             frames[i] = temp[0][i];
         }
         animation = new Animation(0.05f, frames);
+        animation.setPlayMode(Animation.LOOP_PINGPONG);
     }
 
     @Override

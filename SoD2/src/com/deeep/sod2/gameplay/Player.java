@@ -64,6 +64,10 @@ public class Player {
                 @Override
                 public void inputReact() {
                     snake.fireAction();
+                    entityManager.addEntitySinglePlayer(new Coin(entityManager.getNextSinglePlayerId(), snake.getOriginX(), snake.getOriginY()));
+                    entityManager.addEntitySinglePlayer(new Coin(entityManager.getNextSinglePlayerId(), snake.getOriginX(), snake.getOriginY()));
+                    entityManager.addEntitySinglePlayer(new Coin(entityManager.getNextSinglePlayerId(), snake.getOriginX(), snake.getOriginY()));
+                    entityManager.addEntitySinglePlayer(new Coin(entityManager.getNextSinglePlayerId(), snake.getOriginX(), snake.getOriginY()));
                 }
             }, InputReactListener.Event.PRESSED);
         }

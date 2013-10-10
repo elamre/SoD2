@@ -41,11 +41,20 @@ public class Sequencer {
         index = (index == -1) ? 0 : index;
     }
 
+    public void setStartValue(float value) {
+
+    }
+
     public void startSingleSequence(float startValue, Sequence sequence) {
         clearSequence();
         sequences.add(sequence);
         sequence.activate(startValue);
         index = 0;
+    }
+
+    public void start(float value) {
+        index = 0;
+        sequences.get(0).activate(value);
     }
 
     /** TODO figure out when to actually use this */
@@ -68,7 +77,7 @@ public class Sequencer {
                     index = (index < sequences.size() - 1) ? index + 1 : 0;
                     sequences.get(index).activate(value);
                 } else {
-                    index = -1;
+                    index = (index < sequences.size() - 1) ? index + 1 : -1;
                 }
             }
         }
@@ -95,7 +104,7 @@ public class Sequencer {
         return false;
     }
 
-    public int getIndex(){
+    public int getIndex() {
         return index;
     }
 }
