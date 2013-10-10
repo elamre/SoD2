@@ -51,7 +51,7 @@ public class Map {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 for (int i = 0; i < map[width][height].size(); i++) {
-                    map[x][y].get(i).collide(map[width][height]);
+
                 }
             }
         }

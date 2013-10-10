@@ -3,6 +3,8 @@ package com.deeep.sod2.entities;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deeep.sod2.gameplay.Map;
 
+import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -16,6 +18,12 @@ public class EntityManager {
 
     /** The HashMap, that contains entities and their respective ids */
     public HashMap<Integer, Entity> entities = new HashMap<Integer, Entity>();
+    private int id = 1;
+    /** Should contain all the collect ables */
+    private ArrayList<CollectAble> collectAbles = new ArrayList<CollectAble>();
+    private ArrayList<Entity> collideAbles = new ArrayList<Entity>();
+    private ArrayList<Snake> snakes = new ArrayList<Snake>();
+    private ArrayList<Entity> removeList = new ArrayList<Entity>();
 
     public EntityManager() {
     }
@@ -32,12 +40,24 @@ public class EntityManager {
      */
     public Entity addEntitySinglePlayer(Entity e) {
         e.setDebug(false);
-        entities.put(entities.size(), e);
+        entities.put(id, e);
+        if (e instanceof CollectAble) {
+            collectAbles.add((CollectAble) e);
+        }
+        if (e instanceof CollideAble) {
+            collideAbles.add(e);
+        }
+        if (e instanceof Snake) {
+            snakes.add((Snake) e);
+        }
+        e.onCreate();
+        id++;
         return e;
     }
 
     public int getNextSinglePlayerId() {
-        return entities.size();
+        id++;
+        return id;
     }
 
     /**
@@ -65,7 +85,16 @@ public class EntityManager {
      * @param e the entity to be removed (must be contained in )
      */
     public void removeEntity(Entity e) {
-        entities.remove(e);
+        if (collectAbles.contains(e)) {
+            collectAbles.remove(e);
+        }
+        if (collideAbles.contains(e)) {
+            collideAbles.remove(e);
+        }
+        if (snakes.contains(e)) {
+            snakes.remove(e);
+        }
+        removeEntity(e.getId());
     }
 
     /**
@@ -82,12 +111,40 @@ public class EntityManager {
      * @param delta the delta value to update the entities with
      */
     public void update(float delta) {
+
         Iterator<Integer> keySetIterator = entities.keySet().iterator();
         Map.getInstance().update(delta);
         while (keySetIterator.hasNext()) {
             Integer key = keySetIterator.next();
             entities.get(key).update(delta);
+            if (!entities.get(key).isAlive())
+                removeList.add(entities.get(key));
         }
+        for (CollectAble collectAble : collectAbles) {
+            for (Snake snake : snakes) {
+                collectAble.checkDistance(snake);
+            }
+        }
+        for (Entity collideAble : collideAbles) {
+            if (collideAble.isAlive()) {
+                try {
+                    for (Entity check : collideAbles) {
+                        if (check != collideAble) {
+                            if (collideAble.overlaps(check.getHitBox())) {
+                                ((CollideAble) collideAble).Collide(this, check);
+                            }
+                        }
+                    }
+                } catch (ConcurrentModificationException e) {
+                    System.out.println(e);
+                    System.out.println(collideAble.getClass().toString());
+                }
+            }
+        }
+        for (Entity entity : removeList) {
+            removeEntity(entity);
+        }
+        removeList.clear();
     }
 
     public void draw(SpriteBatch spriteBatch) {
@@ -104,7 +161,7 @@ public class EntityManager {
         for (Entity e : ent) {
             if (e == null) continue;
             e.setDebug(false);
-            this.entities.put(this.entities.size(), e);
+            addEntitySinglePlayer(e);
         }
     }
 }

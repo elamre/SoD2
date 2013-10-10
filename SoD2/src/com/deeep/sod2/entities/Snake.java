@@ -2,6 +2,7 @@ package com.deeep.sod2.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.deeep.sod2.entities.pickups.Pickup;
 import com.deeep.sod2.utility.Logger;
 
@@ -13,7 +14,9 @@ import java.util.ArrayList;
  * Date: 10/3/13
  * Time: 6:30 PM
  */
-public class Snake extends TickAbleEntity {
+public class Snake extends TickAbleEntity implements CollideAble{
+    /** X and Y coordinate of latest checkpoint */
+    public float checkPointX, checkPointY;
     /** Direction list to add new actions */
     private ArrayList<Direction> directions = new ArrayList<Direction>();
     /** The head of the snake */
@@ -34,8 +37,8 @@ public class Snake extends TickAbleEntity {
     /** Spawn direction*/
     public Direction spawnDirection;
 
-    public Snake() {
-        super(0, 0, 0, 0);
+    public Snake(int id) {
+        super(id, 0, 0, 0);
     }
 
     /**
@@ -103,6 +106,14 @@ public class Snake extends TickAbleEntity {
         Logger.getInstance().debug(this.getClass(), "FPS: " + Gdx.graphics.getFramesPerSecond());
     }
 
+    public Rectangle getHitBox() {
+        return head.getHitBox();
+    }
+
+    public boolean overlaps(Rectangle rectangle) {
+        return head.overlaps(rectangle);
+    }
+
     /**
      * Calculates the new x and y position for the client. This will make sure that the head wont move to the previous
      * position resulting in an instant death.
@@ -149,15 +160,6 @@ public class Snake extends TickAbleEntity {
         head.setAngle(dir.dir);
     }
 
-    @Override
-    public void collide(ArrayList<Entity> entities) {
-        for (Entity entity : entities) {
-            if (entity instanceof Tail) {
-                Logger.getInstance().debug(this.getClass(), "WOIJFWOEIJFWOEIJF");
-            }
-        }
-    }
-
     public void setSkin(int skin) {
         head.setSkin(skin);
         for (int i = 0; i < tails.size(); i++) {
@@ -167,9 +169,15 @@ public class Snake extends TickAbleEntity {
 
     public void fireAction() {
         if (tails.get(tails.size() - 1).action(this)) {
+            tails.get(tails.size() - 1).die();
             tails.remove(tails.size() - 1);
             //TODO Send it to server
         }
+    }
+
+    @Override
+    public void Collide(EntityManager entityManager, Entity entity) {
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     /** the direction of the snake */

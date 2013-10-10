@@ -12,7 +12,7 @@ import com.deeep.sod2.graphics.Assets;
  * Time: 6:30 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Tail extends Entity {
+public class Tail extends Entity implements CollideAble {
     private Pickup pickup;
 
     /** USE THIS ONLY FOR REGISTERING THE ENTITY! SHOULD NOT BE USED OTHERWISE! */
@@ -64,6 +64,11 @@ public class Tail extends Entity {
             pickup.draw(spriteBatch);
             // spriteBatch.draw(pickup.getTextureRegion(), x, y);
         }
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void Collide(EntityManager entityManager, Entity entity) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 }

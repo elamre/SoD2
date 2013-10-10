@@ -10,16 +10,10 @@ import com.deeep.sod2.entities.Entity;
  * Time: 11:49 AM
  * To change this template use File | Settings | File Templates.
  */
-public class SequencerTest implements CollideAble {
+public class SequencerTest  {
     public static void main(String[] args) throws InterruptedException {
         SequencerTest sequencerTest = new SequencerTest();
-        if(sequencerTest instanceof CollideAble)
-            sequencerTest.Collide(null);
 
     }
 
-    @Override
-    public void Collide(Entity entity) {
-        System.out.println("Collide");
-    }
 }

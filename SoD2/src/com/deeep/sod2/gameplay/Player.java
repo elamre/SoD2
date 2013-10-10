@@ -87,7 +87,8 @@ public class Player {
     public void setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
 
-        snake = new Snake();
+        snake = new Snake(entityManager.getNextSinglePlayerId());
+        entityManager.addEntitySinglePlayer(snake);
         snake.setHead((Head) entityManager.addEntitySinglePlayer(new Head(entityManager.getNextSinglePlayerId(), 0, 1, 1)));
         snake.addTail((Tail) entityManager.addEntitySinglePlayer(new Tail(entityManager.getNextSinglePlayerId(), 0, spawnX, spawnY)), new HearthPickup(entityManager.getNextSinglePlayerId(), spawnX, spawnY));
         snake.addTail((Tail) entityManager.addEntitySinglePlayer(new Tail(entityManager.getNextSinglePlayerId(), 0, spawnX, spawnY)), new SpeedPickup(entityManager.getNextSinglePlayerId(), spawnX, spawnY));
@@ -100,7 +101,7 @@ public class Player {
     public void update(float deltaT) {
         if (selfControlled && snake != null) {
             controller.update();
-            snake.update(deltaT);
+            //snake.update(deltaT);
         }
         if (Gdx.input.isTouched()) {
             float x = Camera.getInstance().getTouchUnitX();
