@@ -12,7 +12,6 @@ import java.util.ArrayList;
  * User: Elmar
  * Date: 10/3/13
  * Time: 6:30 PM
- * To change this template use File | Settings | File Templates.
  */
 public class Snake extends TickAbleEntity {
     /** Direction list to add new actions */
@@ -25,6 +24,8 @@ public class Snake extends TickAbleEntity {
     private Direction dir = Direction.EAST;
     /** The previous direction of the snake, used for checking */
     private Direction prevDir = Direction.EAST;
+    /** X and Y coordinate of latest checkpoint*/
+    public float checkPointX, checkPointY;
 
     /**
      * Sets the head of the snake.

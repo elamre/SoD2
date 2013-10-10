@@ -1,6 +1,7 @@
 package com.deeep.sod2.io;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -11,10 +12,7 @@ import com.deeep.sod2.entities.pickups.BulletPickup;
 import com.deeep.sod2.entities.pickups.CompassPickup;
 import com.deeep.sod2.entities.pickups.HearthPickup;
 import com.deeep.sod2.entities.pickups.SpeedPickup;
-import com.deeep.sod2.tiles.AbstractTile;
-import com.deeep.sod2.tiles.EmptyTile;
-import com.deeep.sod2.tiles.ObstacleTile;
-import com.deeep.sod2.tiles.RegularTile;
+import com.deeep.sod2.tiles.*;
 import com.deeep.sod2.utility.Logger;
 
 import java.io.IOException;
@@ -92,9 +90,13 @@ public class Save {
                     case 0x808080ff: tiles[x+y*width] = new RegularTile(x, y); break;
                     case 0xff6a00ff: tiles[x+y*width] = new ObstacleTile(x, y); break;
                     case 0x0000ffff:
-                        tiles[x+y*width] = new RegularTile(x, y);
+                        tiles[x+y*width] = new RegularTile(x, y, new Color(0.05f, 0.7f, 0.8f, 0.8f));
                         spawnX = x;
                         spawnY = y;
+                        break;
+                    case 0x00ff00ff:
+                        tiles[x+y*width] = new CheckPointTile(x, y);
+
                         break;
                 }
             }
@@ -112,7 +114,7 @@ public class Save {
                     case 254: entities[x+y*width] = new SpeedPickup(entityManager.getNextSinglePlayerId(), x, height-y-2); break;
                     case 253: entities[x+y*width] = new BulletPickup(entityManager.getNextSinglePlayerId(), x, height-y-2); break;
                     case 252: entities[x+y*width] = new CompassPickup(entityManager.getNextSinglePlayerId(), x, height-y-2); break;
-                    case 251: entities[x+y*width] = new Turret(x, y, g, b); break;
+                    case 251: entities[x+y*width] = new Turret(x, height-y-2, g, b);break;
                 }
             }
         }

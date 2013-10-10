@@ -9,6 +9,7 @@ package com.deeep.sod2.tiles;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.deeep.sod2.entities.Entity;
 import com.deeep.sod2.graphics.ShapeRenderer;
 
 public class EmptyTile extends AbstractTile{
@@ -19,7 +20,13 @@ public class EmptyTile extends AbstractTile{
         setY(y);
     }
 
+    @Override
     public void draw(SpriteBatch spriteBatch){
+    }
+
+
+    @Override
+    public void onStep(Entity stepper) {
     }
 
 }

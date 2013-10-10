@@ -9,6 +9,7 @@ package com.deeep.sod2.tiles;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.deeep.sod2.entities.Entity;
 import com.deeep.sod2.graphics.ShapeRenderer;
 
 public class RegularTile extends AbstractTile{
@@ -19,9 +20,20 @@ public class RegularTile extends AbstractTile{
         setY(y);
     }
 
+    public RegularTile(int x, int y, Color c) {
+        setColor(c);
+        setX(x);
+        setY(y);
+    }
+
+    @Override
     public void draw(SpriteBatch spriteBatch){
         ShapeRenderer.setColor(color);
         ShapeRenderer.drawRectangle(spriteBatch, x, y, 1, 1, true);
+    }
+
+    @Override
+    public void onStep(Entity stepper) {
     }
 
 }

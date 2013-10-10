@@ -26,9 +26,8 @@ public class Turret extends Entity{
 
     @Override
     public void implementDraw_1(SpriteBatch spriteBatch) {
-        ShapeRenderer.setColor(new Color(1f-level/255f, 0f, 0f, 1f));
+        ShapeRenderer.setColor(new Color(1f-level/255f, 0f, 0f, (15f-level)/15f));
         ShapeRenderer.drawRectangle(spriteBatch, x, y, 1f, 1f, true);
-        spriteBatch.draw(Assets.getAssets().getPlanetTexture(1), x, y, 1, 1);
     }
 
     /**

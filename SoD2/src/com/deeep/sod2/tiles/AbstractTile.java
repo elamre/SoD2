@@ -9,7 +9,7 @@ package com.deeep.sod2.tiles;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.deeep.sod2.graphics.ShapeRenderer;
+import com.deeep.sod2.entities.Entity;
 
 public abstract class AbstractTile {
 
@@ -46,6 +46,8 @@ public abstract class AbstractTile {
     }
 
     public abstract void draw(SpriteBatch spriteBatch);
+
+    public abstract void onStep(Entity stepper);
 
     public Color getColor() {
         return color;
