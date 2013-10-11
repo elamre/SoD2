@@ -15,19 +15,14 @@ import com.deeep.sod2.entities.Entity;
 import com.deeep.sod2.graphics.ShapeRenderer;
 
 public class ObstacleTile extends AbstractTile {
-    TextureRegion textureRegion;
 
     public ObstacleTile(int x, int y) {
-        setColor(new Color(0.6f, 0.3f, 0.2f, 0.5f));
         setX(x);
         setY(y);
         this.textureRegion = Assets.getAssets().getRegion("Tiles/obstacle");
     }
 
     public void draw(SpriteBatch spriteBatch){
-        ShapeRenderer.setColor(color);
-        ShapeRenderer.drawRectangle(spriteBatch, x, y, 1, 1, true);
-        //spriteBatch.draw(textureRegion, x, y);
         spriteBatch.draw(textureRegion, x, y, 1, 1, 1, 1, 1, 1, 0);
 
     }

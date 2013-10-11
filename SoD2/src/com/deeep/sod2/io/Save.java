@@ -135,4 +135,11 @@ public class Save {
         return entities;
     }
 
+    public int getSpawnX() {
+        return spawnX;
+    }
+
+    public int getSpawnY() {
+        return spawnY;
+    }
 }

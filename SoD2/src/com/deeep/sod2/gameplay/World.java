@@ -33,12 +33,12 @@ public class World {
         entityManager = new EntityManager();
         Save.loadSaves(entityManager);
         loadedSave = Save.LEVEL_1;
-        player = new Player("Elmar is bad at chess", true);
+        player = new Player("Elmar is bad at chess!", true);
 
         grid = new Grid(1, loadedSave.width, loadedSave.height, Color.BLUE, loadedSave);
         particleManager = new ParticleManager();
-        player.setSnakeSpawnPoint(loadedSave.spawnX, loadedSave.spawnY);
         player.setEntityManager(entityManager);
+        player.setSnakeSpawnPoint(loadedSave.spawnX, loadedSave.spawnY);
         entityManager.addEntitiesSinglePlayer(loadedSave.getEntities());
     }
 

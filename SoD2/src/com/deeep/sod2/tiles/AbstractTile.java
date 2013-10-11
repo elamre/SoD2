@@ -9,6 +9,7 @@ package com.deeep.sod2.tiles;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.deeep.sod2.entities.Entity;
 
 public abstract class AbstractTile {
@@ -20,6 +21,9 @@ public abstract class AbstractTile {
 
     /** Tile color */
     protected Color color;
+
+    /**Texture for tile*/
+    TextureRegion textureRegion;
 
     public int getX() {
         return x;

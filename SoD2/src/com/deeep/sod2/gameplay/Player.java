@@ -32,7 +32,7 @@ public class Player {
     private Snake snake;
     /** Reference to the entity manager */
     private EntityManager entityManager;
-    /** Spawnpoint for snake */
+    /** Spawn point for snake */
     private int spawnX, spawnY;
 
     public Player(String name, boolean selfControlled) {
@@ -82,8 +82,8 @@ public class Player {
     }
 
     public void setSnakeSpawnPoint(int x, int y) {
-        spawnX = x;
-        spawnY = y;
+        snake.spawnX = x;
+        snake.spawnY = y;
     }
 
     public void setEntityManager(EntityManager entityManager) {
