@@ -2,7 +2,9 @@ package com.deeep.sod2.entities.pickups;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.deeep.sod2.entities.Entity;
+import com.deeep.sod2.entities.EntityManager;
 import com.deeep.sod2.entities.Snake;
+import com.deeep.sod2.entities.projectiles.SnakeBullet;
 import com.deeep.sod2.graphics.Assets;
 
 /**
@@ -22,7 +24,8 @@ public class BulletPickup extends Pickup {
     }
 
     @Override
-    public boolean action(Snake owner) {
+    public boolean action(EntityManager entityManager, Snake owner) {
+        entityManager.addEntitySinglePlayer(new SnakeBullet(entityManager.getNextSinglePlayerId(), -1, owner.getX(), owner.getY(), 5 / owner.getTickTime(), 10, owner.getSnakeDirection().getRadians()));
         return true;
         //To change body of implemented methods use File | Settings | File Templates.
     }

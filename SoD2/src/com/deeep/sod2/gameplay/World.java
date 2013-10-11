@@ -1,22 +1,13 @@
 package com.deeep.sod2.gameplay;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.deeep.sod2.entities.Block;
 import com.deeep.sod2.entities.EntityManager;
-import com.deeep.sod2.entities.Snake;
-import com.deeep.sod2.entities.pickups.BulletPickup;
-import com.deeep.sod2.entities.pickups.CompassPickup;
-import com.deeep.sod2.entities.pickups.HearthPickup;
-import com.deeep.sod2.entities.pickups.SpeedPickup;
 import com.deeep.sod2.graphics.*;
 import com.deeep.sod2.io.Save;
-
-import java.util.ArrayList;
+import com.deeep.sod2.particle.ParticleManager;
 
 /**
  * Created with IntelliJ IDEA.

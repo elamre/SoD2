@@ -2,11 +2,9 @@ package com.deeep.sod2.io;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.deeep.sod2.entities.Entity;
 import com.deeep.sod2.entities.EntityManager;
-import com.deeep.sod2.entities.Turret;
+import com.deeep.sod2.entities.enemyentities.Turret;
 import com.deeep.sod2.entities.pickups.BulletPickup;
 import com.deeep.sod2.entities.pickups.CompassPickup;
 import com.deeep.sod2.entities.pickups.HearthPickup;

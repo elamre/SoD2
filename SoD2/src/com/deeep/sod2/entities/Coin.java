@@ -44,7 +44,7 @@ public class Coin extends CollectAble implements CollideAble {
     public void Collide(EntityManager entityManager, Entity entity) {
         if (entity instanceof Snake) {
             die();
-            System.out.println("COIN!");
+            //TODO increment score
         }
     }
 }

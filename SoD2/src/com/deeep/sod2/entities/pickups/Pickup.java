@@ -2,6 +2,7 @@ package com.deeep.sod2.entities.pickups;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.deeep.sod2.entities.*;
 import com.deeep.sod2.gameplay.Map;
 import com.deeep.sod2.particle.FormulaTypes;
@@ -28,8 +29,8 @@ public abstract class Pickup extends Entity implements CollideAble {
     protected Pickup(int id, int x, int y, TextureRegion textureRegion) {
         super(id, -1, x, y);
         sequencer = new Sequencer(true);
-        sequencer.addSequence(new Sequence(new FormulaTypes.Linear(2, 1.1f)));
-        sequencer.addSequence(new Sequence(new FormulaTypes.Linear(2, 0.8f)));
+        sequencer.addSequence(new Sequence(new FormulaTypes.Linear(2, 0.9f)));
+        sequencer.addSequence(new Sequence(new FormulaTypes.Linear(2, 0.5f)));
         setTextureRegion(textureRegion);
 
     }
@@ -39,6 +40,8 @@ public abstract class Pickup extends Entity implements CollideAble {
         angle += deltaT * rotationSpeed;
         sequencer.update(deltaT);
         size = sequencer.getValue();
+        if (!isAlive())
+            size = .7f;
         setWidth(size);
         setHeight(size);
     }
@@ -47,10 +50,11 @@ public abstract class Pickup extends Entity implements CollideAble {
      * the action to be executed when the pickup is used. If nothing should happen, and the pick up should not removed,
      * return false;
      *
-     * @param owner use this for origin and such
+     * @param entityManager this is a reference to the entitymanager. this way you can add objects
+     * @param owner         use this for origin and such
      * @return true if the pickup has been used
      */
-    public abstract boolean action(Snake owner);
+    public abstract boolean action(EntityManager entityManager, Snake owner);
 
     @Override
     public void implementDraw_1(SpriteBatch spriteBatch) {
@@ -60,14 +64,10 @@ public abstract class Pickup extends Entity implements CollideAble {
     @Override
     public void Collide(EntityManager entityManager, Entity entity) {
         if (entity instanceof Snake) {
-            ((Snake) entity).addTail((Tail) entityManager.addEntitySinglePlayer(new Tail(entityManager.getNextSinglePlayerId(), entity.getId(), 0, 0)), this);
             die();
-            reset();
+            ((Snake) entity).addTail((Tail) entityManager.addEntitySinglePlayer(new Tail(entityManager.getNextSinglePlayerId(), entity.getId(), 0, 0)), this);
         }
     }
 
-    public void reset() {
-        setWidth(1);
-        setHeight(1);
-    }
+
 }

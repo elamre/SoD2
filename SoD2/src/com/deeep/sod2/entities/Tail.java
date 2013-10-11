@@ -51,9 +51,9 @@ public class Tail extends Entity implements CollideAble {
         pickup.setAngle(angle);
     }
 
-    public boolean action(Snake snake) {
+    public boolean action(EntityManager entityManager, Snake snake) {
         if (pickup != null) {
-            return pickup.action(snake);
+            return pickup.action(entityManager, snake);
         }
         return false;
     }

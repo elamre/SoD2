@@ -1,4 +1,4 @@
-package com.deeep.sod2.graphics;
+package com.deeep.sod2.particle;
 
 /*
  * Class : Star
@@ -9,6 +9,8 @@ package com.deeep.sod2.graphics;
 
 import com.badlogic.gdx.graphics.Color;
 import com.deeep.sod2.entities.Block;
+import com.deeep.sod2.graphics.PVector;
+import com.deeep.sod2.graphics.Particle;
 import com.deeep.sod2.particle.Sequencer;
 import com.deeep.sod2.utility.Camera;
 

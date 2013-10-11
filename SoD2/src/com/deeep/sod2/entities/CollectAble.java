@@ -112,6 +112,7 @@ public abstract class CollectAble extends Entity {
         animation.setPlayMode(Animation.LOOP_PINGPONG);
         dx = 0;
         dy = 0;
+        onCreate_1();
     }
 
     @Override

@@ -69,15 +69,6 @@ public class Snake extends TickAbleEntity implements CollideAble {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    /**
-     * new direction of the snake
-     *
-     * @param dir new direction
-     */
-    public void setDirection(Direction dir) {
-        this.dir = dir;
-    }
-
     /** Moves the snake and with the tail */
     public void move() {
         int i = tails.size() - 1;
@@ -104,6 +95,19 @@ public class Snake extends TickAbleEntity implements CollideAble {
 
     public boolean overlaps(Rectangle rectangle) {
         return head.overlaps(rectangle);
+    }
+
+    public Direction getSnakeDirection() {
+        return dir;
+    }
+
+    /**
+     * new direction of the snake
+     *
+     * @param dir new direction
+     */
+    public void setDirection(Direction dir) {
+        this.dir = dir;
     }
 
     /**
@@ -159,8 +163,8 @@ public class Snake extends TickAbleEntity implements CollideAble {
         }
     }
 
-    public void fireAction() {
-        if (tails.get(tails.size() - 1).action(this)) {
+    public void fireAction(EntityManager entityManager) {
+        if (tails.get(tails.size() - 1).action(entityManager, this)) {
             tails.get(tails.size() - 1).die();
             tails.remove(tails.size() - 1);
             //TODO Send it to server
@@ -176,9 +180,19 @@ public class Snake extends TickAbleEntity implements CollideAble {
     public enum Direction {
         NORTH(90), EAST(0), SOUTH(270), WEST(180);
         int dir;
+        float radians;
 
         Direction(int dir) {
             this.dir = dir;
+            this.radians = (float) Math.toRadians(dir);
+        }
+
+        public int getValue() {
+            return dir;
+        }
+
+        public float getRadians(){
+            return radians;
         }
     }
 

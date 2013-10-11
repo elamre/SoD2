@@ -1,4 +1,4 @@
-package com.deeep.sod2.graphics;
+package com.deeep.sod2.particle;
 
 /*
  * Class : ParticleManager
@@ -9,13 +9,11 @@ package com.deeep.sod2.graphics;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.deeep.sod2.gameplay.World;
-import com.deeep.sod2.particle.FormulaTypes;
-import com.deeep.sod2.particle.Sequence;
-import com.deeep.sod2.particle.Sequencer;
+import com.deeep.sod2.graphics.PVector;
+import com.deeep.sod2.graphics.Particle;
+import com.deeep.sod2.graphics.Planet;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
 
 public class ParticleManager {

@@ -1,6 +1,7 @@
 package com.deeep.sod2.entities.pickups;
 
 import com.deeep.sod2.entities.Entity;
+import com.deeep.sod2.entities.EntityManager;
 import com.deeep.sod2.entities.Snake;
 import com.deeep.sod2.graphics.Assets;
 
@@ -21,7 +22,7 @@ public class CompassPickup extends Pickup {
     }
 
     @Override
-    public boolean action(Snake owner) {
+    public boolean action(EntityManager entityManager, Snake owner) {
         return true;
         //To change body of implemented methods use File | Settings | File Templates.
     }

@@ -149,10 +149,10 @@ public class EntityManager {
                 }
             }
         }
-        addAllEntities();
         for (Entity entity : removeList) {
             removeEntity(entity);
         }
+        addAllEntities();
         removeList.clear();
     }
 

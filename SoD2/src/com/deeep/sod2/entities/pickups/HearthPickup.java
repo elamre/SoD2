@@ -1,6 +1,7 @@
 package com.deeep.sod2.entities.pickups;
 
 import com.deeep.sod2.entities.Entity;
+import com.deeep.sod2.entities.EntityManager;
 import com.deeep.sod2.entities.Snake;
 import com.deeep.sod2.graphics.Assets;
 
@@ -16,14 +17,14 @@ public class HearthPickup extends Pickup {
     public HearthPickup() {
     }
 
-    @Override
-    public boolean action(Snake owner) {
-        return false;
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
-
     public HearthPickup(int id, int x, int y) {
         super(id, x, y, Assets.getAssets().getRegion("upgrades/life"));
+    }
+
+    @Override
+    public boolean action(EntityManager entityManager, Snake owner) {
+        return false;
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     /** Use this function instead of the constructor */

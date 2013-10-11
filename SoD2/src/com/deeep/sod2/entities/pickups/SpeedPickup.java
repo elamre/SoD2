@@ -2,6 +2,7 @@ package com.deeep.sod2.entities.pickups;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.deeep.sod2.entities.Entity;
+import com.deeep.sod2.entities.EntityManager;
 import com.deeep.sod2.entities.Snake;
 import com.deeep.sod2.graphics.Assets;
 
@@ -23,7 +24,7 @@ public class SpeedPickup extends Pickup {
     }
 
     @Override
-    public boolean action(Snake owner) {
+    public boolean action(EntityManager entityManager, Snake owner) {
         owner.increaseSpeed(owner.getTickTime() / 2, 4f, false);
         return true;
         //To change body of implemented methods use File | Settings | File Templates.
