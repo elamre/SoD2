@@ -24,8 +24,8 @@ public class BulletPickup extends Pickup {
     }
 
     @Override
-    public boolean action(EntityManager entityManager, Snake owner) {
-        entityManager.addEntitySinglePlayer(new SnakeBullet(entityManager.getNextSinglePlayerId(), -1, owner.getX(), owner.getY(), 5 / owner.getTickTime(), 10, owner.getSnakeDirection().getRadians()));
+    public boolean action(Snake owner) {
+        EntityManager.get().addEntitySinglePlayer(new SnakeBullet(EntityManager.get().getNextSinglePlayerId(), -1, owner.getX(), owner.getY(), 5 / owner.getTickTime(), 10, owner.getSnakeDirection().getRadians()));
         return true;
         //To change body of implemented methods use File | Settings | File Templates.
     }

@@ -16,12 +16,8 @@ import com.deeep.sod2.particle.ParticleManager;
  * Time: 7:46 PM
  */
 public class World {
-    /** TODO Should be modified by the grid  in constructor */
     /** the player */
     private Map map;
-    private EntityManager entityManager;
-    private Grid grid;
-    /** TODO remove */
     private Player player;
     private ParticleManager particleManager;
     /** Current level*/
@@ -29,30 +25,28 @@ public class World {
 
     /** Don't pay too much attention to this. This is just to test the camera and the view port */
     public World() {
-        map = new Map();
-        entityManager = new EntityManager();
-        Save.loadSaves(entityManager);
+        Save.loadSaves();
+
         loadedSave = Save.LEVEL_1;
         player = new Player("Elmar is bad at chess!", true);
-
-        grid = new Grid(1, loadedSave.width, loadedSave.height, Color.BLUE, loadedSave);
+        map = new Map(loadedSave);
         particleManager = new ParticleManager();
-        player.setEntityManager(entityManager);
+        player.setEntityManager();
         player.setSnakeSpawnPoint(loadedSave.spawnX, loadedSave.spawnY);
-        entityManager.addEntitiesSinglePlayer(loadedSave.getEntities());
+        EntityManager.get().addEntitiesSinglePlayer(loadedSave.getEntities());
     }
 
     public void update(float deltaT) {
         player.update(deltaT);
         map.update(deltaT);
-        entityManager.update(deltaT);
+        EntityManager.get().update(deltaT);
         particleManager.update(deltaT);
     }
 
     public void draw(SpriteBatch spriteBatch) {
         particleManager.draw(spriteBatch);
-        grid.draw(spriteBatch);
-        entityManager.draw(spriteBatch);
+        map.draw(spriteBatch);
+        EntityManager.get().draw(spriteBatch);
     }
 
     public void drawString(SpriteBatch spriteBatch, String s, int x, int y) {

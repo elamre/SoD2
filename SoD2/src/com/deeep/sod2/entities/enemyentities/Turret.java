@@ -17,6 +17,7 @@ public class Turret extends AnimatedEnemy {
 
     protected int level;
     protected float health;
+    protected  float maxHealth;
 
     /** USE THIS ONLY FOR REGISTERING THE ENTITY! SHOULD NOT BE USED OTHERWISE! */
     public Turret() {
@@ -25,8 +26,14 @@ public class Turret extends AnimatedEnemy {
     public Turret(int id, int x, int y, float health, int level) {
         super(id, -1, x, y,"animations/turret_strip14",5);
         this.health = health;
+        this.maxHealth = health;
         this.level = level;
         setTextureRegion(Assets.getAssets().getRegion("Tiles/turret"));
     }
 
+    @Override
+    public void implementDraw_1(SpriteBatch spriteBatch) {
+        ShapeRenderer.setColor(new Color(0xff0000ff));
+        ShapeRenderer.drawRectangle(spriteBatch, x+0.1f, y+0.95f, (0.8f)-((maxHealth-health)/maxHealth)*0.8f, -0.2f, true);
+    }
 }

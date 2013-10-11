@@ -8,5 +8,5 @@ package com.deeep.sod2.entities;
  * To change this template use File | Settings | File Templates.
  */
 public interface RangeActivation {
-    public void checkEntity(EntityManager entityManager, Entity entity);
+    public void checkEntity(Entity entity);
 }

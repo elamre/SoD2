@@ -16,6 +16,9 @@ import java.util.Iterator;
  */
 public class EntityManager {
 
+    /** Singleton instance */
+    private static EntityManager instance;
+
     /** The HashMap, that contains entities and their respective ids */
     public HashMap<Integer, Entity> entities = new HashMap<Integer, Entity>();
     private int id = 1;
@@ -28,6 +31,13 @@ public class EntityManager {
 
     public EntityManager() {
     }
+
+    /** Returns the singleton instantiation */
+    public static EntityManager get(){
+        if(instance==null) instance = new EntityManager();
+        return instance;
+    }
+
 
     /** Clears the entire entity HashMap */
     public void clearEntities() {
@@ -139,7 +149,7 @@ public class EntityManager {
                     for (Entity check : collideAbles) {
                         if (check != collideAble) {
                             if (collideAble.overlaps(check.getHitBox())) {
-                                ((CollideAble) collideAble).Collide(this, check);
+                                ((CollideAble) collideAble).Collide(check);
                             }
                         }
                     }

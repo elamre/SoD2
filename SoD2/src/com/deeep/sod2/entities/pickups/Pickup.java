@@ -2,9 +2,7 @@ package com.deeep.sod2.entities.pickups;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
 import com.deeep.sod2.entities.*;
-import com.deeep.sod2.gameplay.Map;
 import com.deeep.sod2.particle.FormulaTypes;
 import com.deeep.sod2.particle.Sequence;
 import com.deeep.sod2.particle.Sequencer;
@@ -50,22 +48,21 @@ public abstract class Pickup extends Entity implements CollideAble {
      * the action to be executed when the pickup is used. If nothing should happen, and the pick up should not removed,
      * return false;
      *
-     * @param entityManager this is a reference to the entitymanager. this way you can add objects
      * @param owner         use this for origin and such
      * @return true if the pickup has been used
      */
-    public abstract boolean action(EntityManager entityManager, Snake owner);
+    public abstract boolean action(Snake owner);
 
     @Override
     public void implementDraw_1(SpriteBatch spriteBatch) {
-        //To change body of implemented methods use File | Settings | File Templates.
+
     }
 
     @Override
-    public void Collide(EntityManager entityManager, Entity entity) {
+    public void Collide(Entity entity) {
         if (entity instanceof Snake) {
             die();
-            ((Snake) entity).addTail((Tail) entityManager.addEntitySinglePlayer(new Tail(entityManager.getNextSinglePlayerId(), entity.getId(), 0, 0)), this);
+            ((Snake) entity).addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), entity.getId(), 0, 0)), this);
         }
     }
 

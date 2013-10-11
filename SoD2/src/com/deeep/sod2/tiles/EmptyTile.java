@@ -27,6 +27,7 @@ public class EmptyTile extends AbstractTile{
 
     @Override
     public void onStep(Entity stepper) {
+        //TODO Fall through the layer
     }
 
 }

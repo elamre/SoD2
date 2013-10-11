@@ -10,7 +10,6 @@ import com.deeep.sod2.graphics.Assets;
  * User: Elmar
  * Date: 10/10/13
  * Time: 8:24 PM
- * To change this template use File | Settings | File Templates.
  */
 public class SnakeBullet extends Projectile{
 
@@ -24,12 +23,11 @@ public class SnakeBullet extends Projectile{
 
     @Override
     public void implementUpdate_2(float deltaT) {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public void Collide(EntityManager entityManager, Entity entity) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public void Collide(Entity entity) {
+        //TODO takeDamage() or something
     }
 
     /** Use this function instead of the constructor */
@@ -42,6 +40,5 @@ public class SnakeBullet extends Projectile{
 
     @Override
     public void implementDraw_1(SpriteBatch spriteBatch) {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 }

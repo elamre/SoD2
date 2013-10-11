@@ -62,7 +62,6 @@ public class Snake extends TickAbleEntity implements CollideAble{
     /** Use this function instead of the constructor */
     @Override
     public void onCreate() {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
@@ -72,7 +71,6 @@ public class Snake extends TickAbleEntity implements CollideAble{
 
     @Override
     public void implementDraw_1(SpriteBatch spriteBatch) {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     /** Moves the snake and with the tail */
@@ -169,8 +167,8 @@ public class Snake extends TickAbleEntity implements CollideAble{
         }
     }
 
-    public void fireAction(EntityManager entityManager) {
-        if (tails.get(tails.size() - 1).action(entityManager, this)) {
+    public void fireAction() {
+        if (tails.get(tails.size() - 1).action(this)) {
             tails.get(tails.size() - 1).die();
             tails.remove(tails.size() - 1);
             //TODO Send it to server
@@ -178,8 +176,8 @@ public class Snake extends TickAbleEntity implements CollideAble{
     }
 
     @Override
-    public void Collide(EntityManager entityManager, Entity entity) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public void Collide(Entity entity) {
+
     }
 
     /** the direction of the snake */

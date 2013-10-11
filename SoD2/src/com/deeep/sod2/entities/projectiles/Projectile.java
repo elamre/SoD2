@@ -39,4 +39,36 @@ public abstract class Projectile extends Entity implements CollideAble {
     }
 
     public abstract void implementUpdate_2(float deltaT);
+
+    public float getDy() {
+        return dy;
+    }
+
+    public void setDy(float dy) {
+        this.dy = dy;
+    }
+
+    public float getDx() {
+        return dx;
+    }
+
+    public void setDx(float dx) {
+        this.dx = dx;
+    }
+
+    public float getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(float speed) {
+        this.speed = speed;
+    }
+
+    public float getFuel() {
+        return fuel;
+    }
+
+    public void setFuel(float fuel) {
+        this.fuel = fuel;
+    }
 }

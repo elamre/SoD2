@@ -5,7 +5,6 @@ package com.deeep.sod2.particle;
  * User: Elmar
  * Date: 10/2/13
  * Time: 8:08 AM
- * To change this template use File | Settings | File Templates.
  */
 public abstract class Formula {
     protected float period, endValue, startValue;
@@ -25,7 +24,7 @@ public abstract class Formula {
      * This function calculates the new value given the state time, and then returns the new value based on the
      * formula used.
      *
-     * @param stateTime
+     * @param stateTime start time
      * @return f(x)
      */
     public float getValue(float stateTime) {

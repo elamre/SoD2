@@ -51,9 +51,9 @@ public class Tail extends Entity implements CollideAble {
         pickup.setAngle(angle);
     }
 
-    public boolean action(EntityManager entityManager, Snake snake) {
+    public boolean action(Snake snake) {
         if (pickup != null) {
-            return pickup.action(entityManager, snake);
+            return pickup.action(snake);
         }
         return false;
     }
@@ -68,7 +68,7 @@ public class Tail extends Entity implements CollideAble {
     }
 
     @Override
-    public void Collide(EntityManager entityManager, Entity entity) {
+    public void Collide(Entity entity) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 }

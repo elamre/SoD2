@@ -43,26 +43,27 @@ public class Save {
      */
     private AbstractTile[] tiles;
     /**
-    *Loaded entities from image
-    *<p/>
-    *0x(FF)FF0000 SPEED
-    *0x(FF)00FF00 HEART
-    *0x(FF)0000FF COMPASS
-    *0x(FF)000000 BULLET
+     *Loaded entities from image
+     *
+     *0xFF0000(FF) HEART
+     *0xFE0000(FF) SPEED
+     *0xFD0000(FF) BULLET
+     *0xFC0000(FF) COMPASS
      */
     private Entity[] entities;
 
-    public Save(int level, EntityManager entityManager) {
+    public Save(int level) {
         try {
-            loadLevel(level, entityManager);
+            loadLevel(level);
         } catch (IOException e) {
             Logger.getInstance().error(this.getClass(), e.getStackTrace());
         }
     }
 
     /** Loads all the saves from files */
-    public static void loadSaves(EntityManager entityManager) {
-        LEVEL_1 = new Save(1, entityManager);
+    public static void loadSaves() {
+        LEVEL_1 = new Save(1);
+        Logger.getInstance().debug(null, "Loaded all levels");
     }
 
     /**
@@ -71,7 +72,7 @@ public class Save {
     *@param level level number
     *@return byte array of level data
      */
-    public void loadLevel(int level, EntityManager entityManager) throws IOException {
+    public void loadLevel(int level) throws IOException {
         Pixmap image = new Pixmap(Gdx.files.internal("data/save/level"+level+".png"));
         Pixmap entImg = new Pixmap(Gdx.files.internal("data/save/level"+level+"ent.png"));
         width = image.getWidth();
@@ -79,8 +80,8 @@ public class Save {
         Logger.getInstance().debug(this.getClass(), "Width: "+width+" height: "+height);
         tiles = new AbstractTile[width*height];
         entities = new Entity[width*height];
-        for (int y = height-1; y >= 0; y--) {
-            for (int x = 0; x < width; x++) {
+        for (int y=height-1; y >= 0; y--) {
+            for (int x=0; x < width; x++) {
                 int rgb = image.getPixel(x, y);
                 switch (rgb) {
                     case 0x808080ff: tiles[x+y*width] = new RegularTile(x, y); break;
@@ -99,6 +100,9 @@ public class Save {
             }
         }
 
+        /** Data line */
+        int directionPixel = image.getPixel(0, height);
+
         for (int y = 0; y < height-1; y++) {
             for (int x = 0; x < width; x++) {
                 int rgb = entImg.getPixel(x, y);
@@ -107,11 +111,11 @@ public class Save {
                 int b = (rgb>>8)&0xff;
                 int a = (rgb)&0xff;
                 switch (r) {
-                    case 255: entities[x+y*width] = new HearthPickup(entityManager.getNextSinglePlayerId(), x, height-y-2); break;
-                    case 254: entities[x+y*width] = new SpeedPickup(entityManager.getNextSinglePlayerId(), x, height-y-2); break;
-                    case 253: entities[x+y*width] = new BulletPickup(entityManager.getNextSinglePlayerId(), x, height-y-2); break;
-                    case 252: entities[x+y*width] = new CompassPickup(entityManager.getNextSinglePlayerId(), x, height-y-2); break;
-                    case 251: entities[x+y*width] = new Turret(entityManager.getNextSinglePlayerId(),x, y, g, b); break;
+                    case 255: entities[x+y*width] = new HearthPickup(EntityManager.get().getNextSinglePlayerId(), x, height-y-2); break;
+                    case 254: entities[x+y*width] = new SpeedPickup(EntityManager.get().getNextSinglePlayerId(), x, height-y-2); break;
+                    case 253: entities[x+y*width] = new BulletPickup(EntityManager.get().getNextSinglePlayerId(), x, height-y-2); break;
+                    case 252: entities[x+y*width] = new CompassPickup(EntityManager.get().getNextSinglePlayerId(), x, height-y-2); break;
+                    case 251: entities[x+y*width] = new Turret(EntityManager.get().getNextSinglePlayerId(),x, y, g, b); break;
                 }
             }
         }

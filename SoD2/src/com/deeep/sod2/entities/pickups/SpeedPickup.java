@@ -24,7 +24,7 @@ public class SpeedPickup extends Pickup {
     }
 
     @Override
-    public boolean action(EntityManager entityManager, Snake owner) {
+    public boolean action(Snake owner) {
         owner.increaseSpeed(owner.getTickTime() / 2, 4f, false);
         return true;
         //To change body of implemented methods use File | Settings | File Templates.

@@ -30,8 +30,6 @@ public class Player {
     private Controller controller;
     /** The snake the player owns */
     private Snake snake;
-    /** Reference to the entity manager */
-    private EntityManager entityManager;
     /** Spawn point for snake */
     private int spawnX, spawnY;
 
@@ -66,11 +64,11 @@ public class Player {
             controller.registerKey(Input.Keys.SPACE, new InputReactListener() {
                 @Override
                 public void inputReact() {
-                    snake.fireAction(entityManager);
-                    entityManager.addEntitySinglePlayer(new Coin(entityManager.getNextSinglePlayerId(), snake.getOriginX(), snake.getOriginY()));
-                    entityManager.addEntitySinglePlayer(new Coin(entityManager.getNextSinglePlayerId(), snake.getOriginX(), snake.getOriginY()));
-                    entityManager.addEntitySinglePlayer(new Coin(entityManager.getNextSinglePlayerId(), snake.getOriginX(), snake.getOriginY()));
-                    entityManager.addEntitySinglePlayer(new Coin(entityManager.getNextSinglePlayerId(), snake.getOriginX(), snake.getOriginY()));
+                    snake.fireAction();
+                    EntityManager.get().addEntitySinglePlayer(new Coin(EntityManager.get().getNextSinglePlayerId(), snake.getOriginX(), snake.getOriginY()));
+                    EntityManager.get().addEntitySinglePlayer(new Coin(EntityManager.get().getNextSinglePlayerId(), snake.getOriginX(), snake.getOriginY()));
+                    EntityManager.get().addEntitySinglePlayer(new Coin(EntityManager.get().getNextSinglePlayerId(), snake.getOriginX(), snake.getOriginY()));
+                    EntityManager.get().addEntitySinglePlayer(new Coin(EntityManager.get().getNextSinglePlayerId(), snake.getOriginX(), snake.getOriginY()));
                 }
             }, InputReactListener.Event.PRESSED);
         }
@@ -86,19 +84,17 @@ public class Player {
         snake.spawnY = y;
     }
 
-    public void setEntityManager(EntityManager entityManager) {
-        this.entityManager = entityManager;
-
-        snake = new Snake(entityManager.getNextSinglePlayerId());
-        entityManager.addEntitySinglePlayer(snake);
-        entityManager.addEntitySinglePlayer(new Turret(entityManager.getNextSinglePlayerId(),5,3,100,100));
-        snake.setHead((Head) entityManager.addEntitySinglePlayer(new Head(entityManager.getNextSinglePlayerId(), 0, 0, 0)));
-        snake.addTail((Tail) entityManager.addEntitySinglePlayer(new Tail(entityManager.getNextSinglePlayerId(), 0, spawnX, spawnY)), new HearthPickup(entityManager.getNextSinglePlayerId(), spawnX, spawnY));
-        snake.addTail((Tail) entityManager.addEntitySinglePlayer(new Tail(entityManager.getNextSinglePlayerId(), 0, spawnX, spawnY)), new BulletPickup(entityManager.getNextSinglePlayerId(), spawnX, spawnY));
-        snake.addTail((Tail) entityManager.addEntitySinglePlayer(new Tail(entityManager.getNextSinglePlayerId(), 0, spawnX, spawnY)), new BulletPickup(entityManager.getNextSinglePlayerId(), spawnX, spawnY));
-        snake.addTail((Tail) entityManager.addEntitySinglePlayer(new Tail(entityManager.getNextSinglePlayerId(), 0, spawnX, spawnY)), new BulletPickup(entityManager.getNextSinglePlayerId(), spawnX, spawnY));
+    public void setEntityManager() {
+        snake = new Snake(EntityManager.get().getNextSinglePlayerId());
+        EntityManager.get().addEntitySinglePlayer(snake);
+        EntityManager.get().addEntitySinglePlayer(new Turret(EntityManager.get().getNextSinglePlayerId(),5,3,100,100));
+        snake.setHead((Head) EntityManager.get().addEntitySinglePlayer(new Head(EntityManager.get().getNextSinglePlayerId(), 0, 0, 0)));
+        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new HearthPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
+        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new BulletPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
+        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new BulletPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
+        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new BulletPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
         setSkin(1);
-        Camera.getInstance().setFocus((TickAbleEntity) snake, .5f, .5f);
+        Camera.getInstance().setFocus(snake, .5f, .5f);
     }
 
     public void update(float deltaT) {
@@ -110,8 +106,8 @@ public class Player {
             float x = Camera.getInstance().getTouchUnitX();
             float y = Camera.getInstance().getTouchUnitY();
             float angle = (float) Math.atan2(( snake.getY()-y) , (snake.getX()-x));
-            entityManager.addEntitySinglePlayer(new TurretBullet(entityManager.getNextSinglePlayerId(), x, y, 10, 5, angle));
-            //entityManager.addEntitySinglePlayer(new Coin(entityManager.getNextSinglePlayerId(), x, y));
+            EntityManager.get().addEntitySinglePlayer(new TurretBullet(EntityManager.get().getNextSinglePlayerId(), x, y, 10, 5, angle));
+            //EntityManager.get().addEntitySinglePlayer(new Coin(EntityManager.get().getNextSinglePlayerId(), x, y));
         }
     }
 }

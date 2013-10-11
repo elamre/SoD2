@@ -51,6 +51,6 @@ public abstract class AnimatedEnemy extends Entity {
 
     @Override
     public void implementDraw_1(SpriteBatch spriteBatch) {
-        //To change body of implemented methods use File | Settings | File Templates.
+
     }
 }

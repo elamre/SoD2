@@ -41,7 +41,7 @@ public class Coin extends CollectAble implements CollideAble {
     }
 
     @Override
-    public void Collide(EntityManager entityManager, Entity entity) {
+    public void Collide(Entity entity) {
         if (entity instanceof Snake) {
             die();
             //TODO increment score

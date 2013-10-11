@@ -26,7 +26,7 @@ public class TurretBullet extends Projectile {
     }
 
     @Override
-    public void Collide(EntityManager entityManager, Entity entity) {
+    public void Collide(Entity entity) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 

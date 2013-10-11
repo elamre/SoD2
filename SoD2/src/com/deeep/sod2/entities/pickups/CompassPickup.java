@@ -22,7 +22,7 @@ public class CompassPickup extends Pickup {
     }
 
     @Override
-    public boolean action(EntityManager entityManager, Snake owner) {
+    public boolean action(Snake owner) {
         return true;
         //To change body of implemented methods use File | Settings | File Templates.
     }

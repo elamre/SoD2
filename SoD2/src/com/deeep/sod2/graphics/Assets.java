@@ -72,6 +72,7 @@ public class Assets {
 
             textureAtlas = new TextureAtlas(Gdx.files.internal("images/TextureAtlas.txt"));
             skinHandle = Gdx.files.internal("skin.json");
+
             logger.system(Assets.class, "All assets have been loaded");
             loaded = true;
         }
