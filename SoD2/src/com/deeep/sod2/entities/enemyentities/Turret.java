@@ -20,7 +20,8 @@ public class Turret extends AnimatedEnemy {
 
     protected int level;
     protected float health;
-    protected  float maxHealth;
+    protected float maxHealth;
+    protected int fireDelay;
 
     public Turret() {
     }
@@ -39,7 +40,7 @@ public class Turret extends AnimatedEnemy {
         for(int i=0; i<EntityManager.get().entities.size(); i++){
             if(EntityManager.get().entities.get(i) instanceof Snake) target = EntityManager.get().entities.get(i);
         }
-        if(target != null){
+        if(target != null && fireDelay <= 0){
             /**  ________0'
              *  |       /|
              *  |     /  |
