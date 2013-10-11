@@ -82,18 +82,19 @@ public class Save {
         entities = new Entity[width*height];
         for (int y=0; y <height-1; y++) {
             for (int x=0; x < width; x++) {
+                int yy = height-2-y;
                 int rgb = image.getPixel(x, y);
                 switch (rgb) {
-                    case 0x808080ff: tiles[x+y*width] = new RegularTile(x, y); break;
-                    case 0xff6a00ff: tiles[x+y*width] = new ObstacleTile(x, y); break;
+                    case 0x808080ff: tiles[x+yy*width] = new RegularTile(x, y); break;
+                    case 0xff6a00ff: tiles[x+yy*width] = new ObstacleTile(x, y); break;
                     case 0x0000ffff:
                         /**Spawn point location*/
-                        tiles[x+y*width] = new RegularTile(x, y);
+                        tiles[x+y*width] = new RegularTile(x, yy);
                         spawnX = x;
-                        spawnY = y;
+                        spawnY = yy;
                         break;
                     case 0x00ff00ff:
-                        tiles[x+y*width] = new CheckPointTile(x, y);
+                        tiles[x+yy*width] = new CheckPointTile(x, yy);
 
                         break;
                 }
