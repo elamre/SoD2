@@ -42,14 +42,16 @@ public abstract class AnimatedEnemy extends Entity {
             frames[i] = temp[0][i];
         }
 
-        animation = new Animation(0.1f, frames);
+        animation = new Animation(0.5f, frames);
         animation.setPlayMode(Animation.NORMAL);
     }
 
     @Override
     public void implementUpdate_1(float deltaT) {
+        if (animation.isAnimationFinished(animationTimer))
+            animationTimer = 0;
         animationTimer += deltaT;
-        setTextureRegion(animation.getKeyFrame(animationTimer, true));
+        setTextureRegion(animation.getKeyFrame(animationTimer, false));
         implementUpdate_2(deltaT);
     }
 

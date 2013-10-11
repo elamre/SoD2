@@ -35,8 +35,8 @@ public class TurretBullet extends Projectile {
     /** Use this function instead of the constructor */
     @Override
     public void onCreate() {
-        //setTextureRegion(Assets.getAssets().getRegion("upgrades/bullet"));
-        setTextureRegion(Assets.getAssets().getRegion("projectiles/bullet1"));
+        setTextureRegion(Assets.getAssets().getRegion("upgrades/bullet"));
+        //setTextureRegion(Assets.getAssets().getRegion("projectiles/bullet1"));
         setWidth(0.5f);
         setHeight(0.5f);
     }

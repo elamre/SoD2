@@ -36,13 +36,11 @@ public class Turret extends AnimatedEnemy {
 
     @Override
     public void implementUpdate_2(float deltaT) {
-        fireDelay --;
         Entity target = null;
         for(int i=0; i<EntityManager.get().entities.size(); i++){
             if(EntityManager.get().entities.get(i) instanceof Snake) target = EntityManager.get().entities.get(i);
         }
-        if(target != null && fireDelay <= 0){
-            fireDelay = 160;
+        if(target != null){
             /**  ________T
              *  |       /|
              *  |     /  |
@@ -56,9 +54,11 @@ public class Turret extends AnimatedEnemy {
 
             /** θ = tan^-1(y/x) */
             float theta = (float) Math.atan2(dy, dx);
-            if(animation.isAnimationFinished(animationTimer))
+            if(animation.isAnimationFinished(animationTimer)){
+                System.out.println("In range");
                 EntityManager.get().addEntitySinglePlayer(
                         new TurretBullet(EntityManager.get().getNextSinglePlayerId(), x, y, 5f, 8f, theta));
+            }
         }
     }
 }
