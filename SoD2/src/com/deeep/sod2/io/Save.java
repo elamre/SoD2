@@ -80,7 +80,7 @@ public class Save {
         Logger.getInstance().debug(this.getClass(), "Width: "+width+" height: "+height);
         tiles = new AbstractTile[width*height];
         entities = new Entity[width*height];
-        for (int y=height-1; y >= 0; y--) {
+        for (int y=0; y <height-1; y++) {
             for (int x=0; x < width; x++) {
                 int rgb = image.getPixel(x, y);
                 switch (rgb) {
