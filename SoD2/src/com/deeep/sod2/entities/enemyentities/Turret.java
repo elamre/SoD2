@@ -36,17 +36,19 @@ public class Turret extends AnimatedEnemy {
 
     @Override
     public void implementUpdate_2(float deltaT) {
+        fireDelay --;
         Entity target = null;
         for(int i=0; i<EntityManager.get().entities.size(); i++){
             if(EntityManager.get().entities.get(i) instanceof Snake) target = EntityManager.get().entities.get(i);
         }
         if(target != null && fireDelay <= 0){
-            /**  ________0'
+            fireDelay = 160;
+            /**  ________T
              *  |       /|
              *  |     /  |
              *  |   /    | y
              *  | /      |
-             *  0________|
+             *  θ_______|
              *      x
              */
             float dx = target.getX()-this.x;

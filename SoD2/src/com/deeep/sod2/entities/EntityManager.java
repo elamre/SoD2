@@ -29,6 +29,8 @@ public class EntityManager {
     private ArrayList<Snake> snakes = new ArrayList<Snake>();
     private ArrayList<Entity> removeList = new ArrayList<Entity>();
 
+    private Map map;
+
     public EntityManager() {
     }
 
@@ -123,6 +125,10 @@ public class EntityManager {
         return entities.get(key);
     }
 
+    public void setMap(Map map){
+        this.map = map;
+    }
+
     /**
      * Add a new Entity to the HashMap
      *
@@ -135,7 +141,14 @@ public class EntityManager {
         while (keySetIterator.hasNext()) {
             Integer key = keySetIterator.next();
             entities.get(key).update(delta);
-            if (!entities.get(key).isAlive())
+
+            float w = map.getSave().width+3;
+            /** Alive and within bounds check */
+            if (!entities.get(key).isAlive()
+                    || entities.get(key).getX() < -3
+                    || entities.get(key).getY() < -3
+                    || entities.get(key).getX() > map.getSave().width+8
+                    || entities.get(key).getY() > map.getSave().height+16)
                 removeList.add(entities.get(key));
         }
         for (CollectAble collectAble : collectAbles) {

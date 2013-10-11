@@ -30,6 +30,7 @@ public class World {
         loadedSave = Save.LEVEL_1;
         player = new Player("Elmar is bad at chess!", true);
         map = new Map(loadedSave);
+        EntityManager.get().setMap(map);
         particleManager = new ParticleManager();
         player.setEntityManager();
         player.setSnakeSpawnPoint(loadedSave.spawnX, loadedSave.spawnY);
