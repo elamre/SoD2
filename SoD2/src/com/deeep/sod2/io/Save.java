@@ -85,8 +85,8 @@ public class Save {
                 int yy = height-2-y;
                 int rgb = image.getPixel(x, y);
                 switch (rgb) {
-                    case 0x808080ff: tiles[x+yy*width] = new RegularTile(x, y); break;
-                    case 0xff6a00ff: tiles[x+yy*width] = new ObstacleTile(x, y); break;
+                    case 0x808080ff: tiles[x+yy*width] = new RegularTile(x, yy); break;
+                    case 0xff6a00ff: tiles[x+yy*width] = new ObstacleTile(x, yy); break;
                     case 0x0000ffff:
                         /**Spawn point location*/
                         tiles[x+y*width] = new RegularTile(x, yy);
