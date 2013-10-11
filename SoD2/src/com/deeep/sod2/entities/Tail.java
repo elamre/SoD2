@@ -36,7 +36,7 @@ public class Tail extends Entity implements CollideAble {
     /** Use this function instead of the constructor */
     @Override
     public void onCreate() {
-        //To change body of implemented methods use File | Settings | File Templates.
+        setSkin(1);
     }
 
     @Override
