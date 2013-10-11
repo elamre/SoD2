@@ -50,6 +50,8 @@ public class Turret extends AnimatedEnemy {
              */
             float dx = target.getX()-this.x;
             float dy = target.getY()-this.y;
+
+            /** θ = tan^-1(y/x) */
             float theta = (float) Math.atan2(dy, dx);
             if(animation.isAnimationFinished(animationTimer))
                 EntityManager.get().addEntitySinglePlayer(
