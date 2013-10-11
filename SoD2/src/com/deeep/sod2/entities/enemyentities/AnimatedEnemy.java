@@ -42,7 +42,7 @@ public abstract class AnimatedEnemy extends Entity {
             frames[i] = temp[0][i];
         }
 
-        animation = new Animation(0.5f, frames);
+        animation = new Animation(0.2f, frames);
         animation.setPlayMode(Animation.NORMAL);
     }
 
@@ -53,11 +53,6 @@ public abstract class AnimatedEnemy extends Entity {
         animationTimer += deltaT;
         setTextureRegion(animation.getKeyFrame(animationTimer, false));
         implementUpdate_2(deltaT);
-    }
-
-    @Override
-    public void implementDraw_1(SpriteBatch spriteBatch) {
-
     }
 
     public abstract void implementUpdate_2(float deltaT);
