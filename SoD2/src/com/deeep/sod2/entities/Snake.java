@@ -14,9 +14,7 @@ import java.util.ArrayList;
  * Date: 10/3/13
  * Time: 6:30 PM
  */
-public class Snake extends TickAbleEntity implements CollideAble {
-    /** X and Y coordinate of latest checkpoint */
-    public float checkPointX, checkPointY;
+public class Snake extends TickAbleEntity implements CollideAble{
     /** Direction list to add new actions */
     private ArrayList<Direction> directions = new ArrayList<Direction>();
     /** The head of the snake */
@@ -35,7 +33,7 @@ public class Snake extends TickAbleEntity implements CollideAble {
     public float spawnX;
     public float spawnY;
     /** Spawn direction*/
-    public Direction spawnDirection;
+    //public Direction spawnDirection;
 
     public Snake(int id) {
         super(id, 0, 0, 0);
@@ -58,7 +56,6 @@ public class Snake extends TickAbleEntity implements CollideAble {
     public void addTail(Tail tail, Pickup pickUp) {
         pickUp.onCreate();
         tail.setPickup(pickUp);
-        tail.setSkin(1);
         tails.add(tail);
     }
 

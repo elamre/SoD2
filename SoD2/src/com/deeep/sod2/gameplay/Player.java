@@ -29,7 +29,7 @@ public class Player {
     private Snake snake;
     /** Reference to the entity manager */
     private EntityManager entityManager;
-    /** Spawnpoint for snake */
+    /** Spawn point for snake */
     private int spawnX, spawnY;
 
     public Player(String name, boolean selfControlled) {
@@ -78,10 +78,9 @@ public class Player {
         snake.setSkin(skinId);
     }
 
-    public void setSnakeSpawnPoint(int x, int y, Snake.Direction direction) {
+    public void setSnakeSpawnPoint(int x, int y) {
         snake.spawnX = x;
         snake.spawnY = y;
-        snake.setDirection(direction);
     }
 
     public void setEntityManager(EntityManager entityManager) {
