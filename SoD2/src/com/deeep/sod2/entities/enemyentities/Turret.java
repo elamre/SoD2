@@ -58,7 +58,7 @@ public class Turret extends AnimatedEnemy {
             float theta = (float) Math.atan2(dy, dx);
             if(animation.isAnimationFinished(animationTimer))
                 EntityManager.get().addEntitySinglePlayer(
-                        new TurretBullet(EntityManager.get().getNextSinglePlayerId(), x, y, 5f, Float.MAX_VALUE, theta));
+                        new TurretBullet(EntityManager.get().getNextSinglePlayerId(), x, y, 5f, 8f, theta));
         }
     }
 }
