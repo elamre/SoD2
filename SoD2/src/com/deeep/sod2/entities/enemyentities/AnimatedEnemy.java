@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.deeep.sod2.entities.Entity;
+import com.deeep.sod2.entities.EntityManager;
+import com.deeep.sod2.entities.projectiles.TurretBullet;
 import com.deeep.sod2.graphics.Assets;
 
 /**
@@ -15,10 +17,10 @@ import com.deeep.sod2.graphics.Assets;
  */
 public abstract class AnimatedEnemy extends Entity {
     protected Animation animation;
-    private float animationTimer = 0f;
-    private TextureRegion[] frames;
-    private String name;
-    private float range;
+    protected float animationTimer = 0f;
+    protected TextureRegion[] frames;
+    protected String name;
+    protected float range;
 
     /** USE THIS ONLY FOR REGISTERING THE ENTITY! SHOULD NOT BE USED OTHERWISE! */
     protected AnimatedEnemy() {
@@ -39,6 +41,7 @@ public abstract class AnimatedEnemy extends Entity {
         for (int i = 0; i < temp[0].length; i++) {
             frames[i] = temp[0][i];
         }
+
         animation = new Animation(0.1f, frames);
         animation.setPlayMode(Animation.NORMAL);
     }
@@ -47,10 +50,13 @@ public abstract class AnimatedEnemy extends Entity {
     public void implementUpdate_1(float deltaT) {
         animationTimer += deltaT;
         setTextureRegion(animation.getKeyFrame(animationTimer, true));
+        implementUpdate_2(deltaT);
     }
 
     @Override
     public void implementDraw_1(SpriteBatch spriteBatch) {
 
     }
+
+    public abstract void implementUpdate_2(float deltaT);
 }

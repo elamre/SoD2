@@ -32,8 +32,8 @@ public abstract class Projectile extends Entity implements CollideAble {
         x += dx * deltaT * speed;
         y += dy * deltaT * speed;
         fuel -= deltaT;
-        if (fuel <= 0)
-            die();
+        //if (fuel <= 0)
+           // die();
         implementUpdate_2(deltaT);
         //To change body of implemented methods use File | Settings | File Templates.
     }

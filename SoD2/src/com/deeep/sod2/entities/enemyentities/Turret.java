@@ -3,6 +3,9 @@ package com.deeep.sod2.entities.enemyentities;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deeep.sod2.entities.Entity;
+import com.deeep.sod2.entities.EntityManager;
+import com.deeep.sod2.entities.Snake;
+import com.deeep.sod2.entities.projectiles.TurretBullet;
 import com.deeep.sod2.graphics.Assets;
 import com.deeep.sod2.graphics.ShapeRenderer;
 
@@ -19,7 +22,6 @@ public class Turret extends AnimatedEnemy {
     protected float health;
     protected  float maxHealth;
 
-    /** USE THIS ONLY FOR REGISTERING THE ENTITY! SHOULD NOT BE USED OTHERWISE! */
     public Turret() {
     }
 
@@ -32,8 +34,25 @@ public class Turret extends AnimatedEnemy {
     }
 
     @Override
-    public void implementDraw_1(SpriteBatch spriteBatch) {
-        ShapeRenderer.setColor(new Color(0xff0000ff));
-        ShapeRenderer.drawRectangle(spriteBatch, x+0.1f, y+0.95f, (0.8f)-((maxHealth-health)/maxHealth)*0.8f, -0.2f, true);
+    public void implementUpdate_2(float deltaT) {
+        Entity target = null;
+        for(int i=0; i<EntityManager.get().entities.size(); i++){
+            if(EntityManager.get().entities.get(i) instanceof Snake) target = EntityManager.get().entities.get(i);
+        }
+        if(target != null){
+            /**  ________0'
+             *  |       /|
+             *  |     /  |
+             *  |   /    | y
+             *  | /      |
+             *  0________|
+             *      x
+             */
+            float dx = target.getX()-this.x;
+            float dy = target.getY()-this.y;
+            System.out.println(dx+", "+dy);
+            float theta = (float) Math.atan2(dy, dx);
+            if(animation.isAnimationFinished(animationTimer)) EntityManager.get().addEntitySinglePlayer(new TurretBullet(EntityManager.get().getNextSinglePlayerId(), x, y, 0.5f, 50f, theta));
+        }
     }
 }

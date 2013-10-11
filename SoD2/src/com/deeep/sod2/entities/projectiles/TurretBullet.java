@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deeep.sod2.entities.Entity;
 import com.deeep.sod2.entities.EntityManager;
 import com.deeep.sod2.graphics.Assets;
+import com.deeep.sod2.graphics.PVector;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,16 +14,17 @@ import com.deeep.sod2.graphics.Assets;
  * To change this template use File | Settings | File Templates.
  */
 public class TurretBullet extends Projectile {
-    /** USE THIS ONLY FOR REGISTERING THE ENTITY! SHOULD NOT BE USED OTHERWISE! */
-    public TurretBullet() {
-    }
 
     public TurretBullet(int id, float x, float y, float speed, float fuel, float angle) {
         super(id, -1, x, y, speed, fuel, angle);
     }
 
+    public TurretBullet() {
+    }
+
     @Override
     public void implementUpdate_2(float deltaT) {
+
     }
 
     @Override
