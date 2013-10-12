@@ -28,7 +28,7 @@ public class Map {
         this.save = save;
         tiles = save.getTiles();
         instance = this;
-        Shop shop = new Shop(0b10_0111);
+        Shop shop = new Shop(0b1111111_11111111_11111111_11111111);
     }
 
     public static Map getInstance() {
