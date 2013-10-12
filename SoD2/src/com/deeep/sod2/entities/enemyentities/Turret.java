@@ -48,12 +48,13 @@ public class Turret extends AnimatedEnemy {
             if (EntityManager.get().entities.get(i) instanceof Snake)
                 target = EntityManager.get().entities.get(i);
         }
-        if (target.getDistance(x, y) > 3) {
-            animationTimer = 0;
-            target = null;
-        }
-        if (animation.isAnimationFinished(animationTimer)) {
-            if (target != null) {
+        if (target != null) {
+            if (target.getDistance(x, y) > 3) {
+                animationTimer = 0;
+                target = null;
+                return;
+            }
+            if (animation.isAnimationFinished(animationTimer)) {
                 if (firstTime) {
                     targetX = (int) target.getX();
                     targetY = (int) target.getY();

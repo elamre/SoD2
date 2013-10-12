@@ -46,12 +46,12 @@ public class ParticleManager {
             particles.add(new Star(new PVector(-4 + (random.nextFloat() * (28)), -1 + (random.nextFloat() * (12))), Color.WHITE, sequencer, maxBrightness,1 / 40f, 1 / 40f));
         }
 
-        int[] planetIds = {1, 2, 3, 4, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
+/*        int[] planetIds = {1, 2, 3, 4, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
         for (int i = 0; i < 15; i++) {
             int id = planetIds[random.nextInt(planetIds.length)];
             float size = 80 - random.nextFloat() * 25 - random.nextFloat() * 25;
             particles.add(new Planet(new PVector((random.nextFloat() * 1000 - 500) / 40f, (random.nextFloat() * 1000 - 500) / 40f), size * 1 / 40f, size * 1 / 40f, id));
-        }
+        }*/
         /** TODO planet sorting based on size*/
         //Collections.sort(particles);
     }

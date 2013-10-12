@@ -1,0 +1,298 @@
+TextureAtlas.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+planets/planet10
+  rotate: false
+  xy: 518, 860
+  size: 256, 256
+  orig: 300, 300
+  offset: 22, 23
+  index: -1
+planets/planet5
+  rotate: false
+  xy: 776, 442
+  size: 246, 248
+  orig: 300, 300
+  offset: 28, 28
+  index: -1
+snakes/snake_2_head
+  rotate: false
+  xy: 818, 140
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+Tiles/obstacle
+  rotate: false
+  xy: 818, 86
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+upgrades/bullet
+  rotate: false
+  xy: 860, 126
+  size: 12, 12
+  orig: 40, 40
+  offset: 14, 14
+  index: -1
+planets/planet11
+  rotate: false
+  xy: 260, 860
+  size: 256, 256
+  orig: 300, 300
+  offset: 22, 23
+  index: -1
+upgrades/Bullet2
+  rotate: false
+  xy: 892, 80
+  size: 26, 26
+  orig: 40, 40
+  offset: 7, 7
+  index: -1
+upgrades/compass
+  rotate: false
+  xy: 860, 108
+  size: 14, 16
+  orig: 40, 40
+  offset: 11, 12
+  index: -1
+Tiles/laser
+  rotate: false
+  xy: 902, 108
+  size: 16, 14
+  orig: 40, 40
+  offset: 12, 26
+  index: -1
+animations/laser_strip9
+  rotate: false
+  xy: 564, 44
+  size: 326, 40
+  orig: 360, 40
+  offset: 17, 0
+  index: -1
+gui/menu/button-disabled
+  rotate: true
+  xy: 984, 128
+  size: 62, 34
+  orig: 66, 34
+  offset: 0, 0
+  index: -1
+snakes/snake_1_tail
+  rotate: false
+  xy: 860, 140
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+upgrades/life
+  rotate: true
+  xy: 902, 124
+  size: 14, 16
+  orig: 40, 40
+  offset: 11, 12
+  index: -1
+planets/planet6
+  rotate: false
+  xy: 776, 192
+  size: 246, 248
+  orig: 300, 300
+  offset: 28, 27
+  index: -1
+planets/planet12
+  rotate: false
+  xy: 2, 860
+  size: 256, 256
+  orig: 300, 300
+  offset: 22, 23
+  index: -1
+planets/planet3
+  rotate: false
+  xy: 776, 942
+  size: 246, 246
+  orig: 300, 300
+  offset: 27, 27
+  index: -1
+snakes/snake_2_tail
+  rotate: false
+  xy: 776, 140
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+upgrades/speed_up
+  rotate: true
+  xy: 892, 44
+  size: 18, 32
+  orig: 40, 40
+  offset: 15, 4
+  index: -1
+planets/planet13
+  rotate: false
+  xy: 518, 602
+  size: 256, 256
+  orig: 300, 300
+  offset: 22, 23
+  index: -1
+projectiles/bullet1
+  rotate: false
+  xy: 892, 64
+  size: 32, 14
+  orig: 40, 40
+  offset: 5, 14
+  index: -1
+planets/planet16
+  rotate: false
+  xy: 518, 344
+  size: 256, 256
+  orig: 300, 300
+  offset: 22, 23
+  index: -1
+Tiles/turret
+  rotate: false
+  xy: 776, 86
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+planets/planet4
+  rotate: true
+  xy: 776, 692
+  size: 248, 246
+  orig: 300, 300
+  offset: 27, 28
+  index: -1
+animations/coin_strip20
+  rotate: false
+  xy: 2, 2
+  size: 800, 40
+  orig: 800, 40
+  offset: 0, 0
+  index: -1
+planets/planet14
+  rotate: false
+  xy: 260, 602
+  size: 256, 256
+  orig: 300, 300
+  offset: 22, 23
+  index: -1
+planets/planet20
+  rotate: false
+  xy: 260, 86
+  size: 256, 256
+  orig: 300, 300
+  offset: 22, 23
+  index: -1
+Tiles/glass
+  rotate: false
+  xy: 506, 1118
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+planets/planet1
+  rotate: false
+  xy: 2, 1118
+  size: 256, 256
+  orig: 300, 300
+  offset: 22, 23
+  index: -1
+planets/planet17
+  rotate: false
+  xy: 260, 344
+  size: 256, 256
+  orig: 300, 300
+  offset: 22, 23
+  index: -1
+planets/planet7
+  rotate: false
+  xy: 2, 86
+  size: 256, 256
+  orig: 300, 300
+  offset: 22, 23
+  index: -1
+planets/planet15
+  rotate: false
+  xy: 2, 602
+  size: 256, 256
+  orig: 300, 300
+  offset: 22, 23
+  index: -1
+gui/menu/button-down
+  rotate: false
+  xy: 920, 104
+  size: 62, 34
+  orig: 66, 34
+  offset: 0, 0
+  index: -1
+planets/planet18
+  rotate: false
+  xy: 2, 344
+  size: 256, 256
+  orig: 300, 300
+  offset: 22, 23
+  index: -1
+Tiles/arrow_blue
+  rotate: true
+  xy: 990, 68
+  size: 34, 24
+  orig: 40, 40
+  offset: 6, 8
+  index: -1
+gui/menu/button
+  rotate: false
+  xy: 926, 68
+  size: 62, 34
+  orig: 66, 34
+  offset: 0, 0
+  index: -1
+animations/turret_strip14
+  rotate: false
+  xy: 2, 44
+  size: 560, 40
+  orig: 560, 40
+  offset: 0, 0
+  index: -1
+gui/button_template
+  rotate: false
+  xy: 804, 2
+  size: 120, 40
+  orig: 120, 40
+  offset: 0, 0
+  index: -1
+gui/null_terminator
+  rotate: true
+  xy: 926, 2
+  size: 64, 96
+  orig: 64, 96
+  offset: 0, 0
+  index: 0
+planets/planet2
+  rotate: false
+  xy: 260, 1118
+  size: 244, 244
+  orig: 300, 300
+  offset: 31, 23
+  index: -1
+snakes/snake_1_head
+  rotate: false
+  xy: 902, 140
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+Tiles/arrow_red
+  rotate: false
+  xy: 984, 104
+  size: 36, 22
+  orig: 40, 40
+  offset: 4, 9
+  index: -1
+planets/planet19
+  rotate: false
+  xy: 518, 86
+  size: 256, 256
+  orig: 300, 300
+  offset: 22, 23
+  index: -1
