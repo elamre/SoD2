@@ -11,7 +11,15 @@ import com.deeep.sod2.utility.Logger;
 
 public class Shop {
 
-    //public static Shop MERCURY = new Shop(0b000001);
+    public static Shop MERCURY =    new Shop(0b0000000_00000000_00000000_00000000L);
+    public static Shop VENUS =      new Shop(0b0000000_00000000_00000000_00000000L);
+    public static Shop EARTH =      new Shop(0b0000000_00000000_00000000_00000000L);
+    public static Shop MARS =       new Shop(0b0000000_00000000_00000000_00000000L);
+    public static Shop JUPITER =    new Shop(0b0000000_00000000_00000000_00000000L);
+    public static Shop SATURN =     new Shop(0b0000000_00000000_00000000_00000000L);
+    public static Shop URANUS =     new Shop(0b0000000_00000000_00000000_00000000L);
+    public static Shop NEPTUNE =    new Shop(0b0000000_00000000_00000000_00000000L);
+    public static Shop PLUTO =      new Shop(0b0000000_00000000_00000000_00000000L);
 
     private boolean[] shopData;
 
