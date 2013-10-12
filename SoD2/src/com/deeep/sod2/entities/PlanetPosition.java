@@ -9,6 +9,7 @@ package com.deeep.sod2.entities;
 
 public class PlanetPosition {
 
+    //TODO Make these pls
     public static final PlanetPosition MERCURY = new PlanetPosition(
             new GUIPlanet("MERCURY", 1f, 0, 0, 80, 80),
             null, //NULL because planet is not in the view, as it is further in the solar system
