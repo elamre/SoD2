@@ -65,10 +65,6 @@ public class Player {
                 @Override
                 public void inputReact() {
                     snake.fireAction();
-                    EntityManager.get().addEntitySinglePlayer(new Coin(EntityManager.get().getNextSinglePlayerId(), snake.getOriginX(), snake.getOriginY()));
-                    EntityManager.get().addEntitySinglePlayer(new Coin(EntityManager.get().getNextSinglePlayerId(), snake.getOriginX(), snake.getOriginY()));
-                    EntityManager.get().addEntitySinglePlayer(new Coin(EntityManager.get().getNextSinglePlayerId(), snake.getOriginX(), snake.getOriginY()));
-                    EntityManager.get().addEntitySinglePlayer(new Coin(EntityManager.get().getNextSinglePlayerId(), snake.getOriginX(), snake.getOriginY()));
                 }
             }, InputReactListener.Event.PRESSED);
         }
@@ -87,7 +83,7 @@ public class Player {
     public void setEntityManager() {
         snake = new Snake(EntityManager.get().getNextSinglePlayerId());
         EntityManager.get().addEntitySinglePlayer(snake);
-        EntityManager.get().addEntitySinglePlayer(new Turret(EntityManager.get().getNextSinglePlayerId(),5,3,100,100));
+        EntityManager.get().addEntitySinglePlayer(new Turret(EntityManager.get().getNextSinglePlayerId(), 5, 3, 100, 100));
         snake.setHead((Head) EntityManager.get().addEntitySinglePlayer(new Head(EntityManager.get().getNextSinglePlayerId(), 0, 0, 0)));
         snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new HearthPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
         snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new BulletPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
@@ -103,11 +99,21 @@ public class Player {
             //snake.update(deltaT);
         }
         if (Gdx.input.isTouched()) {
-            float x = Camera.getInstance().getTouchUnitX();
-            float y = Camera.getInstance().getTouchUnitY();
-            float angle = (float) Math.atan2(( snake.getY()-y) , (snake.getX()-x));
-            EntityManager.get().addEntitySinglePlayer(new TurretBullet(EntityManager.get().getNextSinglePlayerId(), x, y, 10, 5, angle));
-            //EntityManager.get().addEntitySinglePlayer(new Coin(EntityManager.get().getNextSinglePlayerId(), x, y));
+            EntityManager.get().addEntitySinglePlayer(new Coin(EntityManager.get().getNextSinglePlayerId(), Camera.getInstance().getTouchUnitX(), Camera.getInstance().getTouchUnitY()));
+            if (Camera.getInstance().getTouchPixelX() > (3 * Gdx.graphics.getWidth() / 4)) {
+                snake.setDirection(Snake.Direction.EAST);
+            } else if (Camera.getInstance().getTouchPixelX() < Gdx.graphics.getWidth() / 4) {
+                snake.setDirection(Snake.Direction.WEST);
+            } else if (Camera.getInstance().getTouchPixelY() < Gdx.graphics.getHeight() / 4) {
+                snake.setDirection(Snake.Direction.NORTH);
+            } else if (Camera.getInstance().getTouchPixelY() > 3 * Gdx.graphics.getHeight() / 4) {
+                snake.setDirection(Snake.Direction.SOUTH);
+            }
+            if (Camera.getInstance().getTouchPixelY() < 3 * Gdx.graphics.getHeight() / 4 && Camera.getInstance().getTouchPixelY() > Gdx.graphics.getHeight() / 4) {
+                if (Camera.getInstance().getTouchPixelX() > Gdx.graphics.getWidth() / 4 && Camera.getInstance().getTouchPixelX() < (3 * Gdx.graphics.getWidth() / 4)) {
+                    snake.fireAction();
+                }
+            }
         }
     }
 }

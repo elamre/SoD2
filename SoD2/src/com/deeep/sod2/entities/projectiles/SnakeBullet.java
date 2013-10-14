@@ -3,6 +3,7 @@ package com.deeep.sod2.entities.projectiles;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deeep.sod2.entities.Entity;
 import com.deeep.sod2.entities.EntityManager;
+import com.deeep.sod2.entities.enemyentities.Turret;
 import com.deeep.sod2.graphics.Assets;
 
 /**
@@ -28,6 +29,8 @@ public class SnakeBullet extends Projectile{
     @Override
     public void Collide(Entity entity) {
         //TODO takeDamage() or something
+        if(entity instanceof Turret)
+            die();
     }
 
     /** Use this function instead of the constructor */

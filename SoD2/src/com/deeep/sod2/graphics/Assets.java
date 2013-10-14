@@ -96,6 +96,11 @@ public class Assets {
      * @return the texture region connected to the name
      */
     public TextureRegion getRegion(String name) {
+
+        TextureRegion textureRegion = textureAtlas.findRegion(name);
+        if (textureRegion == null) {
+            logger.error(Assets.class, "Unkown texture requested: " + name);
+        }
         return textureAtlas.findRegion(name);
     }
 

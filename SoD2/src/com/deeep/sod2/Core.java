@@ -2,9 +2,11 @@ package com.deeep.sod2;
 
 import com.badlogic.gdx.Gdx;
 import com.deeep.sod2.menu.MainMenu;
+import com.deeep.sod2.missions.MissionParser;
 import com.deeep.sod2.screens.AbstractGame;
 import com.deeep.sod2.screens.GameScreen;
 import com.deeep.sod2.graphics.Assets;
+import com.deeep.sod2.screens.MissionScreen;
 
 /** This class is the entry point to the game */
 public class Core extends AbstractGame {
@@ -13,7 +15,8 @@ public class Core extends AbstractGame {
     @Override
     public void create() {
         Assets.getAssets().load();
-        setScreen(new MainMenu(this));
+        //MissionParser.getMissionParser();
+        setScreen(new GameScreen(this));
     }
 
     /** This will get rid of all the assets to prevent a memory leak */

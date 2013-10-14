@@ -7,8 +7,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.deeep.sod2.Core;
-import com.deeep.sod2.gameplay.Renderer;
+import com.deeep.sod2.graphics.Renderer;
 import com.deeep.sod2.gameplay.World;
+import com.deeep.sod2.graphics.WorldRenderer;
 import com.deeep.sod2.utility.Constants;
 import com.deeep.sod2.utility.Logger;
 
@@ -29,7 +30,7 @@ public class GameScreen implements Screen {
     /** The world which should contain all the game play and entities */
     private World world;
     /** The renderer which draws all the entities in the world */
-    private Renderer renderer;
+    private WorldRenderer worldRenderer;
     /** The viewport for the game. Should handle all the resizing */
     private Rectangle viewport;
 
@@ -42,7 +43,7 @@ public class GameScreen implements Screen {
         this.core = core;
         spriteBatch = new SpriteBatch(5);           //TODO tune this
         world = new World();
-        renderer = new Renderer(spriteBatch, world);
+        worldRenderer = new WorldRenderer(spriteBatch, world);
     }
 
     /**
@@ -69,7 +70,7 @@ public class GameScreen implements Screen {
 
     /** Drawing happens here */
     public void draw() {
-        renderer.render();
+        worldRenderer.render();
     }
 
     /** @see com.badlogic.gdx.ApplicationListener#resize(int, int) */

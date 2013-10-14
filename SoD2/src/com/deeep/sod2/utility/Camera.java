@@ -179,4 +179,12 @@ public class Camera {
     public int getTouchPixelY() {
         return Gdx.input.getY();
     }
+
+    public void setY(float y) {
+        this.y = y;
+    }
+
+    public void setX(float x) {
+        this.x = x;
+    }
 }

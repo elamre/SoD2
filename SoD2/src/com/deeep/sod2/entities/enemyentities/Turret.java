@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deeep.sod2.entities.Entity;
 import com.deeep.sod2.entities.EntityManager;
 import com.deeep.sod2.entities.Snake;
+import com.deeep.sod2.entities.projectiles.SnakeBullet;
 import com.deeep.sod2.entities.projectiles.TurretBullet;
 import com.deeep.sod2.graphics.Assets;
 import com.deeep.sod2.graphics.ShapeRenderer;
@@ -31,12 +32,14 @@ public class Turret extends AnimatedEnemy {
         this.health = health;
         this.maxHealth = health;
         this.level = level;
+        targetY = y;
+        targetX = x;
         setTextureRegion(Assets.getAssets().getRegion("Tiles/turret"));
     }
 
     @Override
     public void implementDraw_1(SpriteBatch spriteBatch) {
-        if (target != null && !firstTime) {
+        if (target != null) {
             ShapeRenderer.setColor(new Color(1f, 0, 0, 0.5f));
             ShapeRenderer.drawRectangle(spriteBatch, targetX, targetY, 1, 1, true);
         }
@@ -49,17 +52,19 @@ public class Turret extends AnimatedEnemy {
                 target = EntityManager.get().entities.get(i);
         }
         if (target != null) {
-            if (target.getDistance(x, y) > 3) {
+            if (target.getDistance(getOriginX(), getOriginY()) > 3.5f) {
                 animationTimer = 0;
                 target = null;
+                firstTime = true;
                 return;
             }
+            if (firstTime) {
+                targetX = (int) target.getX();
+                targetY = (int) target.getY();
+                firstTime = false;
+            }
             if (animation.isAnimationFinished(animationTimer)) {
-                if (firstTime) {
-                    targetX = (int) target.getX();
-                    targetY = (int) target.getY();
-                    firstTime = false;
-                }
+
                 /**  ________T
                  *  |       /|
                  *  |     /  |
@@ -74,11 +79,20 @@ public class Turret extends AnimatedEnemy {
                 /** θ = tan^-1(y/x) */
                 float theta = (float) Math.atan2(dy, dx);
                 EntityManager.get().addEntitySinglePlayer(new TurretBullet(EntityManager.get().getNextSinglePlayerId(), x, y, 5f, 8f, theta));
+                if (firstTime) {
+                    firstTime = false;
+                } else {
+                    targetX = (int) target.getX();
+                    targetY = (int) target.getY();
+                }
             }
-            targetX = (int) target.getX();
-            targetY = (int) target.getY();
         }
     }
 
 
+    @Override
+    public void Collide(Entity entity) {
+        if(entity instanceof SnakeBullet)
+            die();
+    }
 }

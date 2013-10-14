@@ -18,7 +18,6 @@ public class EntityManager {
 
     /** Singleton instance */
     private static EntityManager instance;
-
     /** The HashMap, that contains entities and their respective ids */
     public HashMap<Integer, Entity> entities = new HashMap<Integer, Entity>();
     private int id = 1;
@@ -28,18 +27,16 @@ public class EntityManager {
     private ArrayList<Entity> collideAbles = new ArrayList<Entity>();
     private ArrayList<Snake> snakes = new ArrayList<Snake>();
     private ArrayList<Entity> removeList = new ArrayList<Entity>();
-
     private Map map;
 
     public EntityManager() {
     }
 
     /** Returns the singleton instantiation */
-    public static EntityManager get(){
-        if(instance==null) instance = new EntityManager();
+    public static EntityManager get() {
+        if (instance == null) instance = new EntityManager();
         return instance;
     }
-
 
     /** Clears the entire entity HashMap */
     public void clearEntities() {
@@ -125,7 +122,7 @@ public class EntityManager {
         return entities.get(key);
     }
 
-    public void setMap(Map map){
+    public void setMap(Map map) {
         this.map = map;
     }
 
@@ -142,18 +139,29 @@ public class EntityManager {
             Integer key = keySetIterator.next();
             entities.get(key).update(delta);
 
-            float w = map.getSave().width+3;
+            float w = map.getSave().width + 3;
             /** Alive and within bounds check */
             if (!entities.get(key).isAlive()
                     || entities.get(key).getX() < -3
                     || entities.get(key).getY() < -3
-                    || entities.get(key).getX() > map.getSave().width+8
-                    || entities.get(key).getY() > map.getSave().height+16)
+                    || entities.get(key).getX() > map.getSave().width + 8
+                    || entities.get(key).getY() > map.getSave().height + 16)
                 removeList.add(entities.get(key));
         }
         for (CollectAble collectAble : collectAbles) {
             for (Snake snake : snakes) {
                 collectAble.checkDistance(snake);
+            }
+        }
+        boolean moved;
+        for (Snake snake : snakes) {
+            moved = snake.moved();
+            if (moved) {
+                if (map.getTile((int) snake.getX(), (int) snake.getY()) != null) {
+                    map.getTile((int) snake.getX(), (int) snake.getY()).onStep(snake);
+                } else {
+                    snake.die();
+                }
             }
         }
         for (Entity collideAble : collideAbles) {

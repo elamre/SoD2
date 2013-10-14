@@ -1,6 +1,7 @@
 package com.deeep.sod2.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.deeep.sod2.entities.projectiles.TurretBullet;
 import com.deeep.sod2.graphics.Assets;
 
 /**
@@ -41,6 +42,7 @@ public class Head extends Entity implements CollideAble {
 
     @Override
     public void Collide(Entity entity) {
+
         //To change body of implemented methods use File | Settings | File Templates.
     }
 }

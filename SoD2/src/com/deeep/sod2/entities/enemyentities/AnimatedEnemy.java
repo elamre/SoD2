@@ -3,6 +3,7 @@ package com.deeep.sod2.entities.enemyentities;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.deeep.sod2.entities.CollideAble;
 import com.deeep.sod2.entities.Entity;
 import com.deeep.sod2.entities.EntityManager;
 import com.deeep.sod2.entities.projectiles.TurretBullet;
@@ -15,7 +16,7 @@ import com.deeep.sod2.graphics.Assets;
  * Time: 11:20 AM
  * To change this template use File | Settings | File Templates.
  */
-public abstract class AnimatedEnemy extends Entity {
+public abstract class AnimatedEnemy extends Entity implements CollideAble{
     protected Animation animation;
     protected float animationTimer = 0f;
     protected TextureRegion[] frames;

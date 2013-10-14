@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.deeep.sod2.graphics.Assets;
 import com.deeep.sod2.entities.Entity;
 import com.deeep.sod2.graphics.ShapeRenderer;
+import com.deeep.sod2.utility.Logger;
 
 public class ObstacleTile extends AbstractTile {
 
@@ -22,13 +23,15 @@ public class ObstacleTile extends AbstractTile {
         this.textureRegion = Assets.getAssets().getRegion("Tiles/obstacle");
     }
 
-    public void draw(SpriteBatch spriteBatch){
+    public void draw(SpriteBatch spriteBatch) {
         spriteBatch.draw(textureRegion, x, y, 1, 1, 1, 1, 1, 1, 0);
 
     }
 
     @Override
     public void onStep(Entity stepper) {
+        Logger.getInstance().debug(this.getClass(), "somebody stepped on me at: " + x + ", " + y);
+        stepper.die();
     }
 
 }

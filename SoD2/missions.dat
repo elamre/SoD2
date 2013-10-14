@@ -1,0 +1,14 @@
+1 solarsystem
+1 mercury 1 FF
+2 venus 3 FF
+3 earth 3 FF
+4 mars 2 FF
+5 jupiter 5 FF
+6 saturn 5 FF
+7 uranus 4 FF
+8 neptune 4 FF
+9 pluto 1 FF ;
+2 AlphaCentaurisystem 
+1 alpha 2 FF
+2 beta 1 FF ;
+

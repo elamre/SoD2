@@ -55,6 +55,11 @@ public abstract class Renderer {
         spriteBatch.end();
     }
 
+    protected void setCameraPosition(float x, float y){
+        Camera.getInstance().setX(x);
+        Camera.getInstance().setY(y);
+    }
+
     private void renderBackground() {
         spriteBatch.disableBlending();
         spriteBatch.begin();

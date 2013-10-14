@@ -1,5 +1,6 @@
 package com.deeep.sod2.entities.pickups;
 
+import com.deeep.sod2.entities.Coin;
 import com.deeep.sod2.entities.Entity;
 import com.deeep.sod2.entities.EntityManager;
 import com.deeep.sod2.entities.Snake;
@@ -23,7 +24,11 @@ public class HearthPickup extends Pickup {
 
     @Override
     public boolean action(Snake owner) {
-        return false;
+        EntityManager.get().addEntitySinglePlayer(new Coin(EntityManager.get().getNextSinglePlayerId(), getOriginX(), getOriginY()));
+        EntityManager.get().addEntitySinglePlayer(new Coin(EntityManager.get().getNextSinglePlayerId(), getOriginX(), getOriginY()));
+        EntityManager.get().addEntitySinglePlayer(new Coin(EntityManager.get().getNextSinglePlayerId(), getOriginX(), getOriginY()));
+        EntityManager.get().addEntitySinglePlayer(new Coin(EntityManager.get().getNextSinglePlayerId(), getOriginX(), getOriginY()));
+        return true;
         //To change body of implemented methods use File | Settings | File Templates.
     }
 

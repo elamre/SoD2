@@ -47,6 +47,8 @@ public abstract class AbstractGame implements ApplicationListener {
     public void pause() {
         logger.system(this.getClass(), "Paused");
         if (screen != null) screen.pause();
+        dispose();
+        System.exit(1);
     }
 
     /**

@@ -41,8 +41,10 @@ public class Tail extends Entity implements CollideAble {
 
     @Override
     public void implementUpdate_1(float deltaT) {
-        pickup.setX(getX());
-        pickup.setY(getY());
+        if (pickup != null) {
+            pickup.setX(getX());
+            pickup.setY(getY());
+        }
         //To change body of implemented methods use File | Settings | File Templates.
     }
 

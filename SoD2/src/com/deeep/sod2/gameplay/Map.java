@@ -23,7 +23,8 @@ public class Map {
     private Save save;
     private AbstractTile[] tiles;
 
-    public Map(Save save) {;
+    public Map(Save save) {
+        ;
         //TODO only for debugging
         this.save = save;
         tiles = save.getTiles();
@@ -38,12 +39,17 @@ public class Map {
 
     }
 
+    public AbstractTile getTile(int x, int y) {
+        return tiles[x + y * save.width];
+    }
+
     public void draw(SpriteBatch spriteBatch) {
         for (int y = 0; y < save.height; y++) {
             for (int x = 0; x < save.width; x++) {
                 try {
                     tiles[x + y * save.width].draw(spriteBatch);
-                } catch (NullPointerException e) {}
+                } catch (NullPointerException e) {
+                }
             }
         }
     }
