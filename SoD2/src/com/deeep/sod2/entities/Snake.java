@@ -24,6 +24,8 @@ public class Snake extends TickAbleEntity implements CollideAble {
     /** Spawn X and Y coordinate */
     public float spawnX;
     public float spawnY;
+    private int life = 0;
+    private int previousTailSize = 0;
     /** Direction list to add new actions */
     private ArrayList<Direction> directions = new ArrayList<Direction>();
     /** The head of the snake */
@@ -69,6 +71,15 @@ public class Snake extends TickAbleEntity implements CollideAble {
         tails.add(tail);
     }
 
+    public void tailChange() {
+        sortTails();
+        calculateLives();
+    }
+
+    public int getLives() {
+        return life;
+    }
+
     /** Use this function instead of the constructor */
     @Override
     public void onCreate() {
@@ -76,6 +87,11 @@ public class Snake extends TickAbleEntity implements CollideAble {
 
     @Override
     public void implementUpdate_2(float deltaT) {
+        if (previousTailSize != tails.size()) {
+            tailChange();
+            previousTailSize = tails.size();
+            System.out.println("lives: " + getLives());
+        }
         //TODO send the positions
     }
 
@@ -197,7 +213,83 @@ public class Snake extends TickAbleEntity implements CollideAble {
     public void Collide(Entity entity) {
         if (entity instanceof TurretBullet) {
             //TODO check for hearths
+            if (life > 0) {
+                loseLife();
+                entity.die();
+            } else {
+                //TODO die
+            }
+        } else if (entity instanceof Obstacle) {
+            loseLife();
+            if (life > 0) {
+                loseLife();
+                entity.die();
+            } else {
+                //TODO die
+            }
         }
+    }
+
+    private void sortTails() {
+        boolean finished = false;
+        if (tails.size() <= 0)
+            return; //TODO fix this
+
+        Pickup previousPickup = tails.get(0).getPickup();
+        while (!finished) {
+            finished = true;
+            for (int i = 1; i < tails.size(); i++) {
+                if (tails.get(i).getPickup() instanceof HearthPickup) {
+                    if (!(previousPickup instanceof HearthPickup)) {
+                        tails.get(i - 1).setPickup(tails.get(i).getPickup());
+                        tails.get(i).setPickup(previousPickup);
+                        finished = false;
+                    }
+                }
+                previousPickup = tails.get(i).getPickup();
+            }
+        }
+        for (int i = 0; i < tails.size(); i++) {
+            System.out.println("Tail pickups: " + tails.get(i).getPickup());
+        }
+    }
+
+    public void loseLife() {
+        for (int i = tails.size() - 1; i > -1; i--) {
+            if (tails.get(i).getPickup() instanceof HearthPickup) {
+                shiftTail(i);
+                break;
+            }
+        }
+        calculateLives();
+        sortTails();
+    }
+
+    private void calculateLives() {
+        life = 0;
+        for (int i = 0; i < tails.size(); i++) {
+            if (tails.get(i).getPickup() instanceof HearthPickup) {
+                life++;
+            }
+        }
+    }
+
+    public ArrayList<Tail> getLastTails(int amount) {
+        ArrayList<Tail> tailParts = new ArrayList<>(amount);
+        int i = tails.size();
+        while (i > 0 || (tails.size() - i) >= amount) {
+            tailParts.add(tails.get(i));
+        }
+        return tailParts;
+    }
+
+    public void shiftTail(int position) {
+        for (int i = position; i < tails.size() - 1; i++) {
+            tails.get(i).setPickup(tails.get(i + 1).getPickup());
+        }
+        tails.get(tails.size() - 1).die();
+        tails.get(tails.size() - 1).getPickup().die();
+        tails.remove(tails.size() - 1);
     }
 
     public void die() {
@@ -210,9 +302,6 @@ public class Snake extends TickAbleEntity implements CollideAble {
 
     /** Happens once the snake runs out of lives */
     public void onDeath() {
-        if (checkPointX == 0 || checkPointY == 0) {
-
-        }
         x = checkPointX;
         y = checkPointY;
         head.setX(x);

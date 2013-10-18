@@ -40,6 +40,8 @@ public class Map {
     }
 
     public AbstractTile getTile(int x, int y) {
+        if (x < 0 || y < 0 || x > save.width || y > save.height)
+            return null;
         return tiles[x + y * save.width];
     }
 

@@ -13,7 +13,7 @@ public abstract class TickAbleEntity extends Entity {
     /** the tick timer */
     protected float tickTimer = 0;
     /** The tick maximum tick  time. the lower it is, the faster each tick will come */
-    protected float tickTime = 1;
+    protected float tickTime = 0.5f;
     /** This is the tick time the entity will return to after all the tick changes */
     protected float defaultTickTime = 1;
     /**

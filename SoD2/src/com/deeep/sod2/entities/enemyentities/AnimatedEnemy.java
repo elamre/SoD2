@@ -43,7 +43,7 @@ public abstract class AnimatedEnemy extends Entity implements CollideAble{
             frames[i] = temp[0][i];
         }
 
-        animation = new Animation(0.2f, frames);
+        animation = new Animation(0.05f, frames);
         animation.setPlayMode(Animation.NORMAL);
     }
 

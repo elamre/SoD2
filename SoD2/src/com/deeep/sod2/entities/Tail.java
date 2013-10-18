@@ -23,12 +23,6 @@ public class Tail extends Entity implements CollideAble {
         super(id, owner, x, y);
     }
 
-    public void setPickup(Pickup pickup) {
-        this.pickup = pickup;
-        pickup.setWidth(0.7f);
-        pickup.setHeight(0.7f);
-    }
-
     public void setSkin(int skin) {
         setTextureRegion(Assets.getAssets().getRegion("snakes/snake_1_tail"));
     }
@@ -72,5 +66,15 @@ public class Tail extends Entity implements CollideAble {
     @Override
     public void Collide(Entity entity) {
         //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public Pickup getPickup() {
+        return pickup;
+    }
+
+    public void setPickup(Pickup pickup) {
+        this.pickup = pickup;
+        pickup.setWidth(0.7f);
+        pickup.setHeight(0.7f);
     }
 }

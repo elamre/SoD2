@@ -3,6 +3,7 @@ package com.deeep.sod2.entities.projectiles;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deeep.sod2.entities.Entity;
 import com.deeep.sod2.entities.EntityManager;
+import com.deeep.sod2.entities.Snake;
 import com.deeep.sod2.graphics.Assets;
 import com.deeep.sod2.graphics.PVector;
 
@@ -29,7 +30,6 @@ public class TurretBullet extends Projectile {
 
     @Override
     public void Collide(Entity entity) {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     /** Use this function instead of the constructor */

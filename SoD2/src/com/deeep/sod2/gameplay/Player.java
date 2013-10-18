@@ -67,6 +67,12 @@ public class Player {
                     snake.fireAction();
                 }
             }, InputReactListener.Event.PRESSED);
+            controller.registerKey(Input.Keys.O, new InputReactListener() {
+                @Override
+                public void inputReact() {
+                    snake.loseLife();
+                }
+            }, InputReactListener.Event.PRESSED);
         }
         this.name = name;
     }
@@ -111,7 +117,7 @@ public class Player {
             }
             if (Camera.getInstance().getTouchPixelY() < 3 * Gdx.graphics.getHeight() / 4 && Camera.getInstance().getTouchPixelY() > Gdx.graphics.getHeight() / 4) {
                 if (Camera.getInstance().getTouchPixelX() > Gdx.graphics.getWidth() / 4 && Camera.getInstance().getTouchPixelX() < (3 * Gdx.graphics.getWidth() / 4)) {
-                    snake.fireAction();
+                    //  snake.fireAction();
                 }
             }
         }
