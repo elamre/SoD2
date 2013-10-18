@@ -1,4 +1,4 @@
-TextureAtlass.png
+TextureAtlas.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -23,6 +23,13 @@ planets/missions/Venus
   orig: 40, 40
   offset: 0, 0
   index: -1
+upgrades/key
+  rotate: false
+  xy: 464, 290
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
 animations/turret_strip14
   rotate: false
   xy: 364, 86
@@ -37,9 +44,16 @@ snakes/snake_1_head
   orig: 40, 40
   offset: 0, 0
   index: -1
+upgrades/Checkpoint
+  rotate: false
+  xy: 338, 290
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
 upgrades/bullet
   rotate: false
-  xy: 254, 290
+  xy: 380, 290
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
@@ -67,7 +81,7 @@ planets/missions/Uranus
   index: -1
 upgrades/life
   rotate: false
-  xy: 338, 290
+  xy: 506, 290
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
@@ -82,6 +96,13 @@ gui/menu/button-down
 Tiles/arrow_blue
   rotate: false
   xy: 2, 2
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+snakes/snake_3_tail
+  rotate: false
+  xy: 254, 290
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
@@ -128,9 +149,16 @@ snakes/snake_2_tail
   orig: 40, 40
   offset: 0, 0
   index: -1
+snakes/snake_3_head
+  rotate: false
+  xy: 212, 290
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
 upgrades/speed_up
   rotate: false
-  xy: 380, 290
+  xy: 548, 290
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
@@ -138,6 +166,13 @@ upgrades/speed_up
 planets/missions/earth
   rotate: false
   xy: 884, 128
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+upgrades/teleport
+  rotate: false
+  xy: 590, 290
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
@@ -151,7 +186,7 @@ planets/missions/mars
   index: -1
 upgrades/compass
   rotate: false
-  xy: 296, 290
+  xy: 422, 290
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
@@ -221,7 +256,7 @@ Tiles/turret
   index: -1
 upgrades/Bullet2
   rotate: false
-  xy: 212, 290
+  xy: 296, 290
   size: 40, 40
   orig: 40, 40
   offset: 0, 0

@@ -25,7 +25,7 @@ public class CheckPointTile extends AbstractTile {
     }
 
     @Override
-    public void draw(SpriteBatch spriteBatch) {
+    public void implementDraw(SpriteBatch spriteBatch) {
         spriteBatch.draw(textureRegion, x, y, 1, 1, 1, 1, 1, 1, 0);
         ShapeRenderer.setColor(color);
         ShapeRenderer.drawRectangle(spriteBatch, x, y, 1, 1, true);

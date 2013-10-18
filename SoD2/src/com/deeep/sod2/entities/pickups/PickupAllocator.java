@@ -1,33 +1,29 @@
-package com.deeep.sod2.entities;
+package com.deeep.sod2.entities.pickups;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.deeep.sod2.entities.projectiles.TurretBullet;
-import com.deeep.sod2.graphics.Assets;
+import com.deeep.sod2.entities.Entity;
 
 /**
  * Created with IntelliJ IDEA.
  * User: Elmar
- * Date: 10/3/13
- * Time: 6:30 PM
+ * Date: 10/18/13
+ * Time: 3:16 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Head extends Entity implements CollideAble {
+public class PickupAllocator extends Entity {
+
     /** USE THIS ONLY FOR REGISTERING THE ENTITY! SHOULD NOT BE USED OTHERWISE! */
-    public Head() {
+    public PickupAllocator() {
     }
 
-    public Head(int id, int owner, int x, int y) {
+    public PickupAllocator(int id, int owner, int x, int y) {
         super(id, owner, x, y);
-    }
-
-    public void setSkin(int skinId) {
-        setTextureRegion(Assets.getAssets().getRegion("snakes/snake_" + skinId + "_head"));
     }
 
     /** Use this function instead of the constructor */
     @Override
     public void onCreate() {
-        //To change body of implemented methods use File | Settings | File Templates.
+        //TODO look for the nearest pickups
     }
 
     @Override
@@ -37,12 +33,6 @@ public class Head extends Entity implements CollideAble {
 
     @Override
     public void implementDraw_1(SpriteBatch spriteBatch) {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public void Collide(Entity entity) {
-
         //To change body of implemented methods use File | Settings | File Templates.
     }
 }

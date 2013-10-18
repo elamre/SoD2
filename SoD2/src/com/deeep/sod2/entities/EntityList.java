@@ -1,10 +1,7 @@
 package com.deeep.sod2.entities;
 
 import com.deeep.sod2.entities.enemyentities.Turret;
-import com.deeep.sod2.entities.pickups.BulletPickup;
-import com.deeep.sod2.entities.pickups.CompassPickup;
-import com.deeep.sod2.entities.pickups.HearthPickup;
-import com.deeep.sod2.entities.pickups.SpeedPickup;
+import com.deeep.sod2.entities.pickups.*;
 import com.deeep.sod2.entities.projectiles.SnakeBullet;
 import com.deeep.sod2.entities.projectiles.TurretBullet;
 import com.deeep.sod2.utility.Logger;
@@ -41,7 +38,11 @@ public class EntityList {/* The packet id to assign to packets. Will increment a
         registerEntity(new CompassPickup());
         registerEntity(new SpeedPickup());
         registerEntity(new BulletPickup());
+        registerEntity(new CheckpointPickup());
+        registerEntity(new KeyPickup());
+        registerEntity(new TeleportPickup());
         registerEntity(new Coin());
+        registerEntity(new TempCheckpoint());
         registerEntity(new TurretBullet());
         registerEntity(new SnakeBullet());
         registerEntity(new Turret());

@@ -11,18 +11,16 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.deeep.sod2.entities.Entity;
+import com.deeep.sod2.utility.Camera;
 
 public abstract class AbstractTile {
 
     protected TileType tileType = TileType.EMPTY;
-
-    /** X and y position in units*/
+    /** X and y position in units */
     protected int x, y;
-
     /** Tile color */
     protected Color color;
-
-    /**Texture for tile*/
+    /** Texture for tile */
     TextureRegion textureRegion;
 
     public int getX() {
@@ -49,7 +47,13 @@ public abstract class AbstractTile {
         this.tileType = tileType;
     }
 
-    public abstract void draw(SpriteBatch spriteBatch);
+    public void draw(SpriteBatch spriteBatch) {
+        if (Camera.getInstance().inVision(x, y, 1, 1)) {
+            implementDraw(spriteBatch);
+        }
+    }
+
+    public abstract void implementDraw(SpriteBatch spriteBatch);
 
     public abstract void onStep(Entity stepper);
 

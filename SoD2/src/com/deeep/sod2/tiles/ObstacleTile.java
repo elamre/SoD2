@@ -23,9 +23,9 @@ public class ObstacleTile extends AbstractTile {
         this.textureRegion = Assets.getAssets().getRegion("Tiles/obstacle");
     }
 
-    public void draw(SpriteBatch spriteBatch) {
+    @Override
+    public void implementDraw(SpriteBatch spriteBatch) {
         spriteBatch.draw(textureRegion, x, y, 1, 1, 1, 1, 1, 1, 0);
-
     }
 
     @Override

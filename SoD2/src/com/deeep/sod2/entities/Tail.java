@@ -24,13 +24,13 @@ public class Tail extends Entity implements CollideAble {
     }
 
     public void setSkin(int skin) {
-        setTextureRegion(Assets.getAssets().getRegion("snakes/snake_1_tail"));
+        setTextureRegion(Assets.getAssets().getRegion("snakes/snake_" + skin + "_tail"));
     }
 
     /** Use this function instead of the constructor */
     @Override
     public void onCreate() {
-        setSkin(1);
+        setSkin(3);
     }
 
     @Override
@@ -39,6 +39,7 @@ public class Tail extends Entity implements CollideAble {
             pickup.setX(getX());
             pickup.setY(getY());
         }
+        pickup.update(deltaT);
         //To change body of implemented methods use File | Settings | File Templates.
     }
 

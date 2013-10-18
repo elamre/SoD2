@@ -6,10 +6,7 @@ import com.deeep.sod2.entities.Entity;
 import com.deeep.sod2.entities.EntityManager;
 import com.deeep.sod2.entities.Obstacle;
 import com.deeep.sod2.entities.enemyentities.Turret;
-import com.deeep.sod2.entities.pickups.BulletPickup;
-import com.deeep.sod2.entities.pickups.CompassPickup;
-import com.deeep.sod2.entities.pickups.HearthPickup;
-import com.deeep.sod2.entities.pickups.SpeedPickup;
+import com.deeep.sod2.entities.pickups.*;
 import com.deeep.sod2.tiles.*;
 import com.deeep.sod2.utility.Logger;
 
@@ -63,7 +60,7 @@ public class Save {
 
     /** Loads all the saves from files */
     public static void loadSaves() {
-        LEVEL_1 = new Save(1);
+        LEVEL_1 = new Save(2);
         Logger.getInstance().debug(null, "Loaded all levels");
     }
 
@@ -120,19 +117,28 @@ public class Save {
                 int b = (rgb >> 8) & 0xff;
                 int a = (rgb) & 0xff;
                 switch (r) {
-                    case 255:
+                    case Entities.HEARTH_PICKUP:
                         entities[x + y * width] = new HearthPickup(EntityManager.get().getNextSinglePlayerId(), x, height - y - 2);
                         break;
-                    case 254:
+                    case Entities.SPEED_PICKUP:
                         entities[x + y * width] = new SpeedPickup(EntityManager.get().getNextSinglePlayerId(), x, height - y - 2);
                         break;
-                    case 253:
+                    case Entities.BULLET_PICKUP:
                         entities[x + y * width] = new BulletPickup(EntityManager.get().getNextSinglePlayerId(), x, height - y - 2);
                         break;
-                    case 252:
+                    case Entities.COMPASS_PICKUP:
                         entities[x + y * width] = new CompassPickup(EntityManager.get().getNextSinglePlayerId(), x, height - y - 2);
                         break;
-                    case 251:
+                    case Entities.KEY_PICKUP:
+                        entities[x + y * width] = new KeyPickup(EntityManager.get().getNextSinglePlayerId(), x, height - y - 2);
+                        break;
+                    case Entities.TELEPORT_PICKUP:
+                        entities[x + y * width] = new TeleportPickup(EntityManager.get().getNextSinglePlayerId(), x, height - y - 2);
+                        break;
+                    case Entities.CHECKPOINT_PICKUP:
+                        entities[x + y * width] = new CheckpointPickup(EntityManager.get().getNextSinglePlayerId(), x, height - y - 2);
+                        break;
+                    case Entities.ENEMY_TURRET:
                         entities[x + y * width] = new Turret(EntityManager.get().getNextSinglePlayerId(), x, y, g, b);
                         break;
                 }

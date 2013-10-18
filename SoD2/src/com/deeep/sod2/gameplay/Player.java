@@ -4,10 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.deeep.sod2.entities.*;
 import com.deeep.sod2.entities.enemyentities.Turret;
-import com.deeep.sod2.entities.pickups.BulletPickup;
-import com.deeep.sod2.entities.pickups.HearthPickup;
-import com.deeep.sod2.entities.pickups.Pickup;
-import com.deeep.sod2.entities.pickups.SpeedPickup;
+import com.deeep.sod2.entities.pickups.*;
 import com.deeep.sod2.entities.projectiles.TurretBullet;
 import com.deeep.sod2.io.Save;
 import com.deeep.sod2.utility.Camera;
@@ -20,6 +17,7 @@ import com.deeep.sod2.utility.Camera;
  * To change this template use File | Settings | File Templates.
  */
 public class Player {
+    public static int coins;
     /** If it is a network player, or rather a local player */
     private boolean selfControlled = false;
     /** Player name */
@@ -92,10 +90,25 @@ public class Player {
         EntityManager.get().addEntitySinglePlayer(new Turret(EntityManager.get().getNextSinglePlayerId(), 5, 3, 100, 100));
         snake.setHead((Head) EntityManager.get().addEntitySinglePlayer(new Head(EntityManager.get().getNextSinglePlayerId(), 0, 0, 0)));
         snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new HearthPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
-        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new BulletPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
-        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new BulletPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
-        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new BulletPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
-        setSkin(1);
+        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new SpeedPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
+        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new SpeedPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
+        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new SpeedPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
+        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new SpeedPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
+        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new SpeedPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
+        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new SpeedPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
+        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new SpeedPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
+        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new SpeedPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
+        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new SpeedPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
+        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new SpeedPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
+        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new SpeedPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
+        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new SpeedPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
+        //snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new HearthPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
+        //snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new HearthPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
+        //snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new TeleportPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
+        //snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new TeleportPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
+        //snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new CompassPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
+        //snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new CompassPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
+        setSkin(3);
         Camera.getInstance().setFocus(snake, .5f, .5f);
     }
 

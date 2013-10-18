@@ -9,6 +9,8 @@ import com.deeep.sod2.entities.projectiles.SnakeBullet;
 import com.deeep.sod2.entities.projectiles.TurretBullet;
 import com.deeep.sod2.graphics.Assets;
 import com.deeep.sod2.graphics.ShapeRenderer;
+
+import java.util.Iterator;
 /*
  * Class : Turret
  * Package : com.deeep.sod2.entities
@@ -47,9 +49,12 @@ public class Turret extends AnimatedEnemy {
 
     @Override
     public void implementUpdate_2(float deltaT) {
-        for (int i = 0; i < EntityManager.get().entities.size(); i++) {
-            if (EntityManager.get().entities.get(i) instanceof Snake)
-                target = EntityManager.get().entities.get(i);
+        Iterator<Integer> keySetIterator = EntityManager.get().entities.keySet().iterator();
+        while (keySetIterator.hasNext()) {
+            Integer key = keySetIterator.next();
+            if (EntityManager.get().entities.get(key) instanceof Snake) {
+                target = EntityManager.get().entities.get(key);
+            }
         }
         if (target != null) {
             if (target.getDistance(getOriginX(), getOriginY()) > 3.5f) {
@@ -89,10 +94,9 @@ public class Turret extends AnimatedEnemy {
         }
     }
 
-
     @Override
     public void Collide(Entity entity) {
-        if(entity instanceof SnakeBullet)
+        if (entity instanceof SnakeBullet)
             die();
     }
 }

@@ -21,7 +21,8 @@ public class EmptyTile extends AbstractTile{
     }
 
     @Override
-    public void draw(SpriteBatch spriteBatch){
+    public void implementDraw(SpriteBatch spriteBatch) {
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 
 

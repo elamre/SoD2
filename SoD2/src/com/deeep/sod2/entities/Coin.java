@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.deeep.sod2.gameplay.Player;
 import com.deeep.sod2.graphics.Assets;
 import com.deeep.sod2.particle.FormulaTypes;
 import com.deeep.sod2.particle.Sequence;
@@ -43,6 +44,7 @@ public class Coin extends CollectAble implements CollideAble {
     @Override
     public void Collide(Entity entity) {
         if (entity instanceof Snake) {
+            Player.coins++;
             die();
             //TODO increment score
         }

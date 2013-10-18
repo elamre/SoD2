@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.deeep.sod2.entities.pickups.HearthPickup;
 import com.deeep.sod2.entities.pickups.Pickup;
+import com.deeep.sod2.entities.pickups.TempCheckpoint;
 import com.deeep.sod2.entities.projectiles.TurretBullet;
 import com.deeep.sod2.utility.Logger;
 
@@ -38,6 +39,7 @@ public class Snake extends TickAbleEntity implements CollideAble {
     private Direction prevDir = Direction.EAST;
     /** If the snake has moved since previous check */
     private boolean moved = true;
+    private TempCheckpoint tempCheckpoint;
 
     /** Spawn direction */
     //public Direction spawnDirection;
@@ -46,9 +48,22 @@ public class Snake extends TickAbleEntity implements CollideAble {
     }
 
     public void setCheckpoint(int x, int y, Direction dir) {
+        if (this.tempCheckpoint != null) {
+            this.tempCheckpoint.die();
+        }
         this.checkPointX = x;
         this.checkPointY = y;
         this.checkPointDirection = dir;
+    }
+
+    public void setCheckpoint(TempCheckpoint tempCheckpoint) {
+        if (this.tempCheckpoint != null) {
+            this.tempCheckpoint.die();
+        }
+        this.checkPointX = tempCheckpoint.x;
+        this.checkPointY = tempCheckpoint.y;
+        this.checkPointDirection = tempCheckpoint.getDirection();
+        this.tempCheckpoint = tempCheckpoint;
     }
 
     /**
@@ -68,7 +83,9 @@ public class Snake extends TickAbleEntity implements CollideAble {
     public void addTail(Tail tail, Pickup pickUp) {
         pickUp.onCreate();
         tail.setPickup(pickUp);
+        tail.setSkin(3);
         tails.add(tail);
+        pickUp.pickedUp = true;
     }
 
     public void tailChange() {
@@ -90,7 +107,7 @@ public class Snake extends TickAbleEntity implements CollideAble {
         if (previousTailSize != tails.size()) {
             tailChange();
             previousTailSize = tails.size();
-            System.out.println("lives: " + getLives());
+            calculateLives();
         }
         //TODO send the positions
     }
@@ -105,11 +122,11 @@ public class Snake extends TickAbleEntity implements CollideAble {
         while (i > 0) {
             tails.get(i).setX(tails.get(i - 1).getX());
             tails.get(i).setY(tails.get(i - 1).getY());
-            tails.get(i).setAngle(tails.get(i - 1).getAngle());
+            //tails.get(i).setAngle(tails.get(i - 1).getAngle());
             i--;
         }
         if (tails.size() > 0) {
-            tails.get(i).setAngle(head.getAngle() + 180);
+            //tails.get(i).setAngle(head.getAngle() + 180);
             tails.get(0).setX(getX());
             tails.get(0).setY(getY());
         }
@@ -138,7 +155,9 @@ public class Snake extends TickAbleEntity implements CollideAble {
      * @param dir new direction
      */
     public void setDirection(Direction dir) {
+        System.out.println("Current dir: " + this.dir + " next dir: " + dir);
         this.dir = dir;
+        prevDir = dir;
     }
 
     /**
@@ -217,41 +236,22 @@ public class Snake extends TickAbleEntity implements CollideAble {
                 loseLife();
                 entity.die();
             } else {
+                die();
                 //TODO die
             }
         } else if (entity instanceof Obstacle) {
-            loseLife();
             if (life > 0) {
                 loseLife();
                 entity.die();
             } else {
+                die();
                 //TODO die
             }
         }
     }
 
     private void sortTails() {
-        boolean finished = false;
-        if (tails.size() <= 0)
-            return; //TODO fix this
 
-        Pickup previousPickup = tails.get(0).getPickup();
-        while (!finished) {
-            finished = true;
-            for (int i = 1; i < tails.size(); i++) {
-                if (tails.get(i).getPickup() instanceof HearthPickup) {
-                    if (!(previousPickup instanceof HearthPickup)) {
-                        tails.get(i - 1).setPickup(tails.get(i).getPickup());
-                        tails.get(i).setPickup(previousPickup);
-                        finished = false;
-                    }
-                }
-                previousPickup = tails.get(i).getPickup();
-            }
-        }
-        for (int i = 0; i < tails.size(); i++) {
-            System.out.println("Tail pickups: " + tails.get(i).getPickup());
-        }
     }
 
     public void loseLife() {
@@ -261,7 +261,6 @@ public class Snake extends TickAbleEntity implements CollideAble {
                 break;
             }
         }
-        calculateLives();
         sortTails();
     }
 
@@ -272,6 +271,8 @@ public class Snake extends TickAbleEntity implements CollideAble {
                 life++;
             }
         }
+        if (life <= 0)
+            die();
     }
 
     public ArrayList<Tail> getLastTails(int amount) {
@@ -314,6 +315,18 @@ public class Snake extends TickAbleEntity implements CollideAble {
 
     }
 
+    @Override
+    public void setY(float y) {
+        head.setX(y);
+        super.setY(y);
+    }
+
+    @Override
+    public void setX(float x) {
+        head.setX(x);
+        super.setX(x);
+    }
+
     public Direction getDir() {
         return dir;
     }
@@ -327,6 +340,18 @@ public class Snake extends TickAbleEntity implements CollideAble {
         Direction(int dir) {
             this.dir = dir;
             this.radians = (float) Math.toRadians(dir);
+        }
+
+        public Direction getOpposite() {
+            if (this == NORTH)
+                return SOUTH;
+            if (this == EAST)
+                return WEST;
+            if (this == SOUTH)
+                return NORTH;
+            if (this == WEST)
+                return EAST;
+            return NORTH;
         }
 
         public int getValue() {

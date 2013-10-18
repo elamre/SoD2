@@ -15,7 +15,7 @@ import com.deeep.sod2.particle.Sequencer;
  * To change this template use File | Settings | File Templates.
  */
 public abstract class Pickup extends Entity implements CollideAble {
-    private boolean pickupAble = true;
+    public boolean pickedUp = false;
     private float rotationSpeed = 80;
     private float size = 1;
     private Sequencer sequencer;
@@ -35,20 +35,22 @@ public abstract class Pickup extends Entity implements CollideAble {
 
     @Override
     public void implementUpdate_1(float deltaT) {
-        angle += deltaT * rotationSpeed;
-        sequencer.update(deltaT);
-        size = sequencer.getValue();
-        if (!isAlive())
-            size = .7f;
-        setWidth(size);
-        setHeight(size);
+        if (!pickedUp) {
+            angle += deltaT * rotationSpeed;
+            sequencer.update(deltaT);
+            size = sequencer.getValue();
+            if (!isAlive())
+                size = .7f;
+            setWidth(size);
+            setHeight(size);
+        }
     }
 
     /**
      * the action to be executed when the pickup is used. If nothing should happen, and the pick up should not removed,
      * return false;
      *
-     * @param owner         use this for origin and such
+     * @param owner use this for origin and such
      * @return true if the pickup has been used
      */
     public abstract boolean action(Snake owner);
@@ -61,6 +63,7 @@ public abstract class Pickup extends Entity implements CollideAble {
     @Override
     public void Collide(Entity entity) {
         if (entity instanceof Snake) {
+            pickedUp = true;
             die();
             ((Snake) entity).addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), entity.getId(), 0, 0)), this);
         }

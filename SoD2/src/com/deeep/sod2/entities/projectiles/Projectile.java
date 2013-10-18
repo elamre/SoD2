@@ -14,6 +14,7 @@ public abstract class Projectile extends Entity implements CollideAble {
     private float dy, dx;
     private float speed = 0;
     private float fuel = 0;
+
     /** USE THIS ONLY FOR REGISTERING THE ENTITY! SHOULD NOT BE USED OTHERWISE! */
     protected Projectile() {
     }
@@ -32,8 +33,8 @@ public abstract class Projectile extends Entity implements CollideAble {
         x += dx * deltaT * speed;
         y += dy * deltaT * speed;
         fuel -= deltaT;
-        //if (fuel <= 0)
-           // die();
+        if (fuel <= 0)
+            die();
         implementUpdate_2(deltaT);
         //To change body of implemented methods use File | Settings | File Templates.
     }

@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.deeep.sod2.graphics.Assets;
 import com.deeep.sod2.entities.Entity;
 import com.deeep.sod2.graphics.ShapeRenderer;
+import com.deeep.sod2.utility.Camera;
 
 public class RegularTile extends AbstractTile {
 
@@ -22,12 +23,13 @@ public class RegularTile extends AbstractTile {
         setY(y);
         textureRegion = Assets.getAssets().getRegion("Tiles/glass");
     }
-    
-    public void draw(SpriteBatch spriteBatch) {
+
+    @Override
+    public void implementDraw(SpriteBatch spriteBatch) {
         spriteBatch.draw(textureRegion, x, y, 1, 1, 1, 1, 1, 1, 0);
         ShapeRenderer.setColor(color);
         ShapeRenderer.drawRectangle(spriteBatch, x, y, 1, 1, true);
-
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

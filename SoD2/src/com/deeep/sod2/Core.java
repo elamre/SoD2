@@ -1,9 +1,11 @@
 package com.deeep.sod2;
 
 import com.badlogic.gdx.Gdx;
+import com.deeep.sod2.gameplay.Player;
 import com.deeep.sod2.menu.MainMenu;
 import com.deeep.sod2.missions.MissionParser;
 import com.deeep.sod2.screens.AbstractGame;
+import com.deeep.sod2.screens.GalaxyScreen;
 import com.deeep.sod2.screens.GameScreen;
 import com.deeep.sod2.graphics.Assets;
 import com.deeep.sod2.screens.MissionScreen;
@@ -17,6 +19,7 @@ public class Core extends AbstractGame {
         Assets.getAssets().load();
         //MissionParser.getMissionParser();
         setScreen(new GameScreen(this));
+        //setScreen(new MissionScreen(this));
     }
 
     /** This will get rid of all the assets to prevent a memory leak */
@@ -29,7 +32,7 @@ public class Core extends AbstractGame {
     /** This should in the future render a background */
     @Override
     public void render(float deltaTime) {
-        Gdx.graphics.setTitle("FPS: " + Gdx.graphics.getFramesPerSecond());
+        Gdx.graphics.setTitle("FPS: " + Gdx.graphics.getFramesPerSecond() + " Coins: " + Player.coins);
         //TODO draw background here
         //TODO non game related stuff
     }
