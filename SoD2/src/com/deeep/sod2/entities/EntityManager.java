@@ -3,11 +3,9 @@ package com.deeep.sod2.entities;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deeep.sod2.entities.pickups.Pickup;
 import com.deeep.sod2.gameplay.Map;
+import com.deeep.sod2.utility.Logger;
 
-import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -29,6 +27,7 @@ public class EntityManager {
     private ArrayList<CollectAble> collectAbles = new ArrayList<CollectAble>();
     private ArrayList<Snake> snakes = new ArrayList<Snake>();
     private ArrayList<Entity> removeList = new ArrayList<Entity>();
+    private ArrayList<Entity> allEntities = new ArrayList<>();
     private Map map;
 
     public EntityManager() {
@@ -56,10 +55,21 @@ public class EntityManager {
         return e;
     }
 
+    public void clear() {
+        addToList.clear();
+        clearEntities();
+        collectAbles.clear();
+        collideAbles.clear();
+        snakes.clear();
+        pickups.clear();
+        removeList.clear();
+    }
+
     private void addAllEntities() {
         for (Entity entity : addToList) {
             entity.setDebug(false);
             entities.put(entity.getId(), entity);
+            allEntities.add(entity);
             if (entity instanceof CollectAble) {
                 collectAbles.add((CollectAble) entity);
             }
@@ -73,6 +83,16 @@ public class EntityManager {
                 pickups.add((Pickup) entity);
             }
             entity.onCreate();
+            Collections.sort(allEntities, new Comparator<Entity>() {
+                @Override
+                public int compare(Entity o1, Entity o2) {
+                    if (o1.getZ() > o2.getZ())
+                        return 1;
+                    if (o1.getZ() < o2.getZ())
+                        return -1;
+                    return 0;
+                }
+            });
         }
         addToList.clear();
     }
@@ -80,6 +100,16 @@ public class EntityManager {
     public int getNextSinglePlayerId() {
         id++;
         return id;
+    }
+
+    public Entity getEntity(int x, int y) {
+
+        for (Entity entity : allEntities) {
+            if (entity.x == x && entity.y == y) {
+                return entity;
+            }
+        }
+        return null;
     }
 
     /**
@@ -99,7 +129,6 @@ public class EntityManager {
      */
     public void removeEntity(int key) {
         entities.remove(key);
-        System.out.println("removing key: " + key);
     }
 
     /**
@@ -120,6 +149,7 @@ public class EntityManager {
         if (pickups.contains(e)) {
             pickups.remove(e);
         }
+        allEntities.remove(e);
         removeEntity(e.getId());
     }
 
@@ -153,24 +183,19 @@ public class EntityManager {
                         }
                     }
                 } catch (ConcurrentModificationException e) {
-                    System.out.println(e);
-                    System.out.println(collideAble.getClass().toString());
+                    Logger.getInstance().error(this.getClass(), e);
+                    Logger.getInstance().error(this.getClass(), collideAble.getClass().toString());
                 }
             }
         }
-        Iterator<Integer> keySetIterator = entities.keySet().iterator();
-        while (keySetIterator.hasNext()) {
-            Integer key = keySetIterator.next();
-            entities.get(key).update(delta);
-
-            float w = map.getSave().width + 3;
-            /** Alive and within bounds check */
-            if (!entities.get(key).isAlive()
-                    || entities.get(key).getX() < -3
-                    || entities.get(key).getY() < -3
-                    || entities.get(key).getX() > map.getSave().width + 8
-                    || entities.get(key).getY() > map.getSave().height + 16)
-                removeList.add(entities.get(key));
+        for (Entity entity : allEntities) {
+            entity.update(delta);
+            if (!entity.isAlive()
+                    || entity.getX() < -3
+                    || entity.getY() < -3
+                    || entity.getX() > map.getSave().width + 8
+                    || entity.getY() > map.getSave().height + 16)
+                removeList.add(entity);
         }
         for (CollectAble collectAble : collectAbles) {
             for (Snake snake : snakes) {
@@ -196,11 +221,8 @@ public class EntityManager {
     }
 
     public void draw(SpriteBatch spriteBatch) {
-        Iterator<Integer> keySetIterator = entities.keySet().iterator();
-        int i = 0;
-        while (keySetIterator.hasNext()) {
-            Integer key = keySetIterator.next();
-            entities.get(key).draw(spriteBatch);
+        for (Entity entity : allEntities) {
+            entity.draw(spriteBatch);
         }
     }
 

@@ -3,6 +3,8 @@ package com.deeep.sod2.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.deeep.sod2.entities.enemyentities.Laser;
 import com.deeep.sod2.entities.pickups.HearthPickup;
 import com.deeep.sod2.entities.pickups.Pickup;
 import com.deeep.sod2.entities.pickups.TempCheckpoint;
@@ -10,6 +12,9 @@ import com.deeep.sod2.entities.projectiles.TurretBullet;
 import com.deeep.sod2.utility.Logger;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,7 +30,10 @@ public class Snake extends TickAbleEntity implements CollideAble {
     /** Spawn X and Y coordinate */
     public float spawnX;
     public float spawnY;
+    private TempCheckpoint tempCheckpoint;
+    /** The total amount of lives */
     private int life = 0;
+    /** The previous tail size to check if the tail has changed */
     private int previousTailSize = 0;
     /** Direction list to add new actions */
     private ArrayList<Direction> directions = new ArrayList<Direction>();
@@ -39,7 +47,7 @@ public class Snake extends TickAbleEntity implements CollideAble {
     private Direction prevDir = Direction.EAST;
     /** If the snake has moved since previous check */
     private boolean moved = true;
-    private TempCheckpoint tempCheckpoint;
+    private int skinId = 0;
 
     /** Spawn direction */
     //public Direction spawnDirection;
@@ -83,7 +91,7 @@ public class Snake extends TickAbleEntity implements CollideAble {
     public void addTail(Tail tail, Pickup pickUp) {
         pickUp.onCreate();
         tail.setPickup(pickUp);
-        tail.setSkin(3);
+        tail.setSkin(skinId);
         tails.add(tail);
         pickUp.pickedUp = true;
     }
@@ -134,7 +142,6 @@ public class Snake extends TickAbleEntity implements CollideAble {
         head.setX(getX());
         head.setY(getY());
         moved = true;
-        Logger.getInstance().debug(this.getClass(), "FPS: " + Gdx.graphics.getFramesPerSecond());
     }
 
     public Rectangle getHitBox() {
@@ -155,9 +162,9 @@ public class Snake extends TickAbleEntity implements CollideAble {
      * @param dir new direction
      */
     public void setDirection(Direction dir) {
-        System.out.println("Current dir: " + this.dir + " next dir: " + dir);
+        Logger.getInstance().debug(this.getClass(), "Current dir: " + this.dir + " next dir: " + dir);
+        prevDir = this.dir;
         this.dir = dir;
-        prevDir = dir;
     }
 
     /**
@@ -207,6 +214,7 @@ public class Snake extends TickAbleEntity implements CollideAble {
     }
 
     public void setSkin(int skin) {
+        this.skinId = skin;
         head.setSkin(skin);
         for (int i = 0; i < tails.size(); i++) {
             tails.get(i).setSkin(skin);
@@ -247,11 +255,28 @@ public class Snake extends TickAbleEntity implements CollideAble {
                 die();
                 //TODO die
             }
+        } else if (entity instanceof Laser) {
+            if (life > 0) {
+                loseLife();
+                entity.die();
+            } else {
+                die();
+                //TODO die
+            }
         }
     }
 
     private void sortTails() {
-
+        Collections.sort(tails, new Comparator<Tail>() {
+            @Override
+            public int compare(Tail o1, Tail o2) {
+                if (o1.getPriority() > o2.getPriority())
+                    return -1;
+                if (o1.getPriority() < o2.getPriority())
+                    return 1;
+                return 0;
+            }
+        });
     }
 
     public void loseLife() {
@@ -262,6 +287,7 @@ public class Snake extends TickAbleEntity implements CollideAble {
             }
         }
         sortTails();
+        calculateLives();
     }
 
     private void calculateLives() {
@@ -275,13 +301,8 @@ public class Snake extends TickAbleEntity implements CollideAble {
             die();
     }
 
-    public ArrayList<Tail> getLastTails(int amount) {
-        ArrayList<Tail> tailParts = new ArrayList<>(amount);
-        int i = tails.size();
-        while (i > 0 || (tails.size() - i) >= amount) {
-            tailParts.add(tails.get(i));
-        }
-        return tailParts;
+    public ArrayList<Tail> getTails() {
+        return tails;
     }
 
     public void shiftTail(int position) {
@@ -333,13 +354,15 @@ public class Snake extends TickAbleEntity implements CollideAble {
 
     /** the direction of the snake */
     public enum Direction {
-        NORTH(90), EAST(0), SOUTH(270), WEST(180);
-        int dir;
-        float radians;
+        NORTH(90, 0, 1), EAST(0, 1, 0), SOUTH(270, 0, -1), WEST(180, -1, 1);
+        private int dir;
+        private float radians;
+        private Vector2 vector2;
 
-        Direction(int dir) {
+        Direction(int dir, int x, int y) {
             this.dir = dir;
             this.radians = (float) Math.toRadians(dir);
+            vector2 = new Vector2(x, y);
         }
 
         public Direction getOpposite() {
@@ -354,12 +377,33 @@ public class Snake extends TickAbleEntity implements CollideAble {
             return NORTH;
         }
 
+        public Direction setDirection(int angle) {
+            switch (angle) {
+                case 18:
+                case 90:
+                    return Snake.Direction.NORTH;
+                case 0:
+                    return Snake.Direction.EAST;
+                case 54:
+                case 270:
+                    return Snake.Direction.SOUTH;
+                case 36:
+                case 180:
+                    return Snake.Direction.WEST;
+            }
+            return NORTH;
+        }
+
         public int getValue() {
             return dir;
         }
 
         public float getRadians() {
             return radians;
+        }
+
+        public Vector2 getVector() {
+            return vector2;
         }
     }
 

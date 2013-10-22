@@ -28,15 +28,9 @@ import com.deeep.sod2.utility.Logger;
 public class MainMenu implements Screen {
     /** Logger instance to log all events to. Please don't use system.out.print */
     private Logger logger = Logger.getInstance();
-    /** The core system. Use this to switch screens */
-    private Core core;
 
-    /**
-     * Constructor for the menu screen doesn't do much yet
-     * @param core reference for the core
-     */
-    public MainMenu(Core core) {
-        this.core = core;
+    /** Constructor for the menu screen doesn't do much yet */
+    public MainMenu() {
     }
 
     /**

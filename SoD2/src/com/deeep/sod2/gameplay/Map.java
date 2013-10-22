@@ -24,7 +24,6 @@ public class Map {
     private AbstractTile[] tiles;
 
     public Map(Save save) {
-        ;
         //TODO only for debugging
         this.save = save;
         tiles = save.getTiles();

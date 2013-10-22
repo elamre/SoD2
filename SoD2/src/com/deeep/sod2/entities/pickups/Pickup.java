@@ -19,6 +19,7 @@ public abstract class Pickup extends Entity implements CollideAble {
     private float rotationSpeed = 80;
     private float size = 1;
     private Sequencer sequencer;
+    protected int priority = 0;
 
     /** USE THIS ONLY FOR REGISTERING THE ENTITY! SHOULD NOT BE USED OTHERWISE! */
     protected Pickup() {
@@ -70,4 +71,7 @@ public abstract class Pickup extends Entity implements CollideAble {
     }
 
 
+    public int getPriority() {
+        return priority;
+    }
 }

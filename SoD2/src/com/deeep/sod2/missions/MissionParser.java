@@ -71,6 +71,7 @@ public class MissionParser {
             }
             worlds.get(systemId).addArea(areaId, new Area(areaName, systemName, shopData, levelAmount));
         }
+        System.out.println("Finished parsing missions");
         finishUp();
     }
 
@@ -81,5 +82,4 @@ public class MissionParser {
             worlds.get(key).finishAdding();
         }
     }
-
 }

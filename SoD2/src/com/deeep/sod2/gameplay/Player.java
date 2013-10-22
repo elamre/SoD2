@@ -3,9 +3,11 @@ package com.deeep.sod2.gameplay;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.deeep.sod2.entities.*;
+import com.deeep.sod2.entities.enemyentities.Laser;
 import com.deeep.sod2.entities.enemyentities.Turret;
 import com.deeep.sod2.entities.pickups.*;
 import com.deeep.sod2.entities.projectiles.TurretBullet;
+import com.deeep.sod2.hud.HUD;
 import com.deeep.sod2.io.Save;
 import com.deeep.sod2.utility.Camera;
 
@@ -71,6 +73,12 @@ public class Player {
                     snake.loseLife();
                 }
             }, InputReactListener.Event.PRESSED);
+            controller.registerKey(Input.Keys.C, new InputReactListener() {
+                @Override
+                public void inputReact() {
+                    EntityManager.get().clear();
+                }
+            }, InputReactListener.Event.PRESSED);
         }
         this.name = name;
     }
@@ -90,26 +98,17 @@ public class Player {
         EntityManager.get().addEntitySinglePlayer(new Turret(EntityManager.get().getNextSinglePlayerId(), 5, 3, 100, 100));
         snake.setHead((Head) EntityManager.get().addEntitySinglePlayer(new Head(EntityManager.get().getNextSinglePlayerId(), 0, 0, 0)));
         snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new HearthPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
-        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new SpeedPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
-        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new SpeedPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
-        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new SpeedPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
-        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new SpeedPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
-        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new SpeedPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
-        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new SpeedPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
-        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new SpeedPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
-        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new SpeedPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
-        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new SpeedPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
-        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new SpeedPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
-        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new SpeedPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
-        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new SpeedPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
-        //snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new HearthPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
-        //snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new HearthPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
-        //snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new TeleportPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
+        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new HearthPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
+        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new HearthPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
+        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new TeleportPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
         //snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new TeleportPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
         //snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new CompassPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
         //snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new CompassPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
         setSkin(3);
+        EntityManager.get().addEntitySinglePlayer(new Laser(EntityManager.get().getNextSinglePlayerId(), -1, 2, 2, Snake.Direction.EAST));
+        EntityManager.get().addEntitySinglePlayer(new Laser(EntityManager.get().getNextSinglePlayerId(), -1, 2, 1, Snake.Direction.EAST));
         Camera.getInstance().setFocus(snake, .5f, .5f);
+        HUD.getHud().setSnake(snake);
     }
 
     public void update(float deltaT) {

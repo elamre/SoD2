@@ -11,6 +11,6 @@ public class Main {
         cfg.width = 800;
         cfg.height = 480;
         cfg.vSyncEnabled = false;   //TODO only for testing this is
-        new LwjglApplication(new Core(), cfg);
+        new LwjglApplication(Core.getCore(), cfg);
     }
 }

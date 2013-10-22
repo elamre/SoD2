@@ -8,11 +8,13 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.deeep.sod2.Core;
 import com.deeep.sod2.missions.Area;
+import com.deeep.sod2.missions.MissionParser;
 import com.deeep.sod2.missions.MissionRenderer;
 import com.deeep.sod2.utility.Constants;
 import com.deeep.sod2.utility.Logger;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,15 +28,12 @@ public class MissionScreen implements Screen {
     private SpriteBatch spriteBatch;
     /** Logger instance to log all events to. Please don't use system.out.print */
     private Logger logger = Logger.getInstance();
-    /** The core system. Use this to switch screens */
-    private Core core;
     /** The renderer */
     private MissionRenderer missionRenderer;
     /** The viewport for the game. Should handle all the resizing */
     private Rectangle viewport;
 
-    public MissionScreen(Core core) {
-        this.core = core;
+    public MissionScreen() {
         spriteBatch = new SpriteBatch(5);
         missionRenderer = new MissionRenderer(spriteBatch);
     }
@@ -49,6 +48,12 @@ public class MissionScreen implements Screen {
         Gdx.gl.glViewport((int) viewport.x, (int) viewport.y, (int) viewport.width, (int) viewport.height);
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT); // This cryptic line clears the screen.
         missionRenderer.render();
+        Iterator<Integer> keySetIterator = MissionParser.getMissionParser().getWorlds().keySet().iterator();
+        while (keySetIterator.hasNext()) {
+            Integer key = keySetIterator.next();
+            MissionParser.getMissionParser().getWorlds().get(key).update(delta);
+        }
+
     }
 
     /** @see com.badlogic.gdx.ApplicationListener#resize(int, int) */

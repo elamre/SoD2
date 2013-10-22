@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.deeep.sod2.gameplay.World;
 import com.deeep.sod2.graphics.Assets;
 import com.deeep.sod2.graphics.ShapeRenderer;
+import com.deeep.sod2.hud.HUD;
 import com.deeep.sod2.utility.Camera;
 import com.deeep.sod2.utility.Constants;
 
@@ -30,7 +31,7 @@ public abstract class Renderer {
     /** The sprite batch to draw everything on */
     private SpriteBatch spriteBatch;
 
-    public Renderer(SpriteBatch spriteBatch){
+    public Renderer(SpriteBatch spriteBatch) {
         hudCam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         cam = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
         cam.position.set(FRUSTUM_WIDTH / 2, FRUSTUM_HEIGHT / 2, 0);
@@ -42,8 +43,9 @@ public abstract class Renderer {
     public void render() {
         cam.update();
         hudCam.update();
+        hudCam.position.set(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0);
         Camera.getInstance().update(Gdx.graphics.getDeltaTime());
-        cam.position.set( Camera.getInstance().getX(), Camera.getInstance().getY(), 0);
+        cam.position.set(Camera.getInstance().getX(), Camera.getInstance().getY(), 0);
         spriteBatch.setProjectionMatrix(cam.combined);
         spriteBatch.begin();
         renderBackground(spriteBatch);
@@ -55,7 +57,7 @@ public abstract class Renderer {
         spriteBatch.end();
     }
 
-    protected void setCameraPosition(float x, float y){
+    protected void setCameraPosition(float x, float y) {
         Camera.getInstance().setX(x);
         Camera.getInstance().setY(y);
     }
@@ -69,6 +71,8 @@ public abstract class Renderer {
     }
 
     public abstract void renderBackground(SpriteBatch spriteBatch);
+
     public abstract void renderObjects(SpriteBatch spriteBatch);
+
     public abstract void renderHUD(SpriteBatch spriteBatch);
 }

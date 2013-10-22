@@ -20,7 +20,7 @@ public class World {
     private Map map;
     private Player player;
     private ParticleManager particleManager;
-    /** Current level*/
+    /** Current level */
     private Save loadedSave;
 
     /** Don't pay too much attention to this. This is just to test the camera and the view port */
@@ -32,6 +32,16 @@ public class World {
         map = new Map(loadedSave);
         EntityManager.get().setMap(map);
         particleManager = new ParticleManager();
+        player.setEntityManager();
+        player.setSnakeSpawnPoint(loadedSave.spawnX, loadedSave.spawnY);
+        EntityManager.get().addEntitiesSinglePlayer(loadedSave.getEntities());
+    }
+
+    public void loadSave(Save save) {
+        this.loadedSave = save;
+        map = new Map(loadedSave);
+        EntityManager.get().clear();
+        EntityManager.get().setMap(map);
         player.setEntityManager();
         player.setSnakeSpawnPoint(loadedSave.spawnX, loadedSave.spawnY);
         EntityManager.get().addEntitiesSinglePlayer(loadedSave.getEntities());

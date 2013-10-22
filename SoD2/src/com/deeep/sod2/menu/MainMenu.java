@@ -31,10 +31,8 @@ public class MainMenu implements Screen {
     private Stage stage;
     private Skin skin;
     private Table table;
-    private Core core;
 
-    public MainMenu(Core core) {
-        this.core = core;
+    public MainMenu() {
     }
 
     @Override
@@ -69,7 +67,7 @@ public class MainMenu implements Screen {
                     stage.addAction(Actions.sequence(Actions.fadeOut(.5f), Actions.run(new Runnable() {
 
                         public void run() {
-                            core.setScreen(new GameScreen(core));
+                            Core.getCore().setScreen(new GameScreen());
                         }
 
                     })));

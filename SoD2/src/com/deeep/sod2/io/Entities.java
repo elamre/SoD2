@@ -16,6 +16,9 @@ public class Entities {
     public static final int KEY_PICKUP = 251;
     public static final int SPEED_PICKUP = 250;
     public static final int TELEPORT_PICKUP = 249;
+    public static final int FINISH = 248;
     public static final int ENEMY_TURRET = 1;
+    /** Green = direction in dir/5 (90/5 = 18), Blue = on off time (1111 1111 = 15 s on 15 s off). */
+    public static final int ENEMY_LASER_TURRET = 2;
     /**                                         */
 }

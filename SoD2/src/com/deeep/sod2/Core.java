@@ -12,14 +12,22 @@ import com.deeep.sod2.screens.MissionScreen;
 
 /** This class is the entry point to the game */
 public class Core extends AbstractGame {
+    private static Core core;
+
+    public static Core getCore() {
+        if (core == null) {
+            core = new Core();
+        }
+        return core;
+    }
 
     /** Called when the {@link com.badlogic.gdx.Application} is first created. */
     @Override
     public void create() {
         Assets.getAssets().load();
         //MissionParser.getMissionParser();
-        setScreen(new GameScreen(this));
-        //setScreen(new MissionScreen(this));
+        setScreen(new GameScreen());
+        //setScreen(new MissionScreen());
     }
 
     /** This will get rid of all the assets to prevent a memory leak */

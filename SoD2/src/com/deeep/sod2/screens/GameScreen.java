@@ -10,6 +10,7 @@ import com.deeep.sod2.Core;
 import com.deeep.sod2.graphics.Renderer;
 import com.deeep.sod2.gameplay.World;
 import com.deeep.sod2.graphics.WorldRenderer;
+import com.deeep.sod2.io.Save;
 import com.deeep.sod2.utility.Constants;
 import com.deeep.sod2.utility.Logger;
 
@@ -25,8 +26,6 @@ public class GameScreen implements Screen {
     private SpriteBatch spriteBatch;
     /** Logger instance to log all events to. Please don't use system.out.print */
     private Logger logger = Logger.getInstance();
-    /** The core system. Use this to switch screens */
-    private Core core;
     /** The world which should contain all the game play and entities */
     private World world;
     /** The renderer which draws all the entities in the world */
@@ -34,15 +33,18 @@ public class GameScreen implements Screen {
     /** The viewport for the game. Should handle all the resizing */
     private Rectangle viewport;
 
-    /**
-     * Constructor
-     *
-     * @param core the game Core
-     */
-    public GameScreen(Core core) {
-        this.core = core;
+    /** Constructor */
+    public GameScreen() {
         spriteBatch = new SpriteBatch(5);           //TODO tune this
         world = new World();
+        worldRenderer = new WorldRenderer(spriteBatch, world);
+    }
+
+    /** Constructor */
+    public GameScreen(Save save) {
+        spriteBatch = new SpriteBatch(5);           //TODO tune this
+        world = new World();
+        world.loadSave(save);
         worldRenderer = new WorldRenderer(spriteBatch, world);
     }
 

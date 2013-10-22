@@ -83,6 +83,6 @@ public class CompassPickup extends Pickup {
     /** Use this function instead of the constructor */
     @Override
     public void onCreate() {
-        //To change body of implemented methods use File | Settings | File Templates.
+        priority = 8;
     }
 }

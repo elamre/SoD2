@@ -1,5 +1,6 @@
 package com.deeep.sod2.entities;
 
+import com.deeep.sod2.entities.enemyentities.LaserTurret;
 import com.deeep.sod2.entities.enemyentities.Turret;
 import com.deeep.sod2.entities.pickups.*;
 import com.deeep.sod2.entities.projectiles.SnakeBullet;
@@ -46,6 +47,7 @@ public class EntityList {/* The packet id to assign to packets. Will increment a
         registerEntity(new TurretBullet());
         registerEntity(new SnakeBullet());
         registerEntity(new Turret());
+        registerEntity(new LaserTurret());
         registered = true;
     }
 

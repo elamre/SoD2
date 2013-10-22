@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.deeep.sod2.entities.Entity;
 import com.deeep.sod2.entities.EntityManager;
+import com.deeep.sod2.entities.Finish;
 import com.deeep.sod2.entities.Obstacle;
+import com.deeep.sod2.entities.enemyentities.LaserTurret;
 import com.deeep.sod2.entities.enemyentities.Turret;
 import com.deeep.sod2.entities.pickups.*;
 import com.deeep.sod2.tiles.*;
@@ -58,9 +60,13 @@ public class Save {
         }
     }
 
+    public Save(String map, String entMap) {
+        loadLevel(map, entMap);
+    }
+
     /** Loads all the saves from files */
     public static void loadSaves() {
-        LEVEL_1 = new Save(2);
+        LEVEL_1 = new Save(1);
         Logger.getInstance().debug(null, "Loaded all levels");
     }
 
@@ -73,6 +79,16 @@ public class Save {
     public void loadLevel(int level) throws IOException {
         Pixmap image = new Pixmap(Gdx.files.internal("data/save/level" + level + ".png"));
         Pixmap entImg = new Pixmap(Gdx.files.internal("data/save/level" + level + "ent.png"));
+        loadLevel(image, entImg);
+    }
+
+    public void loadLevel(String map, String entMap) {
+        Pixmap image = new Pixmap(Gdx.files.internal(map));
+        Pixmap entImg = new Pixmap(Gdx.files.internal(entMap));
+        loadLevel(image, entImg);
+    }
+
+    private void loadLevel(Pixmap image, Pixmap entImg) {
         width = image.getWidth();
         height = image.getHeight();
         Logger.getInstance().debug(this.getClass(), "Width: " + width + " height: " + height);
@@ -139,7 +155,19 @@ public class Save {
                         entities[x + y * width] = new CheckpointPickup(EntityManager.get().getNextSinglePlayerId(), x, height - y - 2);
                         break;
                     case Entities.ENEMY_TURRET:
-                        entities[x + y * width] = new Turret(EntityManager.get().getNextSinglePlayerId(), x, y, g, b);
+                        entities[x + y * width] = new Turret(EntityManager.get().getNextSinglePlayerId(), x, height - y - 2, g, b);
+                        break;
+                    case Entities.FINISH:
+                        entities[x + y * width] = new Finish(EntityManager.get().getNextSinglePlayerId(), x, height - y - 2);
+                        break;
+                    case Entities.ENEMY_LASER_TURRET:
+                        int dir = g;
+                        int onTime;
+                        int offTime;
+                        offTime = b & 0b11110000;
+                        offTime = offTime >> 4;
+                        onTime = b & 0b00001111;
+                        entities[x + y * width] = new LaserTurret(EntityManager.get().getNextSinglePlayerId(), x, height - y - 2, dir, onTime, offTime);
                         break;
                 }
             }

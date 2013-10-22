@@ -1,7 +1,9 @@
 package com.deeep.sod2.missions;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.deeep.sod2.gameplay.Map;
+import com.deeep.sod2.graphics.Assets;
 import com.deeep.sod2.utility.Constants;
 
 import java.util.ArrayList;
@@ -28,21 +30,32 @@ public class World {
     }
 
     public void finishAdding() {
-        int previousKey = -1;
+        Iterator<Integer> keySetIterator = integerAreaHashMap.keySet().iterator();
+        float spaceInBetween = 0;
+        while (keySetIterator.hasNext()) {
+            Integer key = keySetIterator.next();
+            spaceInBetween += integerAreaHashMap.get(key).size();
+        }
+        spaceInBetween = (9 - spaceInBetween) / integerAreaHashMap.size();
+        System.out.println("extra space: " + spaceInBetween);
+
+        keySetIterator = integerAreaHashMap.keySet().iterator();
+        float x = 1;
+        float y = 1;
+
+        while (keySetIterator.hasNext()) {
+            Integer key = keySetIterator.next();
+            integerAreaHashMap.get(key).setPosition(x, y);
+            x += integerAreaHashMap.get(key).size() + spaceInBetween;
+            y += integerAreaHashMap.get(key).size() / 2;
+        }
+    }
+
+    public void update(float deltaT) {
         Iterator<Integer> keySetIterator = integerAreaHashMap.keySet().iterator();
         while (keySetIterator.hasNext()) {
             Integer key = keySetIterator.next();
-            int x = 0;
-            int y = 0;
-            if (previousKey != -1) {
-                integerAreaHashMap.get(key).setPosition(
-                        integerAreaHashMap.get(previousKey).getX() - (2 * (float) Math.cos(45) * integerAreaHashMap.get(previousKey).size())+ integerAreaHashMap.get(previousKey).size()/2,// ,
-                        integerAreaHashMap.get(previousKey).getY() + ((float) Math.cos(45) * integerAreaHashMap.get(previousKey).size() + integerAreaHashMap.get(previousKey).size() / 8)
-                );
-            } else {
-                integerAreaHashMap.get(key).setPosition(9, 1);
-            }
-            previousKey = key;
+            integerAreaHashMap.get(key).update(deltaT);
         }
     }
 

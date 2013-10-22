@@ -35,6 +35,6 @@ public class HearthPickup extends Pickup {
     /** Use this function instead of the constructor */
     @Override
     public void onCreate() {
-
+        priority = 9;
     }
 }

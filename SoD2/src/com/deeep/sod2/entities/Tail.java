@@ -2,6 +2,8 @@ package com.deeep.sod2.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.deeep.sod2.entities.pickups.CompassPickup;
+import com.deeep.sod2.entities.pickups.HearthPickup;
 import com.deeep.sod2.entities.pickups.Pickup;
 import com.deeep.sod2.graphics.Assets;
 
@@ -13,6 +15,7 @@ import com.deeep.sod2.graphics.Assets;
  * To change this template use File | Settings | File Templates.
  */
 public class Tail extends Entity implements CollideAble {
+    protected int priority = 0;
     private Pickup pickup;
 
     /** USE THIS ONLY FOR REGISTERING THE ENTITY! SHOULD NOT BE USED OTHERWISE! */
@@ -30,7 +33,7 @@ public class Tail extends Entity implements CollideAble {
     /** Use this function instead of the constructor */
     @Override
     public void onCreate() {
-        setSkin(3);
+
     }
 
     @Override
@@ -77,5 +80,9 @@ public class Tail extends Entity implements CollideAble {
         this.pickup = pickup;
         pickup.setWidth(0.7f);
         pickup.setHeight(0.7f);
+    }
+
+    public int getPriority() {
+        return pickup.getPriority();
     }
 }

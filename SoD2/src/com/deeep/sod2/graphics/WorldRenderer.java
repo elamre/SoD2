@@ -2,6 +2,7 @@ package com.deeep.sod2.graphics;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deeep.sod2.gameplay.World;
+import com.deeep.sod2.hud.HUD;
 
 /**
  * Created with IntelliJ IDEA.
@@ -31,6 +32,6 @@ public class WorldRenderer extends Renderer {
 
     @Override
     public void renderHUD(SpriteBatch spriteBatch) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        HUD.getHud().draw(spriteBatch);
     }
 }

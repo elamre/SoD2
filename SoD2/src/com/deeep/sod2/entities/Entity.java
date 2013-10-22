@@ -32,6 +32,8 @@ public abstract class Entity {
     /** The position of the entity */
     protected float x;
     protected float y;
+    /** The height */
+    private int z = 0;
     /** The id this particular entity goes by */
     private int id;
     /** The type of the entity */
@@ -45,6 +47,8 @@ public abstract class Entity {
     /** If the entity has to be centered. Set false if it traverses cells with a speed */
     private boolean center = true;
     private boolean alive = true;
+    /** If the entity is enabled. if not, nothing will be drawn or updated */
+    private boolean enabled = true;
     private Rectangle hitBox = new Rectangle(1, 1, 1, 1);
 
     /** USE THIS ONLY FOR REGISTERING THE ENTITY! SHOULD NOT BE USED OTHERWISE! */
@@ -60,13 +64,20 @@ public abstract class Entity {
         this.y = y;
     }
 
-
     public Entity(int id, int owner, int x, int y) {
         this.entityType = EntityList.getEntityType(this);
         this.owner = owner;
         this.id = id;
         this.x = x;
         this.y = y;
+    }
+
+    public int getZ() {
+        return z;
+    }
+
+    public void setZ(int z) {
+        this.z = z;
     }
 
     /** Use this function instead of the constructor */
@@ -96,13 +107,15 @@ public abstract class Entity {
             if (debug) {
                 drawDebug(spriteBatch);
             }
-            if (textureRegion != null) {
-                if (center)
-                    spriteBatch.draw(textureRegion, x + (1 - width) / 2, y + (1 - height) / 2, width / 2, height / 2, width, height, 1, 1, angle);
-                else
-                    spriteBatch.draw(textureRegion, x, y, width / 2, height / 2, width, height, 1, 1, angle);
+            if (enabled) {
+                if (textureRegion != null) {
+                    if (center)
+                        spriteBatch.draw(textureRegion, x + (1 - width) / 2, y + (1 - height) / 2, width / 2, height / 2, width, height, 1, 1, angle);
+                    else
+                        spriteBatch.draw(textureRegion, x, y, width / 2, height / 2, width, height, 1, 1, angle);
+                }
+                implementDraw_1(spriteBatch);
             }
-            implementDraw_1(spriteBatch);
         }
     }
 
@@ -205,6 +218,14 @@ public abstract class Entity {
         this.textureRegion = textureRegion;
         this.width = 1;
         this.height = 1;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public boolean isAlive() {
