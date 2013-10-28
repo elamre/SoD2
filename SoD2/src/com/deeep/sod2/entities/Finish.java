@@ -32,9 +32,7 @@ public class Finish extends Entity implements CollideAble {
         frames = new TextureRegion[4];
         TextureRegion[][] temp;
         temp = Assets.getAssets().getRegion("animations/finish_strip10").split(40, 40);
-        for (int i = 0; i < temp[0].length - 1; i++) {
-            frames[i] = temp[0][i];
-        }
+        System.arraycopy(temp[0], 0, frames, 0, temp[0].length - 1);
         animation = new Animation(0.3f, frames);
         animation.setPlayMode(Animation.LOOP_PINGPONG);
     }

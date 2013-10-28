@@ -47,10 +47,9 @@ public class Map {
     public void draw(SpriteBatch spriteBatch) {
         for (int y = 0; y < save.height; y++) {
             for (int x = 0; x < save.width; x++) {
-                try {
+                if (tiles[x + y * save.width] != null)
                     tiles[x + y * save.width].draw(spriteBatch);
-                } catch (NullPointerException e) {
-                }
+
             }
         }
     }

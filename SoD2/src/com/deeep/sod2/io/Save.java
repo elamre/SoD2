@@ -74,7 +74,6 @@ public class Save {
      * Loads level data from PNG file
      *
      * @param level level number
-     * @return byte array of level data
      */
     public void loadLevel(int level) throws IOException {
         Pixmap image = new Pixmap(Gdx.files.internal("data/save/level" + level + ".png"));

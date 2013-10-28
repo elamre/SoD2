@@ -39,9 +39,7 @@ public abstract class AnimatedEnemy extends Entity implements CollideAble{
         TextureRegion[][] temp;
         temp = Assets.getAssets().getRegion(name).split(40, 40);
         frames = new TextureRegion[temp[0].length];
-        for (int i = 0; i < temp[0].length; i++) {
-            frames[i] = temp[0][i];
-        }
+        System.arraycopy(temp[0], 0, frames, 0, temp[0].length);
 
         animation = new Animation(0.05f, frames);
         animation.setPlayMode(Animation.NORMAL);

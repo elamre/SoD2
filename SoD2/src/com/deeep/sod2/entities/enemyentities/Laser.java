@@ -1,10 +1,7 @@
 package com.deeep.sod2.entities.enemyentities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.deeep.sod2.entities.AnimatedEntity;
-import com.deeep.sod2.entities.CollideAble;
-import com.deeep.sod2.entities.Entity;
-import com.deeep.sod2.entities.Snake;
+import com.deeep.sod2.entities.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,13 +11,13 @@ import com.deeep.sod2.entities.Snake;
  * To change this template use File | Settings | File Templates.
  */
 public class Laser extends AnimatedEntity implements CollideAble {
-    private Snake.Direction direction;
+    private Direction direction;
 
     /** USE THIS ONLY FOR REGISTERING THE ENTITY! SHOULD NOT BE USED OTHERWISE! */
     public Laser() {
     }
 
-    public Laser(int id, int owner, int x, int y, Snake.Direction direction) {
+    public Laser(int id, int owner, int x, int y, Direction direction) {
         super(id, owner, x, y, "animations/laser_strip9", 0.02f, false);
         this.direction = direction;
 

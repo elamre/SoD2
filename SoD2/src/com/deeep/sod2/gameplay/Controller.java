@@ -25,8 +25,8 @@ public class Controller {
 
     /** Updates all the registered keys */
     public void update() {
-        for (int i = 0, l = registeredKeys.size(); i < l; i++) {
-            registeredKeys.get(i).update();
+        for(RegisteredKey registeredKey: registeredKeys){
+            registeredKey.update();
         }
     }
 

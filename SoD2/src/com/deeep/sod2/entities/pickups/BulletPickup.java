@@ -20,7 +20,7 @@ public class BulletPickup extends Pickup {
     }
 
     public BulletPickup(int id, int x, int y) {
-        super(id, x, y, Assets.getAssets().getRegion("upgrades/Bullet2"));
+        super(id, x, y, Assets.getAssets().getRegion("upgrades/bullet2"));
     }
 
     @Override

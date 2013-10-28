@@ -136,9 +136,7 @@ public class Camera {
         boundingBox.set(point1, point2);
         if (frustum == null)        //no frustum to begin with
             return true;
-        if (frustum.boundsInFrustum(boundingBox))
-            return true;
-        return false;
+        return frustum.boundsInFrustum(boundingBox);
     }
 
     /** switches to the HUD TODO do something here */

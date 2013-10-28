@@ -18,7 +18,6 @@ public abstract class AnimatedEntity extends Entity {
     private String name;
     private Animation animation;
     private float animationTimer = 0f;
-    private TextureRegion[] frames;
 
     /** USE THIS ONLY FOR REGISTERING THE ENTITY! SHOULD NOT BE USED OTHERWISE! */
     protected AnimatedEntity() {
@@ -43,10 +42,8 @@ public abstract class AnimatedEntity extends Entity {
     public void onCreate() {
         TextureRegion[][] temp;
         temp = Assets.getAssets().getRegion(name).split(40, 40);
-        frames = new TextureRegion[temp[0].length-1];
-        for (int i = 0; i < temp[0].length - 1; i++) {
-            frames[i] = temp[0][i];
-        }
+        TextureRegion[] frames = new TextureRegion[temp[0].length - 1];
+        System.arraycopy(temp[0], 0, frames, 0, temp[0].length - 1);
         animation = new Animation(speed, frames);
         animation.setPlayMode(Animation.LOOP);
         if (pingPong)

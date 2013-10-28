@@ -1,9 +1,9 @@
 package com.deeep.sod2.entities.enemyentities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.deeep.sod2.entities.Direction;
 import com.deeep.sod2.entities.Entity;
 import com.deeep.sod2.entities.EntityManager;
-import com.deeep.sod2.entities.Snake;
 import com.deeep.sod2.graphics.Assets;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class LaserTurret extends Entity {
     private ArrayList<Laser> lasers = new ArrayList<>();
     /** The direction the laser is aiming at */
-    private Snake.Direction direction = Snake.Direction.NORTH;
+    private Direction direction = Direction.NORTH;
     /** The duration the turret will shoot for */
     private float onDuration = 0;
     private float offDuration = 0;

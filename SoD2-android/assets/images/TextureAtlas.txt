@@ -9,6 +9,13 @@ planets/missions/Saturn
   orig: 120, 120
   offset: 0, 0
   index: -1
+projectiles/bullet1R
+  rotate: false
+  xy: 150, 290
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
 planets/missions/Neptune
   rotate: false
   xy: 640, 128
@@ -23,9 +30,16 @@ planets/missions/mars
   orig: 40, 40
   offset: 0, 0
   index: -1
+snakes/snake_1_body_angled
+  rotate: false
+  xy: 486, 290
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
 snakes/snake_2_head
   rotate: false
-  xy: 192, 290
+  xy: 612, 290
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
@@ -51,13 +65,6 @@ gui/missionbutton
   orig: 40, 40
   offset: 0, 0
   index: -1
-upgrades/bullet
-  rotate: false
-  xy: 444, 290
-  size: 40, 40
-  orig: 40, 40
-  offset: 0, 0
-  index: -1
 Tiles/obstacle
   rotate: false
   xy: 170, 2
@@ -65,23 +72,23 @@ Tiles/obstacle
   orig: 40, 40
   offset: 0, 0
   index: -1
+upgrades/bullet
+  rotate: false
+  xy: 822, 290
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
 upgrades/teleport
   rotate: false
-  xy: 654, 290
+  xy: 86, 332
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 upgrades/compass
   rotate: false
-  xy: 486, 290
-  size: 40, 40
-  orig: 40, 40
-  offset: 0, 0
-  index: -1
-upgrades/Bullet2
-  rotate: false
-  xy: 360, 290
+  xy: 864, 290
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
@@ -89,6 +96,13 @@ upgrades/Bullet2
 Tiles/laser
   rotate: false
   xy: 128, 2
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+snakes/snake_1_body
+  rotate: false
+  xy: 444, 290
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
@@ -109,21 +123,28 @@ gui/menu/button-disabled
   index: -1
 snakes/snake_1_tail
   rotate: false
-  xy: 150, 290
+  xy: 570, 290
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 upgrades/life
   rotate: false
-  xy: 570, 290
+  xy: 948, 290
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 snakes/snake_3_head
   rotate: false
-  xy: 276, 290
+  xy: 696, 290
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+upgrades/old/Bullet2
+  rotate: false
+  xy: 2, 332
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
@@ -135,44 +156,58 @@ planets/missions/mercury
   orig: 20, 20
   offset: 0, 0
   index: -1
+Tiles/old/glass_old
+  rotate: false
+  xy: 212, 2
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
 snakes/snake_2_tail
   rotate: false
-  xy: 234, 290
+  xy: 654, 290
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 upgrades/Checkpoint
   rotate: false
-  xy: 402, 290
+  xy: 780, 290
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 upgrades/speed_up
   rotate: false
-  xy: 612, 290
+  xy: 44, 332
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 upgrades/key
   rotate: false
-  xy: 528, 290
-  size: 40, 40
-  orig: 40, 40
-  offset: 0, 0
-  index: -1
-projectiles/bullet1
-  rotate: false
-  xy: 66, 290
+  xy: 906, 290
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 Tiles/turret
   rotate: false
-  xy: 212, 2
+  xy: 254, 2
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+projectiles/bullet1_sh_L
+  rotate: false
+  xy: 234, 290
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+projectiles/old/bullet1
+  rotate: false
+  xy: 318, 290
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
@@ -184,9 +219,9 @@ animations/coin_strip20
   orig: 800, 40
   offset: 0, 0
   index: -1
-snakes/snake_3_tail
+upgrades/bullet2
   rotate: false
-  xy: 318, 290
+  xy: 150, 290
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
@@ -198,11 +233,32 @@ Tiles/glass
   orig: 40, 40
   offset: 0, 0
   index: -1
+snakes/snake_3_tail
+  rotate: false
+  xy: 738, 290
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
 planets/missions/Uranus
   rotate: false
   xy: 844, 128
   size: 80, 80
   orig: 80, 80
+  offset: 0, 0
+  index: -1
+projectiles/bullet1T
+  rotate: false
+  xy: 192, 290
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+projectiles/bullet1_sh_R
+  rotate: false
+  xy: 276, 290
+  size: 40, 40
+  orig: 40, 40
   offset: 0, 0
   index: -1
 gui/menu/button-down
@@ -215,6 +271,13 @@ gui/menu/button-down
 gui/shop
   rotate: false
   xy: 436, 128
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+projectiles/bullet1L
+  rotate: false
+  xy: 108, 290
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
@@ -240,6 +303,13 @@ animations/turret_strip14
   orig: 560, 40
   offset: 0, 0
   index: -1
+snakes/old/snake_1_tail
+  rotate: false
+  xy: 402, 290
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
 gui/button_template
   rotate: false
   xy: 2, 128
@@ -261,6 +331,20 @@ gui/null_terminator
   orig: 64, 96
   offset: 0, 0
   index: 0
+snakes/old/snake_1_head
+  rotate: false
+  xy: 360, 290
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+projectiles/bullet1B
+  rotate: false
+  xy: 66, 290
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
 planets/missions/earth
   rotate: false
   xy: 968, 128
@@ -270,7 +354,7 @@ planets/missions/earth
   index: -1
 snakes/snake_1_head
   rotate: false
-  xy: 108, 290
+  xy: 528, 290
   size: 40, 40
   orig: 40, 40
   offset: 0, 0

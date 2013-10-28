@@ -1,9 +1,7 @@
 package com.deeep.sod2.entities;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.deeep.sod2.entities.enemyentities.Laser;
 import com.deeep.sod2.entities.pickups.HearthPickup;
 import com.deeep.sod2.entities.pickups.Pickup;
@@ -12,7 +10,6 @@ import com.deeep.sod2.entities.projectiles.TurretBullet;
 import com.deeep.sod2.utility.Logger;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -41,10 +38,14 @@ public class Snake extends TickAbleEntity implements CollideAble {
     private Head head;
     /** An array list containing all the tail parts */
     private ArrayList<Tail> tails = new ArrayList<Tail>();
+    /** The last tail piece */
+    private Tail tail;
+    /** The new direction of the snake */
+    private Direction newDir = Direction.EAST;
     /** The direction the snake is heading in */
-    private Direction dir = Direction.EAST;
+    private Direction curDir = Direction.EAST;
     /** The previous direction of the snake, used for checking */
-    private Direction prevDir = Direction.EAST;
+    private Direction prevDir = Direction.NORTH;
     /** If the snake has moved since previous check */
     private boolean moved = true;
     private int skinId = 0;
@@ -53,6 +54,7 @@ public class Snake extends TickAbleEntity implements CollideAble {
     //public Direction spawnDirection;
     public Snake(int id) {
         super(id, 0, 0, 0);
+        tail = (Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), -1, 0, 0));
     }
 
     public void setCheckpoint(int x, int y, Direction dir) {
@@ -127,20 +129,27 @@ public class Snake extends TickAbleEntity implements CollideAble {
     /** Moves the snake and with the tail */
     public void move() {
         int i = tails.size() - 1;
+        tail.setX(tails.get(i).getX());
+        tail.setY(tails.get(i).getY());
+        tail.setDirection(tails.get(i).getDirection().getOpposite());
         while (i > 0) {
             tails.get(i).setX(tails.get(i - 1).getX());
             tails.get(i).setY(tails.get(i - 1).getY());
-            //tails.get(i).setAngle(tails.get(i - 1).getAngle());
+            tails.get(i).setDirection(tails.get(i - 1).getDirection());
             i--;
         }
         if (tails.size() > 0) {
-            //tails.get(i).setAngle(head.getAngle() + 180);
+            tails.get(0).setDirection(head.getDirection().getOpposite());
             tails.get(0).setX(getX());
             tails.get(0).setY(getY());
         }
+
+        Logger.getInstance().debug(this.getClass(), "Direction: " + direction);
+
         calculatePos();
         head.setX(getX());
         head.setY(getY());
+        tailAngleCalculate();
         moved = true;
     }
 
@@ -153,7 +162,7 @@ public class Snake extends TickAbleEntity implements CollideAble {
     }
 
     public Direction getSnakeDirection() {
-        return dir;
+        return curDir;
     }
 
     /**
@@ -162,9 +171,9 @@ public class Snake extends TickAbleEntity implements CollideAble {
      * @param dir new direction
      */
     public void setDirection(Direction dir) {
-        Logger.getInstance().debug(this.getClass(), "Current dir: " + this.dir + " next dir: " + dir);
-        prevDir = this.dir;
-        this.dir = dir;
+        Logger.getInstance().debug(this.getClass(), "Prev dir: " + prevDir + " Current dir: " + this.curDir + " next dir: " + dir);
+        //prevDir = this.dir;
+        this.newDir = dir;
     }
 
     /**
@@ -172,53 +181,58 @@ public class Snake extends TickAbleEntity implements CollideAble {
      * position resulting in an instant death.
      */
     public void calculatePos() {
-        switch (dir) {
+        switch (newDir) {
             case NORTH:
-                if (prevDir != Direction.SOUTH) {
+                if (curDir != Direction.SOUTH) {
                     setY(getY() + 1);
-                    prevDir = dir;
+                    prevDir = curDir;
+                    curDir = newDir;
                 } else {
-                    dir = prevDir;
-                    calculatePos();
+                    prevDir = curDir;
+                    curDir = newDir;
                 }
                 break;
             case EAST:
                 if (prevDir != Direction.WEST) {
                     setX(getX() + 1);
-                    prevDir = dir;
+                    prevDir = curDir;
+                    curDir = newDir;
                 } else {
-                    dir = prevDir;
-                    calculatePos();
+                    prevDir = curDir;
+                    curDir = newDir;
                 }
                 break;
             case SOUTH:
                 if (prevDir != Direction.NORTH) {
                     setY(getY() - 1);
-                    prevDir = dir;
+                    prevDir = curDir;
+                    curDir = newDir;
                 } else {
-                    dir = prevDir;
-                    calculatePos();
+                    prevDir = curDir;
+                    curDir = newDir;
                 }
                 break;
             case WEST:
                 if (prevDir != Direction.EAST) {
                     setX(getX() - 1);
-                    prevDir = dir;
+                    prevDir = curDir;
+                    curDir = newDir;
                 } else {
-                    dir = prevDir;
-                    calculatePos();
+                    prevDir = curDir;
+                    curDir = newDir;
                 }
                 break;
         }
-        head.setAngle(dir.dir);
+        head.setDirection(curDir);
     }
 
     public void setSkin(int skin) {
         this.skinId = skin;
         head.setSkin(skin);
-        for (int i = 0; i < tails.size(); i++) {
-            tails.get(i).setSkin(skin);
+        for (Tail tail : tails) {
+            tail.setSkin(skin);
         }
+        tail.setSkin(skin);
     }
 
     public void fireAction() {
@@ -292,8 +306,8 @@ public class Snake extends TickAbleEntity implements CollideAble {
 
     private void calculateLives() {
         life = 0;
-        for (int i = 0; i < tails.size(); i++) {
-            if (tails.get(i).getPickup() instanceof HearthPickup) {
+        for (Tail tail : tails) {
+            if (tail.getPickup() instanceof HearthPickup) {
                 life++;
             }
         }
@@ -306,12 +320,25 @@ public class Snake extends TickAbleEntity implements CollideAble {
     }
 
     public void shiftTail(int position) {
+        tail.setX(tails.get(tails.size() - 1).getX());
+        tail.setY(tails.get(tails.size() - 1).getY());
+        tail.setAngle(tails.get(tails.size() - 1).getAngle() + 180);
+
         for (int i = position; i < tails.size() - 1; i++) {
             tails.get(i).setPickup(tails.get(i + 1).getPickup());
         }
         tails.get(tails.size() - 1).die();
         tails.get(tails.size() - 1).getPickup().die();
         tails.remove(tails.size() - 1);
+
+    }
+
+    private void tailAngleCalculate() {
+        if (prevDir != curDir) {
+            tails.get(0).setAngled(true);
+        } else {
+            tails.get(0).setAngled(false);
+        }
     }
 
     public void die() {
@@ -328,12 +355,10 @@ public class Snake extends TickAbleEntity implements CollideAble {
         y = checkPointY;
         head.setX(x);
         head.setY(y);
-        this.dir = checkPointDirection;
+        this.curDir = checkPointDirection;
         addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), this.getId(), -1, -1)), new HearthPickup(EntityManager.get().getNextSinglePlayerId(), -1, -1));
         addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), this.getId(), -1, -1)), new HearthPickup(EntityManager.get().getNextSinglePlayerId(), -1, -1));
         addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), this.getId(), -1, -1)), new HearthPickup(EntityManager.get().getNextSinglePlayerId(), -1, -1));
-
-
     }
 
     @Override
@@ -349,62 +374,7 @@ public class Snake extends TickAbleEntity implements CollideAble {
     }
 
     public Direction getDir() {
-        return dir;
-    }
-
-    /** the direction of the snake */
-    public enum Direction {
-        NORTH(90, 0, 1), EAST(0, 1, 0), SOUTH(270, 0, -1), WEST(180, -1, 1);
-        private int dir;
-        private float radians;
-        private Vector2 vector2;
-
-        Direction(int dir, int x, int y) {
-            this.dir = dir;
-            this.radians = (float) Math.toRadians(dir);
-            vector2 = new Vector2(x, y);
-        }
-
-        public Direction getOpposite() {
-            if (this == NORTH)
-                return SOUTH;
-            if (this == EAST)
-                return WEST;
-            if (this == SOUTH)
-                return NORTH;
-            if (this == WEST)
-                return EAST;
-            return NORTH;
-        }
-
-        public Direction setDirection(int angle) {
-            switch (angle) {
-                case 18:
-                case 90:
-                    return Snake.Direction.NORTH;
-                case 0:
-                    return Snake.Direction.EAST;
-                case 54:
-                case 270:
-                    return Snake.Direction.SOUTH;
-                case 36:
-                case 180:
-                    return Snake.Direction.WEST;
-            }
-            return NORTH;
-        }
-
-        public int getValue() {
-            return dir;
-        }
-
-        public float getRadians() {
-            return radians;
-        }
-
-        public Vector2 getVector() {
-            return vector2;
-        }
+        return curDir;
     }
 
 }

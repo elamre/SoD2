@@ -2,10 +2,7 @@ package com.deeep.sod2.entities.projectiles;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.deeep.sod2.entities.CollideAble;
-import com.deeep.sod2.entities.Entity;
-import com.deeep.sod2.entities.Obstacle;
-import com.deeep.sod2.entities.Snake;
+import com.deeep.sod2.entities.*;
 import com.deeep.sod2.graphics.ShapeRenderer;
 
 /**
@@ -19,14 +16,14 @@ public class TeleportProjectile extends Entity implements CollideAble {
     private int previousX, previousY;
     private float timer = 0;
     private Color color;
-    private Snake.Direction direction;
+    private Direction direction;
     private Snake snake; //Reference to the snake so we can actually teleprot it
 
     /** USE THIS ONLY FOR REGISTERING THE ENTITY! SHOULD NOT BE USED OTHERWISE! */
     public TeleportProjectile() {
     }
 
-    public TeleportProjectile(int id, int owner, float x, float y, Snake.Direction direction, Snake snake) {
+    public TeleportProjectile(int id, int owner, float x, float y, Direction direction, Snake snake) {
         super(id, owner, x, y);
         this.direction = direction;
         this.snake = snake;

@@ -50,6 +50,7 @@ public abstract class Entity {
     /** If the entity is enabled. if not, nothing will be drawn or updated */
     private boolean enabled = true;
     private Rectangle hitBox = new Rectangle(1, 1, 1, 1);
+    private boolean ignoreRotate = false;
 
     /** USE THIS ONLY FOR REGISTERING THE ENTITY! SHOULD NOT BE USED OTHERWISE! */
     public Entity() {
@@ -109,10 +110,18 @@ public abstract class Entity {
             }
             if (enabled) {
                 if (textureRegion != null) {
-                    if (center)
-                        spriteBatch.draw(textureRegion, x + (1 - width) / 2, y + (1 - height) / 2, width / 2, height / 2, width, height, 1, 1, angle);
-                    else
-                        spriteBatch.draw(textureRegion, x, y, width / 2, height / 2, width, height, 1, 1, angle);
+                    if (!ignoreRotate) {
+                        if (center)
+                            spriteBatch.draw(textureRegion, x + (1 - width) / 2, y + (1 - height) / 2, width / 2, height / 2, width, height, 1, 1, angle);
+                        else
+                            spriteBatch.draw(textureRegion, x, y, width / 2, height / 2, width, height, 1, 1, angle);
+                    } else {
+                        if (center)
+                            spriteBatch.draw(textureRegion, x + (1 - width) / 2, y + (1 - height) / 2, width / 2, height / 2, width, height, 1, 1, 0);
+                        else
+                            spriteBatch.draw(textureRegion, x, y, width / 2, height / 2, width, height, 1, 1, 0);
+
+                    }
                 }
                 implementDraw_1(spriteBatch);
             }
@@ -160,9 +169,7 @@ public abstract class Entity {
 
     public boolean overlaps(Rectangle rectangle) {
         hitBox.set(x, y, width, height);
-        if (hitBox.overlaps(rectangle))
-            return true;
-        return false;
+        return hitBox.overlaps(rectangle);
     }
 
     public float getAngle() {
@@ -242,5 +249,9 @@ public abstract class Entity {
 
     public void die() {
         alive = false;
+    }
+
+    public void setIgnoreRotate(boolean ignoreRotate) {
+        this.ignoreRotate = ignoreRotate;
     }
 }

@@ -49,9 +49,7 @@ public class Turret extends AnimatedEnemy {
 
     @Override
     public void implementUpdate_2(float deltaT) {
-        Iterator<Integer> keySetIterator = EntityManager.get().entities.keySet().iterator();
-        while (keySetIterator.hasNext()) {
-            Integer key = keySetIterator.next();
+        for (Integer key : EntityManager.get().entities.keySet()) {
             if (EntityManager.get().entities.get(key) instanceof Snake) {
                 target = EntityManager.get().entities.get(key);
             }

@@ -16,7 +16,10 @@ import com.deeep.sod2.graphics.Assets;
  */
 public class Tail extends Entity implements CollideAble {
     protected int priority = 0;
+    private int skinId = 0;
     private Pickup pickup;
+    private boolean angled = false;
+    private Direction direction = Direction.NORTH;
 
     /** USE THIS ONLY FOR REGISTERING THE ENTITY! SHOULD NOT BE USED OTHERWISE! */
     public Tail() {
@@ -27,7 +30,16 @@ public class Tail extends Entity implements CollideAble {
     }
 
     public void setSkin(int skin) {
-        setTextureRegion(Assets.getAssets().getRegion("snakes/snake_" + skin + "_tail"));
+        this.skinId = skin;
+        if (pickup == null) {
+            setTextureRegion(Assets.getAssets().getRegion("snakes/snake_" + skin + "_tail"));
+        } else {
+            if (angled) {
+                setTextureRegion(Assets.getAssets().getRegion("snakes/snake_" + skin + "_body_angled"));
+            } else {
+                setTextureRegion(Assets.getAssets().getRegion("snakes/snake_" + skin + "_body"));
+            }
+        }
     }
 
     /** Use this function instead of the constructor */
@@ -42,13 +54,24 @@ public class Tail extends Entity implements CollideAble {
             pickup.setX(getX());
             pickup.setY(getY());
         }
-        pickup.update(deltaT);
+        if (pickup != null) {
+            pickup.update(deltaT);
+        }
         //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public void setAngled(boolean angled) {
+        this.angled = angled;
+        if (angled)         {
+            setTextureRegion(Assets.getAssets().getRegion("snakes/snake_" + skinId + "_body_angled"));
+            setAngle(direction.getValue()+90);
+        }
     }
 
     public void setAngle(float angle) {
         this.angle = angle;
-        pickup.setAngle(angle);
+        if (pickup != null)
+            pickup.setAngle(angle);
     }
 
     public boolean action(Snake snake) {
@@ -62,7 +85,6 @@ public class Tail extends Entity implements CollideAble {
     public void implementDraw_1(SpriteBatch spriteBatch) {
         if (pickup != null) {
             pickup.draw(spriteBatch);
-            // spriteBatch.draw(pickup.getTextureRegion(), x, y);
         }
         //To change body of implemented methods use File | Settings | File Templates.
     }
@@ -84,5 +106,16 @@ public class Tail extends Entity implements CollideAble {
 
     public int getPriority() {
         return pickup.getPriority();
+    }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Direction direction) {
+        this.angle = direction.getValue();
+        this.direction = direction;
+        if (pickup != null)
+            pickup.setAngle(angle);
     }
 }

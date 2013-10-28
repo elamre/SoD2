@@ -12,6 +12,8 @@ import com.deeep.sod2.graphics.Assets;
  * To change this template use File | Settings | File Templates.
  */
 public class Head extends Entity implements CollideAble {
+    private Direction direction = Direction.NORTH;
+
     /** USE THIS ONLY FOR REGISTERING THE ENTITY! SHOULD NOT BE USED OTHERWISE! */
     public Head() {
     }
@@ -44,5 +46,14 @@ public class Head extends Entity implements CollideAble {
     public void Collide(Entity entity) {
 
         //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+        setAngle(direction.getValue());
+    }
+
+    public Direction getDirection() {
+        return direction;
     }
 }

@@ -2,8 +2,8 @@ package com.deeep.sod2.entities.pickups;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.deeep.sod2.entities.Direction;
 import com.deeep.sod2.entities.Entity;
-import com.deeep.sod2.entities.Snake;
 import com.deeep.sod2.graphics.ShapeRenderer;
 
 /**
@@ -15,13 +15,13 @@ import com.deeep.sod2.graphics.ShapeRenderer;
  */
 public class TempCheckpoint extends Entity {
     Color color;
-    private Snake.Direction direction;
+    private Direction direction;
 
     /** USE THIS ONLY FOR REGISTERING THE ENTITY! SHOULD NOT BE USED OTHERWISE! */
     public TempCheckpoint() {
     }
 
-    public TempCheckpoint(int id, int owner, int x, int y, Snake.Direction direction) {
+    public TempCheckpoint(int id, int owner, int x, int y, Direction direction) {
         super(id, owner, x, y);
         this.direction = direction;
     }
@@ -43,7 +43,7 @@ public class TempCheckpoint extends Entity {
         ShapeRenderer.drawRectangle(spriteBatch, x, y, 1, 1, true);
     }
 
-    public Snake.Direction getDirection() {
+    public Direction getDirection() {
         return direction;
     }
 

@@ -105,9 +105,7 @@ public abstract class CollectAble extends Entity {
         frames = new TextureRegion[20];
         TextureRegion[][] temp;
         temp = Assets.getAssets().getRegion(name).split(40, 40);
-        for (int i = 0; i < 20; i++) {
-            frames[i] = temp[0][i];
-        }
+        System.arraycopy(temp[0], 0, frames, 0, 20);
         animation = new Animation(0.05f, frames);
         animation.setPlayMode(Animation.LOOP_PINGPONG);
         dx = 0;

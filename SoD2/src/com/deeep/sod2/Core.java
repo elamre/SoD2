@@ -1,6 +1,9 @@
 package com.deeep.sod2;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.deeep.sod2.gameplay.Player;
 import com.deeep.sod2.menu.MainMenu;
 import com.deeep.sod2.missions.MissionParser;
@@ -9,6 +12,8 @@ import com.deeep.sod2.screens.GalaxyScreen;
 import com.deeep.sod2.screens.GameScreen;
 import com.deeep.sod2.graphics.Assets;
 import com.deeep.sod2.screens.MissionScreen;
+
+import java.io.*;
 
 /** This class is the entry point to the game */
 public class Core extends AbstractGame {
@@ -25,7 +30,7 @@ public class Core extends AbstractGame {
     @Override
     public void create() {
         Assets.getAssets().load();
-        //MissionParser.getMissionParser();
+        MissionParser.getMissionParser();
         setScreen(new GameScreen());
         //setScreen(new MissionScreen());
     }

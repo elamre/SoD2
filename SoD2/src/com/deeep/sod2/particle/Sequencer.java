@@ -98,10 +98,7 @@ public class Sequencer {
      * @return true if done, false otherwise
      */
     public boolean isFinished() {
-        if (index == -1) {
-            return true;
-        }
-        return false;
+        return index == -1;
     }
 
     public int getIndex() {
