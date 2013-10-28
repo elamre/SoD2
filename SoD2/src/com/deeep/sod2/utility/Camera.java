@@ -1,6 +1,9 @@
 package com.deeep.sod2.utility;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Frustum;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
@@ -45,6 +48,8 @@ public class Camera {
     /** The reference to the frustum */
     private Frustum frustum;
     private Entity focus;
+    private OrthographicCamera cam;
+    private OrthographicCamera hudCam;
 
     /** Default constructor */
     private Camera() {
@@ -114,8 +119,16 @@ public class Camera {
         return x;
     }
 
+    public void setX(float x) {
+        this.x = x;
+    }
+
     public float getY() {
         return y;
+    }
+
+    public void setY(float y) {
+        this.y = y;
     }
 
     /**
@@ -178,11 +191,11 @@ public class Camera {
         return Gdx.input.getY();
     }
 
-    public void setY(float y) {
-        this.y = y;
+    public void setCam(OrthographicCamera cam) {
+        this.cam = cam;
     }
 
-    public void setX(float x) {
-        this.x = x;
+    public void setHudCam(OrthographicCamera hudCam) {
+        this.hudCam = hudCam;
     }
 }

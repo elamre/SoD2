@@ -8,6 +8,7 @@ import com.deeep.sod2.entities.EntityManager;
 import com.deeep.sod2.graphics.*;
 import com.deeep.sod2.io.Save;
 import com.deeep.sod2.particle.ParticleManager;
+import com.deeep.sod2.utility.Camera;
 
 /**
  * Created with IntelliJ IDEA.
@@ -32,8 +33,8 @@ public class World {
         map = new Map(loadedSave);
         EntityManager.get().setMap(map);
         particleManager = new ParticleManager();
-        player.setEntityManager();
         player.setSnakeSpawnPoint(loadedSave.spawnX, loadedSave.spawnY);
+        player.setEntityManager();
         EntityManager.get().addEntitiesSinglePlayer(loadedSave.getEntities());
     }
 
@@ -42,8 +43,8 @@ public class World {
         map = new Map(loadedSave);
         EntityManager.get().clear();
         EntityManager.get().setMap(map);
-        player.setEntityManager();
         player.setSnakeSpawnPoint(loadedSave.spawnX, loadedSave.spawnY);
+        player.setEntityManager();
         EntityManager.get().addEntitiesSinglePlayer(loadedSave.getEntities());
     }
 
@@ -58,6 +59,11 @@ public class World {
         particleManager.draw(spriteBatch);
         map.draw(spriteBatch);
         EntityManager.get().draw(spriteBatch);
+
+    }
+
+    public void drawHud(SpriteBatch spriteBatch) {
+        player.draw(spriteBatch);
     }
 
     public void drawString(SpriteBatch spriteBatch, String s, int x, int y) {

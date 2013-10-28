@@ -81,7 +81,7 @@ upgrades/bullet
   index: -1
 upgrades/teleport
   rotate: false
-  xy: 86, 332
+  xy: 128, 332
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
@@ -179,7 +179,7 @@ upgrades/Checkpoint
   index: -1
 upgrades/speed_up
   rotate: false
-  xy: 44, 332
+  xy: 86, 332
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
@@ -278,6 +278,13 @@ gui/shop
 projectiles/bullet1L
   rotate: false
   xy: 108, 290
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+upgrades/old/speed_up
+  rotate: false
+  xy: 44, 332
   size: 40, 40
   orig: 40, 40
   offset: 0, 0

@@ -24,9 +24,6 @@ public class Snake extends TickAbleEntity implements CollideAble {
     public float checkPointX, checkPointY;
     /** Direction of the latest checkpoint */
     public Direction checkPointDirection = Direction.SOUTH;
-    /** Spawn X and Y coordinate */
-    public float spawnX;
-    public float spawnY;
     private TempCheckpoint tempCheckpoint;
     /** The total amount of lives */
     private int life = 0;
@@ -52,8 +49,8 @@ public class Snake extends TickAbleEntity implements CollideAble {
 
     /** Spawn direction */
     //public Direction spawnDirection;
-    public Snake(int id) {
-        super(id, 0, 0, 0);
+    public Snake(int x, int y, int id) {
+        super(id, 0, x, y);
         tail = (Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), -1, 0, 0));
     }
 
@@ -128,7 +125,7 @@ public class Snake extends TickAbleEntity implements CollideAble {
 
     /** Moves the snake and with the tail */
     public void move() {
-        int i = tails.size() - 1;
+       int i = tails.size() - 1;
         tail.setX(tails.get(i).getX());
         tail.setY(tails.get(i).getY());
         while (i > 0) {
@@ -155,7 +152,7 @@ public class Snake extends TickAbleEntity implements CollideAble {
         moved = true;
         System.out.println("prevDir: " + prevDir + " curDir: " + curDir);
         prevDir = curDir;
-        tail.setDirection(tails.get(tails.size()-1).getDirection().getOpposite());
+        tail.setDirection(tails.get(tails.size() - 1).getDirection().getOpposite());
     }
 
     public Rectangle getHitBox() {
@@ -318,7 +315,7 @@ public class Snake extends TickAbleEntity implements CollideAble {
     private void tailAngleCalculate() {
         tails.get(0).calculateAngled(curDir, prevDir);
         for (int i = 1; i < tails.size(); i++) {
-           tails.get(i).calculateAngled(tails.get(i).getDirection(), tails.get(i - 1).getDirection());
+            tails.get(i).calculateAngled(tails.get(i).getDirection(), tails.get(i - 1).getDirection());
         }
     }
 
@@ -344,13 +341,15 @@ public class Snake extends TickAbleEntity implements CollideAble {
 
     @Override
     public void setY(float y) {
-        head.setX(y);
+        if (head != null)
+            head.setX(y);
         super.setY(y);
     }
 
     @Override
     public void setX(float x) {
-        head.setX(x);
+        if (head != null)
+            head.setX(x);
         super.setX(x);
     }
 

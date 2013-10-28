@@ -36,6 +36,8 @@ public abstract class Renderer {
         cam = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
         cam.position.set(FRUSTUM_WIDTH / 2, FRUSTUM_HEIGHT / 2, 0);
         Camera.getInstance().setFrustum(cam.frustum);
+        Camera.getInstance().setHudCam(hudCam);
+        Camera.getInstance().setCam(cam);
         this.spriteBatch = spriteBatch;
         //TODO remove testing purposes only */
     }

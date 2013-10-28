@@ -21,4 +21,5 @@ public class Entities {
     /** Green = direction in dir/5 (90/5 = 18), Blue = on off time (1111 1111 = 15 s on 15 s off). */
     public static final int ENEMY_LASER_TURRET = 2;
     /**                                         */
+    public static final int OBSTACLE = 50;
 }

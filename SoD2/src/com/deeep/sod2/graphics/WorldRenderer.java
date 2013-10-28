@@ -33,5 +33,6 @@ public class WorldRenderer extends Renderer {
     @Override
     public void renderHUD(SpriteBatch spriteBatch) {
         HUD.getHud().draw(spriteBatch);
+        world.drawHud(spriteBatch);
     }
 }

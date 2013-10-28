@@ -98,14 +98,9 @@ public class Save {
                 int yy = height - 2 - y;
                 int rgb = image.getPixel(x, y);
                 switch (rgb) {
-                    case 0x808080ff:
+                    //TODO load zones here
+                    case 0xffffffff:
                         tiles[x + yy * width] = new RegularTile(x, yy);
-                        break;
-                    case 0xff6a00ff:
-                        tiles[x + y * width] = new RegularTile(x, yy);
-                        //tiles[x + yy * width] = new ObstacleTile(x, yy);
-                        EntityManager.get().addEntitySinglePlayer(new Obstacle(EntityManager.get().getNextSinglePlayerId(), -1, x, yy));
-
                         break;
                     case 0x0000ffff:
                         /**Spawn point location*/
@@ -115,7 +110,6 @@ public class Save {
                         break;
                     case 0x00ff00ff:
                         tiles[x + yy * width] = new CheckPointTile(x, yy);
-
                         break;
                 }
             }
@@ -158,6 +152,9 @@ public class Save {
                         break;
                     case Entities.FINISH:
                         entities[x + y * width] = new Finish(EntityManager.get().getNextSinglePlayerId(), x, height - y - 2);
+                        break;
+                    case Entities.OBSTACLE:
+                        entities[x + y * width] = new Obstacle(EntityManager.get().getNextSinglePlayerId(), -1, x, height - y - 2);
                         break;
                     case Entities.ENEMY_LASER_TURRET:
                         int dir = g;

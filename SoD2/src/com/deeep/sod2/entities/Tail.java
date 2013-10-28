@@ -112,9 +112,9 @@ public class Tail extends Entity implements CollideAble {
     }
 
     public void setAngle(float angle) {
-        this.angle = angle;
+        this.angle = angle;/*
         if (pickup != null)
-            pickup.setAngle(angle);
+            pickup.setAngle(angle);*/
     }
 
     public boolean action(Snake snake) {
@@ -143,8 +143,9 @@ public class Tail extends Entity implements CollideAble {
 
     public void setPickup(Pickup pickup) {
         this.pickup = pickup;
-        pickup.setWidth(0.7f);
-        pickup.setHeight(0.7f);
+        pickup.setWidth(0.5f);
+        pickup.setHeight(0.5f);
+        pickup.setAngle(270);
     }
 
     public int getPriority() {
@@ -157,8 +158,8 @@ public class Tail extends Entity implements CollideAble {
 
     public void setDirection(Direction direction) {
         this.angle = direction.getValue();
-        this.direction = direction;
+        this.direction = direction;/*
         if (pickup != null)
-            pickup.setAngle(angle);
+            pickup.setAngle(angle);*/
     }
 }

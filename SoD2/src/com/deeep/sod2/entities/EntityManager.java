@@ -13,7 +13,7 @@ import java.util.*;
  * Date: 10/1/13
  * Time: 10:29 AM
  */
-public class EntityManager {
+public class EntityManager  {
 
     /** Singleton instance */
     private static EntityManager instance;

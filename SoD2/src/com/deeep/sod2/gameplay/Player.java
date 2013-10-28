@@ -2,12 +2,15 @@ package com.deeep.sod2.gameplay;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deeep.sod2.entities.*;
 import com.deeep.sod2.entities.enemyentities.Laser;
 import com.deeep.sod2.entities.enemyentities.Turret;
 import com.deeep.sod2.entities.pickups.*;
 import com.deeep.sod2.hud.HUD;
 import com.deeep.sod2.utility.Camera;
+import com.deeep.sod2.utility.Constants;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,6 +28,7 @@ public class Player {
     /** The current selected skin */
     private int skinId;
     /** The controller TODO make an encapsulated class which contains PC an Android controls */
+    private TouchScreenController touchControl;
     private Controller controller;
     /** The snake the player owns */
     private Snake snake;
@@ -35,6 +39,37 @@ public class Player {
         this.selfControlled = selfControlled;
         if (selfControlled) {
             controller = new Controller();
+            touchControl = new TouchScreenController();
+            touchControl.registerArea(new InputReactListener() {
+                @Override
+                public void inputReact() {
+                    snake.setDirection(Direction.NORTH);
+                }
+            }, 80, 80, 80, 80, InputReactListener.Event.HOLD);
+            touchControl.registerArea(new InputReactListener() {
+                @Override
+                public void inputReact() {
+                    snake.setDirection(Direction.EAST);
+                }
+            }, 160, 0, 80, 80, InputReactListener.Event.HOLD);
+            touchControl.registerArea(new InputReactListener() {
+                @Override
+                public void inputReact() {
+                    snake.setDirection(Direction.SOUTH);
+                }
+            }, 80, 0, 80, 80, InputReactListener.Event.HOLD);
+            touchControl.registerArea(new InputReactListener() {
+                @Override
+                public void inputReact() {
+                    snake.setDirection(Direction.WEST);
+                }
+            }, 0, 0, 80, 80, InputReactListener.Event.HOLD);
+            touchControl.registerArea(new InputReactListener() {
+                @Override
+                public void inputReact() {
+                    snake.fireAction();
+                }
+            }, Gdx.graphics.getWidth() - 240, 0, 240, 80, InputReactListener.Event.PRESSED);
             controller.registerKey(Input.Keys.W, new InputReactListener() {
                 @Override
                 public void inputReact() {
@@ -86,51 +121,36 @@ public class Player {
     }
 
     public void setSnakeSpawnPoint(int x, int y) {
-        snake.spawnX = x;
-        snake.spawnY = y;
+        System.out.println("x,y: " + x + ", " + y);
+        spawnX = x;
+        spawnY = y;
     }
 
     public void setEntityManager() {
-        snake = new Snake(EntityManager.get().getNextSinglePlayerId());
+        System.out.println("- - - -" + spawnX + ":" + spawnY + "- - - -");
+        snake = new Snake(spawnX, spawnY, EntityManager.get().getNextSinglePlayerId());
+        snake.setCheckpoint(spawnX, spawnY, Direction.NORTH);
         EntityManager.get().addEntitySinglePlayer(snake);
-        EntityManager.get().addEntitySinglePlayer(new Turret(EntityManager.get().getNextSinglePlayerId(), 5, 3, 100, 100));
         snake.setHead((Head) EntityManager.get().addEntitySinglePlayer(new Head(EntityManager.get().getNextSinglePlayerId(), 0, 0, 0)));
         snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new HearthPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
         snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new HearthPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
         snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new BulletPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
-        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new BulletPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
-        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new BulletPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
-        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new BulletPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
-        snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new BulletPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
-        //snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new TeleportPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
-        //snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new CompassPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
-        //snake.addTail((Tail) EntityManager.get().addEntitySinglePlayer(new Tail(EntityManager.get().getNextSinglePlayerId(), 0, spawnX, spawnY)), new CompassPickup(EntityManager.get().getNextSinglePlayerId(), spawnX, spawnY));
         setSkin(1);
-       Camera.getInstance().setFocus(snake, .5f, .5f);
+        Camera.getInstance().setFocus(snake, .5f, .5f);
         HUD.getHud().setSnake(snake);
     }
 
     public void update(float deltaT) {
         if (selfControlled && snake != null) {
             controller.update();
-            //snake.update(deltaT);
+            touchControl.update();
         }
         if (Gdx.input.isTouched()) {
             EntityManager.get().addEntitySinglePlayer(new Coin(EntityManager.get().getNextSinglePlayerId(), Camera.getInstance().getTouchUnitX(), Camera.getInstance().getTouchUnitY()));
-            if (Camera.getInstance().getTouchPixelX() > (3 * Gdx.graphics.getWidth() / 4)) {
-                snake.setDirection(Direction.EAST);
-            } else if (Camera.getInstance().getTouchPixelX() < Gdx.graphics.getWidth() / 4) {
-                snake.setDirection(Direction.WEST);
-            } else if (Camera.getInstance().getTouchPixelY() < Gdx.graphics.getHeight() / 4) {
-                snake.setDirection(Direction.NORTH);
-            } else if (Camera.getInstance().getTouchPixelY() > 3 * Gdx.graphics.getHeight() / 4) {
-                snake.setDirection(Direction.SOUTH);
-            }
-            if (Camera.getInstance().getTouchPixelY() < 3 * Gdx.graphics.getHeight() / 4 && Camera.getInstance().getTouchPixelY() > Gdx.graphics.getHeight() / 4) {
-                if (Camera.getInstance().getTouchPixelX() > Gdx.graphics.getWidth() / 4 && Camera.getInstance().getTouchPixelX() < (3 * Gdx.graphics.getWidth() / 4)) {
-                    //  snake.fireAction();
-                }
-            }
         }
+    }
+
+    public void draw(SpriteBatch spriteBatch) {
+        touchControl.draw(spriteBatch);
     }
 }

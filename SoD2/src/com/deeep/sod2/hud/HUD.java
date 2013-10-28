@@ -34,10 +34,10 @@ public class HUD {
             ArrayList<Tail> tails = snake.getTails();
             int startingIndex = ((tails.size() - 3) > 0) ? tails.size() - 3 : 0;
             for (int i = startingIndex; i < tails.size(); i++) {
-                //spriteBatch.draw(tails.get(i).getPickup().getTextureRegion(), (i - startingIndex) * 40, 0, 40, 40);
+                spriteBatch.draw(tails.get(i).getPickup().getTextureRegion(), (i - startingIndex) * 40, Gdx.graphics.getHeight() - 40, 40, 40);
             }
             for (int i = 0; i < snake.getLives(); i++) {
-                spriteBatch.draw(tails.get(0).getPickup().getTextureRegion(), Gdx.graphics.getWidth() - ((i + 1) * 40), 0);
+                spriteBatch.draw(tails.get(0).getPickup().getTextureRegion(), Gdx.graphics.getWidth() - ((i + 1) * 40), Gdx.graphics.getHeight() - 40);
             }
             if (snake.getLives() > 3) {
                 //TODO draw with some text or somethings
