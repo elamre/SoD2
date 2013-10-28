@@ -84,8 +84,10 @@ public class Assets {
 
     /** Dispose function. should ALWAYS be called. This will get rid of the texture atlas */
     public void dispose() {
-        pixmap.dispose();
-        textureAtlas.dispose();
+        if (pixmap != null)
+            pixmap.dispose();
+        if (textureAtlas != null)
+            textureAtlas.dispose();
         logger.system(Assets.class, "All assets have been disposed");
     }
 

@@ -131,7 +131,6 @@ public class Snake extends TickAbleEntity implements CollideAble {
         int i = tails.size() - 1;
         tail.setX(tails.get(i).getX());
         tail.setY(tails.get(i).getY());
-        tail.setDirection(tails.get(i).getDirection().getOpposite());
         while (i > 0) {
             tails.get(i).setX(tails.get(i - 1).getX());
             tails.get(i).setY(tails.get(i - 1).getY());
@@ -144,13 +143,19 @@ public class Snake extends TickAbleEntity implements CollideAble {
             tails.get(0).setY(getY());
         }
 
-        Logger.getInstance().debug(this.getClass(), "Direction: " + direction);
+        calculateDirection();
 
-        calculatePos();
+        x += curDir.getVector().x;
+        y += curDir.getVector().y;
+
         head.setX(getX());
         head.setY(getY());
+
         tailAngleCalculate();
         moved = true;
+        System.out.println("prevDir: " + prevDir + " curDir: " + curDir);
+        prevDir = curDir;
+        tail.setDirection(tails.get(tails.size()-1).getDirection().getOpposite());
     }
 
     public Rectangle getHitBox() {
@@ -171,57 +176,34 @@ public class Snake extends TickAbleEntity implements CollideAble {
      * @param dir new direction
      */
     public void setDirection(Direction dir) {
-        Logger.getInstance().debug(this.getClass(), "Prev dir: " + prevDir + " Current dir: " + this.curDir + " next dir: " + dir);
-        //prevDir = this.dir;
         this.newDir = dir;
+        Logger.getInstance().debug(this.getClass(), "Prev dir: " + prevDir + " Current dir: " + curDir + " next dir: " + newDir);
     }
 
     /**
      * Calculates the new x and y position for the client. This will make sure that the head wont move to the previous
      * position resulting in an instant death.
      */
-    public void calculatePos() {
-        switch (newDir) {
-            case NORTH:
-                if (curDir != Direction.SOUTH) {
-                    setY(getY() + 1);
-                    prevDir = curDir;
-                    curDir = newDir;
-                } else {
-                    prevDir = curDir;
-                    curDir = newDir;
-                }
-                break;
-            case EAST:
-                if (prevDir != Direction.WEST) {
-                    setX(getX() + 1);
-                    prevDir = curDir;
-                    curDir = newDir;
-                } else {
-                    prevDir = curDir;
-                    curDir = newDir;
-                }
-                break;
-            case SOUTH:
-                if (prevDir != Direction.NORTH) {
-                    setY(getY() - 1);
-                    prevDir = curDir;
-                    curDir = newDir;
-                } else {
-                    prevDir = curDir;
-                    curDir = newDir;
-                }
-                break;
-            case WEST:
-                if (prevDir != Direction.EAST) {
-                    setX(getX() - 1);
-                    prevDir = curDir;
-                    curDir = newDir;
-                } else {
-                    prevDir = curDir;
-                    curDir = newDir;
-                }
-                break;
+    public void calculateDirection() {
+        if (newDir != curDir) {
+            switch (newDir) {
+                case NORTH:
+                    if (curDir != Direction.SOUTH)
+                        curDir = Direction.NORTH;
+                    break;
+                case EAST:
+                    if (curDir != Direction.WEST)
+                        curDir = Direction.EAST;
+                    break;
+                case SOUTH:
+                    if (curDir != Direction.NORTH)
+                        curDir = Direction.SOUTH;
+                    break;
+                case WEST:
+                    if (curDir != Direction.EAST)
+                        curDir = Direction.WEST;
+                    break;
+            }
         }
         head.setDirection(curDir);
     }
@@ -294,14 +276,14 @@ public class Snake extends TickAbleEntity implements CollideAble {
     }
 
     public void loseLife() {
-        for (int i = tails.size() - 1; i > -1; i--) {
+/*        for (int i = tails.size() - 1; i > -1; i--) {
             if (tails.get(i).getPickup() instanceof HearthPickup) {
                 shiftTail(i);
                 break;
             }
         }
         sortTails();
-        calculateLives();
+        calculateLives();*/
     }
 
     private void calculateLives() {
@@ -334,10 +316,9 @@ public class Snake extends TickAbleEntity implements CollideAble {
     }
 
     private void tailAngleCalculate() {
-        if (prevDir != curDir) {
-            tails.get(0).setAngled(true);
-        } else {
-            tails.get(0).setAngled(false);
+        tails.get(0).calculateAngled(curDir, prevDir);
+        for (int i = 1; i < tails.size(); i++) {
+           tails.get(i).calculateAngled(tails.get(i).getDirection(), tails.get(i - 1).getDirection());
         }
     }
 

@@ -24,6 +24,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.deeep.sod2.Core;
 import com.deeep.sod2.graphics.Assets;
 import com.deeep.sod2.screens.GameScreen;
+import com.deeep.sod2.screens.MissionScreen;
 
 public class MainMenu implements Screen {
 
@@ -60,9 +61,16 @@ public class MainMenu implements Screen {
 
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (event.getListenerActor() == singleplayerButton)
-                    singleplayerButton.setText("not implemented yet");
-                else if (event.getListenerActor() == multiplayerButton) {
+                if (event.getListenerActor() == singleplayerButton) {
+                    stage.addAction(Actions.moveBy(0, -stage.getHeight() / 10, .5f));
+                    stage.addAction(Actions.sequence(Actions.fadeOut(.5f), Actions.run(new Runnable() {
+
+                        public void run() {
+                            Core.getCore().setScreen(new MissionScreen());
+                        }
+
+                    })));
+                } else if (event.getListenerActor() == multiplayerButton) {
                     stage.addAction(Actions.moveBy(0, -stage.getHeight() / 10, .5f));
                     stage.addAction(Actions.sequence(Actions.fadeOut(.5f), Actions.run(new Runnable() {
 

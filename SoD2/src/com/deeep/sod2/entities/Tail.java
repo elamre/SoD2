@@ -19,6 +19,7 @@ public class Tail extends Entity implements CollideAble {
     private int skinId = 0;
     private Pickup pickup;
     private boolean angled = false;
+    private boolean angled2 = false;
     private Direction direction = Direction.NORTH;
 
     /** USE THIS ONLY FOR REGISTERING THE ENTITY! SHOULD NOT BE USED OTHERWISE! */
@@ -62,10 +63,52 @@ public class Tail extends Entity implements CollideAble {
 
     public void setAngled(boolean angled) {
         this.angled = angled;
-        if (angled)         {
+        if (angled) {
             setTextureRegion(Assets.getAssets().getRegion("snakes/snake_" + skinId + "_body_angled"));
-            setAngle(direction.getValue()+90);
+        } else {
+            setTextureRegion(Assets.getAssets().getRegion("snakes/snake_" + skinId + "_body"));
         }
+    }
+
+    public void calculateAngled(Direction newDir, Direction prevDir) {
+        if (prevDir == newDir) {
+            setAngled(false);
+            return;
+        } else {
+            setAngled(true);
+            switch (newDir) {
+                case NORTH:
+                    if (prevDir == Direction.EAST) {
+                        setAngle(180);
+                    } else {
+                        setAngle(90);
+                    }
+                    break;
+                case EAST:
+                    if (prevDir == Direction.NORTH) {
+                        setAngle(0);
+                    } else {
+                        setAngle(90);
+                    }
+                    break;
+                case SOUTH:
+                    if (prevDir == Direction.EAST) {
+                        setAngle(270);
+                    } else {
+                        setAngle(0);
+                    }
+                    break;
+                case WEST:
+                    if (prevDir == Direction.NORTH) {
+                       setAngle(270);
+                    } else {
+                        setAngle(180);
+                    }
+                    break;
+            }
+            angled2 = true;
+        }
+
     }
 
     public void setAngle(float angle) {

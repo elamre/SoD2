@@ -7,28 +7,27 @@ import java.util.ArrayList;
 /**
  * Created with IntelliJ IDEA.
  * User: Elmar
- * Date: 10/19/13
- * Time: 4:05 PM
+ * Date: 10/28/13
+ * Time: 3:05 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Server {
-    private static int entityId = 0;
+public class ServerWorld {
+    Server server;
     private ArrayList<Entity> entities;
-    private ArrayList<String> players;
 
-    public Server() {
-
+    public ServerWorld(Server server) {
+        this.server = server;
     }
 
-    public static void main(String[] args) {
+    public NetworkPlayer addPlayer(int id) {
+        return new NetworkPlayer(this, id);
+    }
 
+    public void addEntity(Entity entity) {
+        entities.add(entity);
     }
 
     public void update(float deltaT) {
 
-    }
-
-    public int getNewEntityId() {
-        return entityId++;
     }
 }
