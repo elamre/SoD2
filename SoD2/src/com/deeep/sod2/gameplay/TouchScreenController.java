@@ -96,7 +96,7 @@ public class TouchScreenController {
         }
 
         public void draw(SpriteBatch spriteBatch) {
-            Color color = Color.RED;
+            Color color = Color.CYAN;
             color.a = 0.2f;
             Camera.getInstance().switchToHud();
             ShapeRenderer.setColor(color);
